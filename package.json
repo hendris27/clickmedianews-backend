@@ -1,38 +1,39 @@
 {
-  "name": "clickmedianews-backend",
-  "version": "1.0.0",
-  "description": "news app",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hendris27/clickmedianews-backend.git"
-  },
-  "keywords": [
-    "news",
-    "app"
-  ],
-  "author": "Luthfi Putu Daus",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/hendris27/clickmedianews-backend/issues"
-  },
-  "homepage": "https://github.com/hendris27/clickmedianews-backend#readme",
-  "dependencies": {
-    "argon2": "^0.30.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "express-validator": "^7.0.1",
-    "jsonwebtoken": "^9.0.0",
-    "multer": "^1.4.5-lts.1",
-    "pg": "^8.11.0"
-  },
-  "devDependencies": {
-    "eslint": "^8.41.0",
-    "nodemon": "^2.0.22",
-    "prettier": "^2.8.8"
-  }
+    "name": "clickmedianews-backend",
+    "version": "1.0.0",
+    "description": "news app",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hendris27/clickmedianews-backend.git"
+    },
+    "keywords": [
+        "news",
+        "app"
+    ],
+    "author": "Luthfi Putu Daus",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/hendris27/clickmedianews-backend/issues"
+    },
+    "homepage": "https://github.com/hendris27/clickmedianews-backend#readme",
+    "dependencies": {
+        "argon2": "^0.30.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "express-validator": "^7.0.1",
+        "jsonwebtoken": "^9.0.0",
+        "multer": "^1.4.5-lts.1",
+        "pg": "^8.11.0"
+    },
+    "devDependencies": {
+        "eslint": "^8.41.0",
+        "nodemon": "^2.0.22",
+        "prettier": "^2.8.8"
+    }
 }
