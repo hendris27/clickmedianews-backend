@@ -73,7 +73,7 @@ exports.forgotPassword = async (req, res) => {
         }
         return res.json({
             success: true,
-            message: "Request reset password success!",
+            message: "Forgot password success!",
         });
     } catch (err) {
         return errorHandler(res, err);
