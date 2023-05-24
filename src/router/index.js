@@ -11,6 +11,7 @@ router.get("/", (req, res)=>{
 router.use("/auth", require("./auth.router"));
 router.use("/home", require("./home.router"));
 router.use("/article", require("./article.router"));
+router.use("/category", require("./category.router"));
 
 
 router.use("*", (req, res)=>{
