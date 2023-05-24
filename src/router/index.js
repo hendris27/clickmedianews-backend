@@ -1,5 +1,5 @@
-const router = require("express").Router()
-const authMiddleweres = require("../middlewares/auth.middleware")
+const router = require("express").Router();
+// const authMiddleweres = require("../middlewares/auth.middleware");
 
 router.get("/", (req, res)=>{
     return res.json({
@@ -9,14 +9,16 @@ router.get("/", (req, res)=>{
 })
 
 router.use("/auth/user", require("./users/auth.router"))
+router.use("/home", require("./home.router"));
+router.use("/article", require("./article.router"));
 
 
 router.use("*", (req, res)=>{
     return res.status(404).json({
         success: false,
         massage: "Resorce not found"
-    })
-})
+    });
+});
 
-module.exports = router
- 
+module.exports = router;
+
