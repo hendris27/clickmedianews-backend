@@ -1,5 +1,5 @@
 const articleModel = require("../../../models/home.model");
-const errorHandler = require("../../../helpers/errorHandler");
+const errorHandler = require("../../../helpers/errorHandler.halper");
 
 
 exports.getArticle = async (request, response) => {

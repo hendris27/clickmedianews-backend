@@ -43,6 +43,12 @@ const errorHandler = (res, err) =>{
         })
     }
 
+    if(err?.message?.includes("Update profile failed")){
+        return res.status(400).json({
+            success: false,
+            message: "Update profile failed"
+        })
+    }
 
     console.log(err)
     return res.status(500).json({
