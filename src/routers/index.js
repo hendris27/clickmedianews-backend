@@ -14,8 +14,7 @@ router.use("/article/user", require("./users/article.router"));
 router.use("/category/user", require("./users/category.router"));
 router.use("/home/user", require("./users/home.router"));
 router.use("/profile/user", require("./users/profile.router"));
-
-
+router.use("/articleView/users", require("./users/articleView.router"));
 
 router.use("*", (req, res) => {
     return res.status(404).json({
