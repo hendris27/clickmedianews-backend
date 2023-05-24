@@ -1,4 +1,4 @@
-const db = require("../helpers/db.helper");
+const db = require("../../helpers/db.helper");
 
 exports.findAll = async function (page, limit, search, sort, sortBy) {
     page = parseInt(page) || 1;
@@ -8,7 +8,7 @@ exports.findAll = async function (page, limit, search, sort, sortBy) {
     sortBy = sortBy || "ASC";
     const offset = (page - 1) * limit;
     const query = `
-    SELECT * FROM "users" WHERE "username" LIKE $3 ORDER BY ${sort} ${sortBy} LIMIT $1 OFFSET $2`;
+    SELECT * FROM "users" WHERE "email" LIKE $3 ORDER BY ${sort} ${sortBy} LIMIT $1 OFFSET $2`;
 
     const values = [limit, offset, `%${search}%`];
     const { rows } = await db.query(query, values);
@@ -24,21 +24,12 @@ exports.findOne = async function (id) {
     return rows[0];
 };
 
-exports.findByUserName = async function (username) {
-    const query = `
-    SELECT * FROM "users" WHERE "username"=$1`;
-
-    const values = [username];
-    const { rows } = await db.query(query, values);
-    return rows[0];
-};
-
 exports.insert = async function (data) {
     const query = `
-    INSERT INTO "users" ("username", "email", "password")
+    INSERT INTO "users" ("email", "password", "phoneNumber")
     VALUES ($1, $2, $3) RETURNING *
     `;
-    const values = [data.username, data.email, data.password];
+    const values = [data.email, data.password, data.phoneNumber];
     const { rows } = await db.query(query, values);
     return rows[0];
 };
@@ -47,13 +38,13 @@ exports.update = async function (id, data) {
     const query = `
     UPDATE "users" 
     SET 
-    "username"= COALESCE(NULLIF($2,''), "username"),
-    "email"= COALESCE(NULLIF($3,''), "email"),
-    "password"= COALESCE(NULLIF($4,''), "password")
+    "email"= COALESCE(NULLIF($2,''), "email"),
+    "password"= COALESCE(NULLIF($3,''), "password"),
+    "phoneNumber"= COALESCE(NULLIF($4,''), "phoneNumber")
      WHERE "id"=$1
     RETURNING *
     `;
-    const values = [id, data.username, data.email, data.password];
+    const values = [id, data.email, data.password, data.phoneNumber];
     const { rows } = await db.query(query, values);
     return rows[0];
 };
