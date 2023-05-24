@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const authMiddleweres = require("../middlewares/auth.middleware");
+// const authMiddleweres = require("../middlewares/auth.middleware");
 
 router.get("/", (req, res)=>{
     return res.json({
@@ -10,6 +10,7 @@ router.get("/", (req, res)=>{
 
 router.use("/auth", require("./auth.router"));
 router.use("/home", require("./home.router"));
+router.use("/article", require("./article.router"));
 
 
 router.use("*", (req, res)=>{

@@ -1,12 +1,13 @@
-const articleModel = require("../../../models/article.model");
+const articleModel = require("../../../models/home.model");
 const errorHandler = require("../../../helpers/errorHandler");
 
-exports.getHome = async (request, response) => {
+
+exports.getArticle = async (request, response) => {
     try {
         const article = await articleModel.findAllArticle(request.query);
         return response.json({
             success: true,
-            message: "home",
+            message: "article",
             results: article
         });
     }catch(err) {
