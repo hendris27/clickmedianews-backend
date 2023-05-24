@@ -8,6 +8,7 @@ router.get("/", (req, res) => {
 });
 
 router.use("/auth/admin", require("./auth/admin/auth.router"));
+router.use("/auth/user", require("./auth/users/auth.router"));
 router.use("/admin", require("./admin/admin.router"));
 
 router.use("*", (req, res) => {
