@@ -9,6 +9,7 @@ router.get("/", (req, res) => {
 
 router.use("/auth/admin", require("./auth/admin/auth.router"));
 router.use("/admin", require("./admin/admin.router"));
+router.use("/articleView/users", require("./users/articleView.router"));
 
 router.use("*", (req, res) => {
     return res.status(404).json({

@@ -28,3 +28,12 @@ exports.findAllArticle = async function (params) {
     const { rows } = await db.query(query, values);
     return rows;
 };
+
+exports.findOne = async function (id) {
+    const query = `
+    SELECT * FROM "articles" WHERE id=$1
+    `;
+    const values = [id];
+    const {rows} = await db.query(query, values);
+    return rows[0];
+};
