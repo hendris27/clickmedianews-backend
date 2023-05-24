@@ -7,6 +7,43 @@ const errorHandler = (res, err) =>{
             message: "Error: authorization is failed!"
         })
     }
+
+    if(err?.message?.includes("wrong_credentials")){
+        return res.status(400).json({
+            success: false,
+            message: "Email or password invalid"
+        })
+    }
+
+    if(err?.message?.includes("user not found")){
+        return res.status(404).json({
+            success: false,
+            message: "User not found"
+        })
+    }
+
+    if(err?.message?.includes("request_failed")){
+        return res.status(400).json({
+            success: false,
+            message: "Request forgot password failed"
+        })
+    }
+
+    if(err?.message?.includes("reset_failed")){
+        return res.status(400).json({
+            success: false,
+            message: "Reset password failed"
+        })
+    }
+
+    if(err?.message?.includes("code_wrong")){
+        return res.status(400).json({
+            success: false,
+            message: "Code is wrong"
+        })
+    }
+
+
     console.log(err)
     return res.status(500).json({
         success: false,

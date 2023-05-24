@@ -8,7 +8,7 @@ router.get("/", (req, res)=>{
     })
 })
 
-router.use("/auth", require("./auth.router"))
+router.use("/auth/user", require("./users/auth.router"))
 
 
 router.use("*", (req, res)=>{
