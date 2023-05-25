@@ -37,3 +37,29 @@ exports.findOne = async function (id) {
     const {rows} = await db.query(query, values);
     return rows[0];
 };
+
+exports.insert = async function (data){
+    const query=`
+    INSERT INTO "articles" (
+    "picture", 
+    "title", 
+    "descriptions"
+    "likes",
+    "category",
+    "status",
+    "createdBy")
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    RETURNING *`
+
+    const values= [
+        data.picture,
+        data.title, 
+        data.descriptions, 
+        data.likes, 
+        data.category, 
+        data.status,
+        data.createdBy
+    ]
+    const {rows} = await db.query(query, values)
+    return rows[0]
+}
