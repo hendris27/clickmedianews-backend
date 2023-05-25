@@ -1,6 +1,6 @@
 const userModel = require("../../../models/users/users.model")
 const profileModel = require("../../../models/users/profile.model")
-const forgotRequestModel = require("../../../models/users/forgotPassword.model")
+const forgotRequestModel = require("../../../models/forgotPassword.model")
 const errorHandler = require("../../../helpers/errorHandler.halper")
 const jwt = require("jsonwebtoken")
 const {APP_SECRET}= process.env
