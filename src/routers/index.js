@@ -20,6 +20,7 @@ router.use("/profile/user", require("./users/profile.router"));
 router.use("/articleView/users", require("./users/articleView.router"));
 router.use("/write-article/admin", require("./admin/writeArticle.router"));
 router.use("/write-article/user", require("./users/writeArticle.router"));
+router.use("/waiting-lish/admin", require("./admin/waithingList.router"));
 
 router.use("*", (req, res) => {
     return res.status(404).json({
