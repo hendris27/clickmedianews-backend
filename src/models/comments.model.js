@@ -12,7 +12,7 @@ exports.insert = async function (data) {
 
 exports.findOneByUserIdAndArticleId = async function (userId, articleId) {
     const query = `
-    SELECT * FROM "events" WHERE userId=$1 AND articleId=$2
+    SELECT "textComment" FROM "comments" WHERE userId=$1 AND articleId=$2
     `;
     const values = [userId, articleId];
     const {rows} = await db.query(query, values);
