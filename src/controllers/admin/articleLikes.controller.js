@@ -1,4 +1,4 @@
-const articleLikeModel = require("../../models/articleLike.model");
+const articleLikeModel = require("../../models/articleLikes.model");
 const errorHandler = require("../../helpers/errorHandler.helper");
 
 exports.getAllArticleLike = async (req, res) => {

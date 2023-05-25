@@ -1,5 +1,5 @@
 const profileRouter = require("express").Router();
-const profileController = require("../../controllers/auth/admin/profile.controller");
+const profileController = require("../../controllers/admin/profile.controller");
 
 profileRouter.get("/", profileController.getAllProfiles);
 profileRouter.get("/:id", profileController.getOneProfile);

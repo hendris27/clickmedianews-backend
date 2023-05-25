@@ -1,4 +1,4 @@
-const articleCommentModel = require("../../models/articleComment.model");
+const articleCommentModel = require("../../models/articleComments.model");
 const errorHandler = require("../../helpers/errorHandler.helper");
 
 exports.getAllArticleComment = async (req, res) => {

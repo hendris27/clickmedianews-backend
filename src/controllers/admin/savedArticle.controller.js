@@ -1,20 +1,20 @@
-const errorHandler = require("../../helpers/errorHandler.halper");
-const profileModel = require("../../models/admin/profile.model");
+const errorHandler = require("../../helpers/errorHandler.helper");
+const savedArticleModel = require("../../models/savedArticles.model");
 // const userModel = require("../../models/admin/users.model");
 
 exports.getSavedArticle = async (request, response) => {
     try {
-        const {id} = request.user;
-        const profile = await profileModel.findOneByUserId(id);
-        if(!profile) {
+        const { id } = request.user;
+        const savedArticle = await savedArticleModel.findOneByUserId(id);
+        if (!savedArticle) {
             throw Error("unauthorized");
         }
         return response.json({
             success: true,
-            message: "Profile",
-            results: profile
+            message: "Saved article",
+            results: savedArticle,
         });
-    }catch(err) {
+    } catch (err) {
         return errorHandler(response, err);
     }
 };

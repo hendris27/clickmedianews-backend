@@ -1,5 +1,5 @@
 const articleModel = require("../../models/articles.model");
-const errorHandler = require("../../../helpers/errorHandler.halper");
+const errorHandler = require("../../helpers/errorHandler.helper");
 
 exports.getArticle = async (request, response) => {
     try {
@@ -7,9 +7,9 @@ exports.getArticle = async (request, response) => {
         return response.json({
             success: true,
             message: "article",
-            results: article
+            results: article,
         });
-    }catch(err) {
+    } catch (err) {
         return errorHandler(response, err);
     }
 };
