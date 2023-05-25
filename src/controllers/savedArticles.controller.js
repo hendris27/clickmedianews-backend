@@ -1,4 +1,4 @@
-const savePosteModel = require("../models/savePost.model");
+const savePosteModel = require("../models/savedArticles.model");
 const errorHandler = require("../helpers/errorHandler.halper");
 
 exports.getSavePost = async function(request, response){
