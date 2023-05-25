@@ -1,4 +1,4 @@
-const profileModel = require("../../../models/users/profile.model")
+const profileModel = require("../../../models/profile.model")
 const errorHendler = require("../../../helpers/errorHandler.halper")
 const userModel = require("../../../models/users/users.model")
 
