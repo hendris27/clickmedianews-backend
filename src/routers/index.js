@@ -14,6 +14,7 @@ router.use("/admin/categories", require("./admin/categories.router"));
 router.use("/admin/write-article", require("./admin/writeArticle.router"));
 router.use("/admin/waiting-list", require("./admin/waitingList.router"));
 router.use("/admin/saved-article", require("./admin/savedArticle.router"));
+router.use("/admin/search-result", require("./admin/searchResult.router"));
 
 router.use("/auth/users", require("./auth/users/auth.router"));
 router.use("/users/articles", require("./users/articles.router"));
