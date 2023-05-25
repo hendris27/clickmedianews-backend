@@ -1,6 +1,6 @@
 const profileModel = require("../../models/profile.model");
 const errorHandler = require("../../helpers/errorHandler.helper");
-const fileRemover = require("../../helpers/fileRemover.helper");
+// const fileRemover = require("../../helpers/fileRemover.helper");
 
 exports.getAllProfiles = async (req, res) => {
     try {
@@ -51,12 +51,12 @@ exports.createProfile = async (req, res) => {
 
 exports.updateProfile = async (req, res) => {
     try {
-        const img = await profileModel.findOne(req.params.id);
+        // const img = await profileModel.findOne(req.params.id);
         const data = { ...req.body };
         if (req.file) {
-            if (img.picture) {
-                fileRemover({ filename: img.picture });
-            }
+            // if (img.picture) {
+            //     fileRemover({ filename: img.picture });
+            // }
             data.picture = req.file.filename;
         }
         const profile = await profileModel.update(req.params.id, data);

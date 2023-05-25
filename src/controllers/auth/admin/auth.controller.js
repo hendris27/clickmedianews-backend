@@ -1,7 +1,7 @@
-const adminModel = require("../../../models/admin/admin.model");
-const profileModel = require("../models/profile.model");
-const forgotRequestModel = require("../models/forgotRequest.model");
-const errorHandler = require("../helpers/errorHandler.helper");
+const adminModel = require("../../../models/admin.model");
+const profileModel = require("../../../models/profile.model");
+const forgotRequestModel = require("../../../models/forgotRequest.model");
+const errorHandler = require("../../../helpers/errorHandler.helper");
 const jwt = require("jsonwebtoken");
 const { APP_SECRET } = process.env;
 const argon = require("argon2");
@@ -80,30 +80,30 @@ exports.forgotPassword = async (req, res) => {
     }
 };
 
-exports.resetPassword = async (req, res) => {
-    try {
-        const { code, email, password } = req.body;
-        const find = await forgotRequestModel.findOneByCodeAndEmail(
-            code,
-            email
-        );
-        if (!find) {
-            throw Error("no_forgot_request");
-        }
-        const selectedUser = await adminModel.findOneByEmail(email);
-        const data = {
-            password: await argon.hash(password),
-        };
-        const user = await adminModel.update(selectedUser.id, data);
-        if (!user) {
-            return errorHandler(res, undefined);
-        }
-        await forgotRequestModel.destroy(find.id);
-        return res.json({
-            success: true,
-            message: "Reset password success!",
-        });
-    } catch (err) {
-        return errorHandler(res, err);
-    }
-};
+// exports.resetPassword = async (req, res) => {
+//     try {
+//         const { code, email, password } = req.body;
+//         const find = await forgotRequestModel.findOneByCodeAndEmail(
+//             code,
+//             email
+//         );
+//         if (!find) {
+//             throw Error("no_forgot_request");
+//         }
+//         const selectedUser = await adminModel.findOneByEmail(email);
+//         const data = {
+//             password: await argon.hash(password),
+//         };
+//         const user = await adminModel.update(selectedUser.id, data);
+//         if (!user) {
+//             return errorHandler(res, undefined);
+//         }
+//         await forgotRequestModel.destroy(find.id);
+//         return res.json({
+//             success: true,
+//             message: "Reset password success!",
+//         });
+//     } catch (err) {
+//         return errorHandler(res, err);
+//     }
+// };

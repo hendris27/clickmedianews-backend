@@ -1,7 +1,6 @@
 const categoriesModel = require("../../models/categories.model");
 const articleModel = require("../../models/articles.model");
-const errorHandler = require("../../helpers/errorHandler.halper");
-
+const errorHandler = require("../../helpers/errorHandler.helper");
 
 exports.getCategory = async (request, response) => {
     try {
@@ -9,14 +8,14 @@ exports.getCategory = async (request, response) => {
         const article = await articleModel.findAllArticle(request.query);
         const results = {
             category,
-            article: article.picture
+            article: article.picture,
         };
         return response.json({
             success: true,
             message: "category",
-            results
+            results,
         });
-    }catch(err) {
+    } catch (err) {
         return errorHandler(response, err);
     }
 };

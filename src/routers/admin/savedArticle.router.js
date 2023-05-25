@@ -1,5 +1,5 @@
 const savedArticleRouter = require("express").Router();
-const savedArticleController = require("../../controllers/admin/home.admin.controller");
+const savedArticleController = require("../../controllers/admin/savedArticle.controller");
 
 savedArticleRouter.get("/", savedArticleController.getSavedArticle);
 

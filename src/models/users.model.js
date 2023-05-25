@@ -1,4 +1,4 @@
-const db = require("../../helpers/db.helper");
+const db = require("../helpers/db.helper");
 
 exports.findAll = async function (page, limit, search, sort, sortBy) {
     page = parseInt(page) || 1;

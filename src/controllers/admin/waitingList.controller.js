@@ -1,6 +1,6 @@
 const articleModel = require("../../models/articles.model");
 const categoryModel = require("../../models/categories.model");
-const errorHandler = require("../../helpers/errorHandler.halper")
+const errorHandler = require("../../helpers/errorHandler.helper");
 
 exports.getArticle = async (request, response) => {
     try {
@@ -8,35 +8,34 @@ exports.getArticle = async (request, response) => {
         return response.json({
             success: true,
             message: "article",
-            results: article
+            results: article,
         });
-    }catch(err) {
+    } catch (err) {
         return errorHandler(response, err);
     }
 };
 
-exports.updateArticle = async function(request, response){
+exports.updateArticle = async function (request, response) {
     try {
         const article = await articleModel.findOne(request.body);
-        if(!article){
-            throw Error("Article not found")
+        if (!article) {
+            throw Error("Article not found");
         }
-        if(!article.status){
+        if (!article.status) {
             const data = {
-                ...request.body
+                ...request.body,
+            };
+            if (request.file) {
+                data.picture = request.file.path;
             }
-            if(request.file){
-                data.picture = request.file.path
-            }
-            const accPublished = await articleModel.update(article.id)
+            const accPublished = await articleModel.update(article.id);
             return response.json({
                 success: true,
                 message: "Article published success",
-                results: accPublished
-            }) 
-        };
-
+                results: accPublished,
+            });
+        }
     } catch (err) {
-        return errorHandler(response, err)
+        return errorHandler(response, err);
     }
-}
+};
