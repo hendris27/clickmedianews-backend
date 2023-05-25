@@ -10,9 +10,15 @@ router.get("/", (req, res) => {
 router.use("/auth/admin", require("./auth/admin/auth.router"));
 router.use("/admin", require("./admin/admin.router"));
 router.use("/admin/articles", require("./admin/articles.router"));
+router.use("/admin/article-likes", require("./admin/articleLikes.router"));
+router.use(
+    "/admin/article-comments",
+    require("./admin/articleComments.router")
+);
 router.use("/admin/categories", require("./admin/categories.router"));
+router.use("/admin/users", require("./admin/users.router"));
 router.use("/admin/write-article", require("./admin/writeArticle.router"));
-router.use("/admin/waiting-list", require("./admin/waitingList.router"));
+router.use("/admin/waiting-lists", require("./admin/waitingLists.router"));
 router.use("/admin/saved-article", require("./admin/savedArticle.router"));
 router.use("/admin/search-result", require("./admin/searchResult.router"));
 

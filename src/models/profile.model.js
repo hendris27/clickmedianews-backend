@@ -1,89 +1,129 @@
-const db = require("../../helpers/db.helper");
+const db = require("../helpers/db.helper");
+
 const table = "profile";
 
-exports.insert = async (data) =>{
-    const query = `
-    INSERT INTO "${table}" (
-    "username",
-    "fullName", 
-    "profession", 
-    "about", 
-    "picture")
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING *`;
+exports.findAll = async (qs) => {
+    qs.page = parseInt(qs.page) || 1;
+    qs.limit = parseInt(qs.limit) || 5;
+    qs.search = qs.search || "";
+    qs.sort = qs.sort || "id";
+    qs.sortBy = qs.sortBy || "ASC";
 
-    const values = [
-        data.username, 
-        data.fullName, 
-        data.profession, 
-        data.about, 
-        data.picture];
-    const {rows} = await db.query(query, values);
+    const offset = (qs.page - 1) * qs.limit;
+    const query = `
+    SELECT * FROM "${table}"
+    WHERE "fullName" LIKE $3
+    ORDER BY ${qs.sort} ${qs.sortBy}
+    LIMIT $1 OFFSET $2
+    `;
+    const values = [qs.limit, offset, `%${qs.search}%`];
+    const { rows } = await db.query(query, values);
+    return rows;
+};
+
+exports.findOne = async (id) => {
+    const query = `
+    SELECT * FROM "${table}" WHERE id=$1
+    `;
+    const values = [id];
+    const { rows } = await db.query(query, values);
     return rows[0];
 };
 
-exports.update = async (userId, data)=>{
+exports.findOneByUserId = async (userId) => {
+    const query = `
+    SELECT 
+    "users"."id",
+    "${table}"."fullName",
+    "${table}"."picture",
+    "users"."email",
+    "${table}"."about",
+    "${table}"."profession",
+    "${table}"."createdAt",
+    "${table}"."updatedAt"
+    FROM "${table}"
+    JOIN "users" ON "users"."id" = "${table}"."userId"
+    WHERE "${table}"."userId"=$1
+    `;
+    const values = [userId];
+    const { rows } = await db.query(query, values);
+    return rows[0];
+};
+
+exports.insert = async (data) => {
+    const query = `
+    INSERT INTO "${table}" ("picture", "username", "fullName", "profession", "about", "userId") 
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING *;
+    `;
+    const values = [
+        data.picture,
+        data.username,
+        data.fullName,
+        data.profession,
+        data.about,
+        data.userId,
+    ];
+    const { rows } = await db.query(query, values);
+    return rows[0];
+};
+
+exports.update = async (id, data) => {
     const query = `
     UPDATE "${table}" 
     SET 
-    "username"= COALESCE(NULLIF($2))
-    "fullName"= COALESCE(NULLIF($3,''), "fullName"),
-    "profession"= COALESCE(NULLIF($4,''), "profession"),
-    "picture"= COALESCE(NULLIF($5,''), "picture"),
+    "picture"=COALESCE(NULLIF($2, ''), "picture"),
+    "username"=COALESCE(NULLIF($2, ''), "username"),
+    "fullName"=COALESCE(NULLIF($3, ''), "fullName"),
+    "profession"=COALESCE(NULLIF($6, ''), "profession"),
+    "about"=COALESCE(NULLIF($4, ''), "about"),
+    "userId"=COALESCE(NULLIF($9::INTEGER, NULL), "userId")
+    WHERE "id"=$1
+    RETURNING *;
+    `;
+    const values = [
+        id,
+        data.picture,
+        data.username,
+        data.fullName,
+        data.profession,
+        data.about,
+        data.userId,
+    ];
+    const { rows } = await db.query(query, values);
+    return rows[0];
+};
+
+exports.updateByUserId = async (userId, data) => {
+    const query = `
+    UPDATE "${table}" 
+    SET 
+    "picture"=COALESCE(NULLIF($2, ''), "picture"),
+    "username"=COALESCE(NULLIF($4, ''), "username"),
+    "fullName"=COALESCE(NULLIF($3, ''), "fullName"),
+    "profession"=COALESCE(NULLIF($6, ''), "profession"),
+    "about"=COALESCE(NULLIF($8::DATE, NULL), "about")
     WHERE "userId"=$1
     RETURNING *;
     `;
     const values = [
-        userId, data.username,
+        userId,
+        data.picture,
+        data.username,
         data.fullName,
         data.profession,
-        data.picture
+        data.about,
     ];
-    const {rows} = await db.query(query,values);
-    return rows[0] ;
-};
-
-exports.findOne = async function(userId){
-    const query =`
-    SELECT  
-    "u"."id",
-    "p"."picture",
-    "p"."fullName",
-    "p"."username",
-    "u"."email",
-    "u"."phoneNumbe",
-    "p"."profession",
-    "p"."createdAt",
-    "p"."updatedAt"
-    FROM "${table}" "p"
-    JOIN "users" "u" ON "u"."id" = "p"."userId"
-    WHERE "p"."userId"=$1`;
-
-    const values = [userId];
-    const {rows} = await db.query(query, values);
+    const { rows } = await db.query(query, values);
     return rows[0];
 };
 
-exports.destroy = async function(id){
+exports.destroy = async (id) => {
     const query = `
-    DELETE FROM "${table}" WHERE "id"=$1 RETURNING *;
-`;
+    DELETE FROM "${table}" WHERE "id"=$1
+    RETURNING *;
+    `;
     const values = [id];
-    const {rows} = await db.query(query, values);
+    const { rows } = await db.query(query, values);
     return rows[0];
-}; 
-
-exports.findAll = async (page, limit, search, sort, sortBy)=>{
-    page = parseInt(page) || 1;
-    limit = parseInt(limit) || 7;
-    search = search || "";
-    sort = sort || "id";
-    sort = sort || "ASC";
-    const offside = (page-1)*limit;
-    const query = `
-    SELECT * FROM "${table} WHERE "username" ILIKE $3 ORDER BY ${sort} ${sortBy} LIMIT $1 OFFSIDE $2`;
-
-    const values = [limit, offside, `%${search}%`];
-    const {rows} = await db.query(query, values);
-    return rows;
 };
