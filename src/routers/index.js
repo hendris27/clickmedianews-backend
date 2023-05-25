@@ -18,6 +18,8 @@ router.use("/home/user", require("./users/home.router"));
 router.use("/home/admin", require("./admin/home.admin.router"));
 router.use("/profile/user", require("./users/profile.router"));
 router.use("/articleView/users", require("./users/articleView.router"));
+router.use("/write-article/admin", require("./admin/writeArticle.router"));
+router.use("/write-article/user", require("./users/writeArticle.router"));
 
 router.use("*", (req, res) => {
     return res.status(404).json({
