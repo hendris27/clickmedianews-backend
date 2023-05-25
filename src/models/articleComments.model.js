@@ -32,7 +32,7 @@ exports.findOne = async (id) => {
 
 exports.findOneByUserIdAndArticleId = async function (userId, articleId) {
     const query = `
-    SELECT "textComment" FROM "${table}" WHERE userId=$1 AND articleId=$2
+    SELECT "${table}" FROM "${table}" WHERE userId=$1 AND articleId=$2
     `;
     const values = [userId, articleId];
     const { rows } = await db.query(query, values);

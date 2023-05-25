@@ -1,7 +1,7 @@
-const profileRouter = require("express").Router()
-const profileController = require("../../controllers/auth/users/profile.controller")
+const profileRouter = require("express").Router();
+const profileController = require("../../controllers/profile.controller");
 
-profileRouter.get("/", profileController.getProfileByUserId)
-profileRouter.patch("/", profileController.update)
+profileRouter.get("/", profileController.getProfileByUserId);
+profileRouter.patch("/", profileController.update);
 
-module.exports = profileRouter
+module.exports = profileRouter;
