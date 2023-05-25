@@ -50,6 +50,13 @@ const errorHandler = (res, err) =>{
         })
     }
 
+    if(err?.message?.includes("Create article failed")){
+        return res.status(400).json({
+            success: false,
+            message: "Create article failed"
+        })
+    }
+    
     console.log(err)
     return res.status(500).json({
         success: false,
