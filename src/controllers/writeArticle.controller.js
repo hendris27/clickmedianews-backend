@@ -1,5 +1,5 @@
 const articleModel = require("../models/articles.model");
-const categoryModel = require("../models/categories.model")
+const categoryModel = require("../models/categories.model");
 const errorHandler = require("../helpers/errorHandler.halper");
 
 exports.createArticle = async (request, response) =>{
@@ -17,7 +17,7 @@ exports.createArticle = async (request, response) =>{
         if(request.file){
             data.picture = request.file.path;
         }
-        await categoryModel.insert(data.category)
+        await categoryModel.insert(data.category);
         return response.json({
             success: true,
             message: "Write article success",
