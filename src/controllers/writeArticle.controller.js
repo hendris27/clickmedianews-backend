@@ -1,6 +1,6 @@
-const articleModel = require("../../../models/articles.model");
-const categoryModel = require("../../../models/categories.model")
-const errorHandler = require("../../../helpers/errorHandler.halper");
+const articleModel = require("../models/articles.model");
+const categoryModel = require("../models/categories.model")
+const errorHandler = require("../helpers/errorHandler.halper");
 
 exports.createArticle = async (request, response) =>{
     try {

@@ -1,4 +1,4 @@
-const categoriesModel = require("../../../models/categories.model");
+const categoriesModel = require("../models/categories.model");
 const articleModel = require("../../../models/article.model");
 const errorHandler = require("../../../helpers/errorHandler");
 

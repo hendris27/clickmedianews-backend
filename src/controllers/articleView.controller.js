@@ -1,4 +1,4 @@
-const commentModel = require("../../../models/comments.model");
+const commentModel = require("../models/comments.model");
 const articleModel = require("../../../models/article.model");
 const errorHandler = require("../../../helpers/errorHandler");
 
