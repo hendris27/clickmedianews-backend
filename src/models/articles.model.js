@@ -49,7 +49,7 @@ exports.insert = async function (data){
     "status",
     "createdBy")
     VALUES ($1, $2, $3, $4, $5, $6, $7)
-    RETURNING *`
+    RETURNING *`;
 
     const values= [
         data.picture,
@@ -59,7 +59,7 @@ exports.insert = async function (data){
         data.category, 
         data.status,
         data.createdBy
-    ]
-    const {rows} = await db.query(query, values)
-    return rows[0]
-}
+    ];
+    const {rows} = await db.query(query, values);
+    return rows[0];
+};
