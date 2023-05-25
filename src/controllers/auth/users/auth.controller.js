@@ -1,5 +1,5 @@
-const userModel = require("../../../models/users/users.model");
-const profileModel = require("../../../models/users/profile.model");
+const userModel = require("../../../models/users.model");
+const profileModel = require("../../../models/profile.model");
 const forgotRequestModel = require("../../../models/forgotRequest.model");
 const errorHandler = require("../../../helpers/errorHandler.helper");
 const jwt = require("jsonwebtoken");
@@ -25,7 +25,7 @@ exports.register = async (request, response) => {
             return response.json({
                 success: true,
                 message: "Register Success!",
-                results: token,
+                results: (token)
             });
         }
     } catch (err) {
@@ -51,7 +51,7 @@ exports.login = async (request, response) => {
             results: token,
         });
     } catch (err) {
-        return errorHandler(request, err);
+        return errorHandler(response, err);
     }
 };
 

@@ -1,5 +1,5 @@
 const writeArticleRouter = require("express").Router();
-const writeArticleController = require("../../controllers/auth/users/writeArticle.controller");
+const writeArticleController = require("../../controllers/writeArticle.controller");
 
 writeArticleRouter.post("/", writeArticleController.createArticle);
 

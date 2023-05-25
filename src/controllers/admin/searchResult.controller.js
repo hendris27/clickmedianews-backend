@@ -33,13 +33,11 @@ exports.updateArticle = async (request, response) => {
         if(!updateArticle){
             throw Error("id_doesn't_exist");
         }
-        if(validate("idParams")){
-            return response.json({
-                success: true,
-                message: "Update Article successfully",
-                results: updateArticle
-            });
-        }
+        return response.json({
+            success: true,
+            message: "Update Article successfully",
+            results: updateArticle
+        });
     }catch(err) {
         errorHandler(response, err);
     }

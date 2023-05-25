@@ -1,6 +1,6 @@
 const profileModel = require("../models/profile.model");
-const errorHendler = require("../helpers/errorHandler.halper");
-const userModel = require("../../../models/users/users.model");
+const errorHendler = require("../helpers/errorHandler.helper");
+const userModel = require("../models/users.model");
 
 exports.getProfileByUserId = async (req, res)=>{
     try {

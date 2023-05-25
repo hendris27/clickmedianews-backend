@@ -1,6 +1,6 @@
 const articleModel = require("../models/articles.model");
 const categoryModel = require("../models/categories.model");
-const errorHandler = require("../helpers/errorHandler.halper");
+const errorHandler = require("../helpers/errorHandler.helper");
 
 exports.createArticle = async (request, response) =>{
     try {
@@ -10,12 +10,12 @@ exports.createArticle = async (request, response) =>{
             createdBy: id,
             status: false
         };
+        if(request.file){
+            data.picture = request.file.path;
+        }
         const crtArticle = await articleModel.insert(data);
         if(!crtArticle){
             throw Error("Create article failed");
-        }
-        if(request.file){
-            data.picture = request.file.path;
         }
         await categoryModel.insert(data.category);
         return response.json({

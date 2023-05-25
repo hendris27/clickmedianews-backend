@@ -1,6 +1,6 @@
 const categoriesModel = require("../models/categories.model");
-const articleModel = require("../../../models/article.model");
-const errorHandler = require("../../../helpers/errorHandler");
+const articleModel = require("../models/articles.model");
+const errorHandler = require("../helpers/errorHandler.helper");
 
 
 exports.getCategory = async (request, response) => {
