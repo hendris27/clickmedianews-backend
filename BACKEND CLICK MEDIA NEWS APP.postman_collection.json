@@ -705,39 +705,39 @@
 					]
 				},
 				{
-					"name": "WAITING LISTS",
+					"name": "SAVED POST",
 					"item": [
 						{
-							"name": "GET ALL WAITING LISTS",
+							"name": "GET ALL SAVED POST",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/waiting-list",
+									"raw": "{{url}}/admin/saved-post",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
-										"waiting-list"
+										"saved-post"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "GET DETAIL WAITING LIST",
+							"name": "GET DETAIL SAVED POST",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/waiting-list/:id",
+									"raw": "{{url}}/admin/saved-post/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
-										"waiting-list",
+										"saved-post",
 										":id"
 									],
 									"variable": [
@@ -751,36 +751,36 @@
 							"response": []
 						},
 						{
-							"name": "CREATE WAITING LIST",
+							"name": "CREATE SAVED POST",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/waiting-list",
+									"raw": "{{url}}/admin/saved-post",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
-										"waiting-list"
+										"saved-post"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "UPDATE WAITING LIST",
+							"name": "UPDATE SAVED POST",
 							"request": {
 								"method": "PATCH",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/waiting-list/:id",
+									"raw": "{{url}}/admin/saved-post/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
-										"waiting-list",
+										"saved-post",
 										":id"
 									],
 									"variable": [
@@ -794,18 +794,18 @@
 							"response": []
 						},
 						{
-							"name": "DELETE WAITING LIST",
+							"name": "DELETE SAVED POST",
 							"request": {
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/waiting-list/:id",
+									"raw": "{{url}}/admin/saved-post/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
-										"waiting-list",
+										"saved-post",
 										":id"
 									],
 									"variable": [
@@ -1038,6 +1038,122 @@
 									"path": [
 										"admin",
 										"users-admin",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "WAITING LISTS",
+					"item": [
+						{
+							"name": "GET ALL WAITING LISTS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/waiting-list",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"waiting-list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL WAITING LIST",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/waiting-list/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"waiting-list",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE WAITING LIST",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/waiting-list",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"waiting-list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE WAITING LIST",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/waiting-list/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"waiting-list",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE WAITING LIST",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/waiting-list/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"waiting-list",
 										":id"
 									],
 									"variable": [
