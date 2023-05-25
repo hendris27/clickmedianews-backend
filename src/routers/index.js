@@ -12,6 +12,7 @@ router.use("/auth/user", require("./auth/users/auth.router"));
 router.use("/admin", require("./admin/admin.router"));
 router.use("/article/user", require("./users/article.router"));
 router.use("/category/user", require("./users/category.router"));
+router.use("/category/admin", require("./admin/categories.router"));
 router.use("/home/user", require("./users/home.router"));
 router.use("/home/admin", require("./admin/home.admin.router"));
 router.use("/profile/user", require("./users/profile.router"));

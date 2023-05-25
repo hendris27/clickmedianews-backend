@@ -1,4 +1,4 @@
-const articleModel = require("../../../models/home.model");
+const articleModel = require("../../../models/articles.model");
 const errorHandler = require("../../../helpers/errorHandler.halper");
 
 
@@ -17,24 +17,24 @@ exports.getArticle = async (request, response) => {
 
 exports.createArticle = async (request, response) =>{
     try {
-        const {id} = request.user
+        const {id} = request.user;
         const data = {
             ...request.body,
             createdBy: id
-        }
-        const crtArticle = await articleModel.insert(data)
+        };
+        const crtArticle = await articleModel.insert(data);
         if(!crtArticle){
-            throw Error("Create article failed")
+            throw Error("Create article failed");
         }
         if(request.file){
-            data.picture = request.file.path
+            data.picture = request.file.path;
         }
         return response.json({
             success: true,
             message: "Write article success",
             results: crtArticle
-        })
+        });
     } catch (err) {
-        return errorHandler(response, err)
+        return errorHandler(response, err);
     }
-}
+};
