@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e7e8c80b-7f50-44f0-b566-a650d9c26d8b",
+		"_postman_id": "1992c7ed-d003-44ab-b370-b89940e479ec",
 		"name": "BACKEND CLICK MEDIA NEWS APP",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25632088"
 	},
 	"item": [
 		{
@@ -1363,7 +1364,123 @@
 		},
 		{
 			"name": "MAIN BUSINESS FLOW",
-			"item": []
+			"item": [
+				{
+					"name": "ARTICLES",
+					"item": [
+						{
+							"name": "GET ALL ARTICLES",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL ARTICLES",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE ARTICLE",
+							"request": {
+								"method": "POST",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ARTICLE CATEGORIES",
+					"item": [
+						{
+							"name": "GET DETAIL ARTICLE CATEGORIES",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ARTICLE COMMENTS",
+					"item": [
+						{
+							"name": "CREATE ARTICLE COMMENTS",
+							"request": {
+								"method": "POST",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ARTICLE LIKES",
+					"item": [
+						{
+							"name": "CREATE ARTICLE LIKES",
+							"request": {
+								"method": "POST",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CATEGORIES",
+					"item": [
+						{
+							"name": "GET ALL CATEGORIES",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PROFILE",
+					"item": [
+						{
+							"name": "GET PROFILE",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "EDIT PROFILE",
+							"request": {
+								"method": "PATCH",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SAVED ARTICLE",
+					"item": [
+						{
+							"name": "GET ALL SAVED ARTICLE",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		},
 		{
 			"name": "TEST CONNECTION",
