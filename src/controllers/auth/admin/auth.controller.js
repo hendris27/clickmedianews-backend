@@ -1,4 +1,4 @@
-const userModel = require("../models/users.model");
+const adminModel = require("../../../models/admin/admin.model");
 const profileModel = require("../models/profile.model");
 const forgotRequestModel = require("../models/forgotRequest.model");
 const errorHandler = require("../helpers/errorHandler.helper");
@@ -9,7 +9,7 @@ const argon = require("argon2");
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await userModel.findOneByEmail(email);
+        const user = await adminModel.findOneByEmail(email);
         if (!user) {
             throw Error("wrong_credentials");
         }
@@ -36,7 +36,7 @@ exports.register = async (req, res) => {
             ...req.body,
             password: hash,
         };
-        const user = await userModel.insert(data);
+        const user = await adminModel.insert(data);
         const profileData = {
             email,
             phoneNumber,
@@ -57,7 +57,7 @@ exports.register = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
-        const user = await userModel.findOneByEmail(email);
+        const user = await adminModel.findOneByEmail(email);
         if (!user) {
             return errorHandler(res, undefined);
         }
@@ -90,11 +90,11 @@ exports.resetPassword = async (req, res) => {
         if (!find) {
             throw Error("no_forgot_request");
         }
-        const selectedUser = await userModel.findOneByEmail(email);
+        const selectedUser = await adminModel.findOneByEmail(email);
         const data = {
             password: await argon.hash(password),
         };
-        const user = await userModel.update(selectedUser.id, data);
+        const user = await adminModel.update(selectedUser.id, data);
         if (!user) {
             return errorHandler(res, undefined);
         }

@@ -1,6 +1,6 @@
 const db = require("../helpers/db.helper");
 
-const table = "users";
+const table = "admin";
 
 exports.findAll = async (qs) => {
     qs.page = parseInt(qs.page) || 1;
