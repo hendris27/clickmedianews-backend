@@ -35,6 +35,26 @@ exports.findOne = async function (id) {
     return rows[0];
 };
 
+exports.findOneByEmail = async function (email) {
+    const query = `
+    SELECT 
+    "users"."id",
+    "users"."email",
+    "users"."password",
+    "users"."phoneNumber",
+    "role"."code" AS "role",
+    "users"."createdAt",
+    "users"."updatedAt"
+    FROM "users" 
+    JOIN "role" ON "role"."id" = "users"."roleId"
+    WHERE "users"."id"=$1
+    `;
+
+    const values = [email];
+    const { rows } = await db.query(query, values);
+    return rows[0];
+};
+
 exports.insert = async function (data) {
     const query = `
     INSERT INTO "users" ("email", "password", "phoneNumber")

@@ -7,8 +7,8 @@ router.get("/", (req, res) => {
     });
 });
 
-router.use("/auth/admin", require("./auth/admin/auth.router"));
 router.use("/admin", require("./admin"));
+router.use("/auth", require("./auth.router"));
 router.use("/admin/articles", require("./admin/articles.router"));
 router.use("/admin/article-likes", require("./admin/articleLikes.router"));
 router.use(
