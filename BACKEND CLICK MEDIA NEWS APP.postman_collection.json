@@ -866,7 +866,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "11"
+											"value": "12"
 										}
 									]
 								}
@@ -1190,12 +1190,12 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "admin@mail.com",
+									"value": "sarah@mail.com",
 									"type": "default"
 								},
 								{
 									"key": "password",
-									"value": "@Admin1",
+									"value": "@Sarah1",
 									"type": "default"
 								}
 							]
@@ -1223,17 +1223,22 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "admin@mail.com",
+									"value": "sarah@mail.com",
 									"type": "default"
 								},
 								{
 									"key": "password",
-									"value": "@Admin1",
+									"value": "@Sarah1",
 									"type": "default"
 								},
 								{
 									"key": "phoneNumber",
-									"value": "08111222333",
+									"value": "08111222444",
+									"type": "default"
+								},
+								{
+									"key": "roleId",
+									"value": "1",
 									"type": "default"
 								}
 							]
@@ -1326,7 +1331,236 @@
 		},
 		{
 			"name": "MAIN BUSINESS FLOW",
-			"item": []
+			"item": [
+				{
+					"name": "ARTICLES",
+					"item": [
+						{
+							"name": "MANAGE",
+							"item": [
+								{
+									"name": "GET ARTICLE",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/articles/manage",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"articles",
+												"manage"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CREATE MANAGE ARTICLE",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "picture",
+													"type": "file",
+													"src": []
+												},
+												{
+													"key": "title",
+													"value": "",
+													"type": "default"
+												},
+												{
+													"key": "descriptions",
+													"value": "",
+													"type": "default"
+												},
+												{
+													"key": "categoryId",
+													"value": "",
+													"type": "default"
+												},
+												{
+													"key": "status",
+													"value": "",
+													"type": "default"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/articles/manage",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"articles",
+												"manage"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "GET ALL ARTICLES",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/articles",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"articles"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "sortBy",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CATEGORIES",
+					"item": [
+						{
+							"name": "GET ALL CATEGORIES",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/categories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"categories"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "sortBy",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PROFILE",
+					"item": [
+						{
+							"name": "GET DETAIL PROFILE",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/profile",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE PROFILE",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"value": "",
+											"type": "default"
+										},
+										{
+											"key": "username",
+											"value": "",
+											"type": "default"
+										},
+										{
+											"key": "fullName",
+											"value": "",
+											"type": "default"
+										},
+										{
+											"key": "profession",
+											"value": "",
+											"type": "default"
+										},
+										{
+											"key": "about",
+											"value": "",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/profile",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"profile"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		},
 		{
 			"name": "TEST CONNECTION",
