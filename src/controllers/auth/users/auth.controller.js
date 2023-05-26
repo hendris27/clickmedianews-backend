@@ -14,14 +14,14 @@ exports.register = async (request, response) => {
             ...request.body,
             password: hash,
         };
-        const register = await userModel.insert(data);
-        console.log(register);
-        if (register) {
+        const user = await userModel.insert(data);
+        console.log(user);
+        if (user) {
             const dataProfile = {
-                userId: register.id,
+                userId: user.id,
             };
             await profileModel.insert(dataProfile);
-            const token = jwt.sign({ id: register.id }, APP_SECRET);
+            const token = jwt.sign({ id: user.id }, APP_SECRET);
             return response.json({
                 success: true,
                 message: "Register Success!",

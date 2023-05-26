@@ -1,6 +1,6 @@
 const db = require("../helpers/db.helper");
 
-exports.findAllArticle = async function(params, createdBy){
+exports.findAllArticle = async function(params){
     params.page = parseInt(params.page) || 1;
     params.limit = parseInt(params.limit) || 5;
     params.search = params.search || "";
@@ -25,13 +25,13 @@ exports.findAllArticle = async function(params, createdBy){
     "a"."categoryId",
     "a"."createdAt",
     "a"."updatedAt"
-    FROM "articles" 
-    LEFT JOIN "articleLike" AS "al" ON "ai"."articleId" = "a"."id"
-    WHERE "a"."createdBy"=$1
-    GRUB BY "a"."id"
+    FROM "articles" "a"
+    LEFT JOIN "articleLikes" AS "al" ON "al"."articleId" = "a"."id"
+    WHERE "a"."title" LIKE $1
+    GROUP BY "a"."id"
     ORDER BY ${params.sort} ${params.sortBy} LIMIT $2 OFFSET $3`;
 
-    const values = [createdBy, params.limit, offset];
+    const values = [`%${params.search}%`, params.limit, offset];
     const {rows} = await db.query(query, values);
     return {rows, pageInfo:{
         totalData: countRows[0].count,
@@ -86,14 +86,14 @@ exports.insert = async function (data){
     "descriptions",
     "categoryId",
     "status")
-    VALUES ($1, $2, $3, $4, $5, $6)
+    VALUES ($1, $2, $3, $4, $5)
     RETURNING *`;
 
     const values= [
         data.picture,
         data.title, 
         data.descriptions, 
-        data.category, 
+        data.categoryId, 
         data.status,
     ];
     const {rows} = await db.query(query, values);
