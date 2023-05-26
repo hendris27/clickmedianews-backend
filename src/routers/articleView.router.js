@@ -1,5 +1,5 @@
 const articleViewRouter = require("express").Router();
-const articleViewController = require("../../controllers/articleView.controller");
+const articleViewController = require("../controllers/articleView.controller");
 
 articleViewRouter.post("/", articleViewController.createComment);
 
