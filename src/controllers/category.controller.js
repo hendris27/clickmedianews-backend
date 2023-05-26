@@ -1,21 +1,40 @@
 const categoriesModel = require("../models/categories.model");
 const articleModel = require("../models/articles.model");
+const articleCategoriesModel = require("../models/articleCategories.model");
 const errorHandler = require("../helpers/errorHandler.helper");
 
+exports.createArticleCategories = async (request, response) => {
+    try {
+        // const {id} = request.user;
+        let {articleId, categoryId} = request.body;
+        const createArticleCategories = await articleCategoriesModel.insert({articleId, categoryId});
+        const findCategories = await categoriesModel.findOne(categoryId);
+        const findArticle = await articleModel.findOne(articleId);
+
+        const result = {
+            picture: findArticle.picture,
+            category: findCategories.name
+        };
+
+        createArticleCategories;
+        return response.json({
+            success: true,
+            message: "Create article categories successfully",
+            result
+        });
+    }catch(err) {
+        errorHandler(response, err);
+    }
+};
 
 exports.getCategory = async (request, response) => {
     try {
-        const category = await categoriesModel.findAll(request.params);
-        const article = await articleModel.findAllArticle(request.params);
-      
-        const results = {
-            category,
-            article: article.picture
-        };
+        const category = await categoriesModel.findAllCategories(request.params);
+
         return response.json({
             success: true,
             message: "category",
-            results: results.category
+            results: category
         });
     }catch(err) {
         return errorHandler(response, err);

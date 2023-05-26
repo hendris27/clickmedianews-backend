@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const authMiddleweres = require("../middlewares/auth.middleware")
+const authMiddleweres = require("../middlewares/auth.middleware");
 
 router.get("/", (req, res) => {
     return res.json({
