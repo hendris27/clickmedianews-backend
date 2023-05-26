@@ -4,8 +4,8 @@ const uploadMiddleware = require("../../middlewares/upload.middleware");
 
 profileRouter.get("/", profileController.getAllProfiles);
 profileRouter.get("/:id", profileController.getOneProfile);
-profileRouter.post("/", uploadMiddleware, profileController.createProfile);
-profileRouter.patch("/:id", uploadMiddleware, profileController.updateProfile);
+profileRouter.post("/", uploadMiddleware("picture"), profileController.createProfile);
+profileRouter.patch("/:id", uploadMiddleware("picture"), profileController.updateProfile);
 profileRouter.delete("/:id", profileController.deleteProfile);
 
 module.exports = profileRouter;
