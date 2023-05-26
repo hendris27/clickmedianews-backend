@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "1992c7ed-d003-44ab-b370-b89940e479ec",
+		"_postman_id": "e7e8c80b-7f50-44f0-b566-a650d9c26d8b",
 		"name": "BACKEND CLICK MEDIA NEWS APP",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25632088"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -598,13 +597,20 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/profile",
+									"raw": "{{url}}/admin/users/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
-										"profile"
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
 									]
 								}
 							},
@@ -843,7 +849,7 @@
 							"response": []
 						},
 						{
-							"name": "GET DETAIL USER",
+							"name": "GET USER BY ID",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -860,7 +866,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": ""
+											"value": "11"
 										}
 									]
 								}
@@ -1175,428 +1181,152 @@
 			"name": "AUTH",
 			"item": [
 				{
-					"name": "ADMIN",
-					"item": [
-						{
-							"name": "LOGIN",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "email",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "password",
-											"value": "",
-											"type": "default"
-										}
-									]
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "admin@mail.com",
+									"type": "default"
 								},
-								"url": {
-									"raw": "{{url}}/auth/admin/login",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"auth",
-										"admin",
-										"login"
-									]
+								{
+									"key": "password",
+									"value": "@Admin1",
+									"type": "default"
 								}
-							},
-							"response": []
+							]
 						},
-						{
-							"name": "REGISTER",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "email",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "password",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "phoneNumber",
-											"value": "",
-											"type": "default"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{url}}/auth/admin/register",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"auth",
-										"admin",
-										"register"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FORGOT PASSWORD",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "email",
-											"value": "",
-											"type": "default"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{url}}/auth/admin/forgot-password",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"auth",
-										"admin",
-										"forgot-password"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "RESET PASSWORD",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "code",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "email",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "password",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "confirmPassword",
-											"value": "",
-											"type": "default"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{url}}/auth/admin/reset-password",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"auth",
-										"admin",
-										"reset-password"
-									]
-								}
-							},
-							"response": []
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
 						}
-					]
+					},
+					"response": []
 				},
 				{
-					"name": "USERS",
-					"item": [
-						{
-							"name": "LOGIN",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "email",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "password",
-											"value": "",
-											"type": "default"
-										}
-									]
+					"name": "REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "admin@mail.com",
+									"type": "default"
 								},
-								"url": {
-									"raw": "{{url}}/auth/users/login",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"auth",
-										"users",
-										"login"
-									]
+								{
+									"key": "password",
+									"value": "@Admin1",
+									"type": "default"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "08111222333",
+									"type": "default"
 								}
-							},
-							"response": []
+							]
 						},
-						{
-							"name": "REGISTER",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "email",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "password",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "phoneNumber",
-											"value": "",
-											"type": "default"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{url}}/auth/users/register",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"auth",
-										"users",
-										"register"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "FORGOT PASSWORD",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "email",
-											"value": "",
-											"type": "default"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{url}}/auth/users/forgot-password",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"auth",
-										"users",
-										"forgot-password"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "RESET PASSWORD",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "code",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "email",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "password",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "confirmPassword",
-											"value": "",
-											"type": "default"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{url}}/auth/users/reset-password",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"auth",
-										"users",
-										"reset-password"
-									]
-								}
-							},
-							"response": []
+						"url": {
+							"raw": "{{url}}/auth/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "FORGOT PASSWORD",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/forgot-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RESET PASSWORD",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "code",
+									"value": "",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "default"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/reset-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "MAIN BUSINESS FLOW",
-			"item": [
-				{
-					"name": "ARTICLES",
-					"item": [
-						{
-							"name": "GET ALL ARTICLES",
-							"request": {
-								"method": "GET",
-								"header": []
-							},
-							"response": []
-						},
-						{
-							"name": "GET DETAIL ARTICLES",
-							"request": {
-								"method": "GET",
-								"header": []
-							},
-							"response": []
-						},
-						{
-							"name": "CREATE ARTICLE",
-							"request": {
-								"method": "POST",
-								"header": []
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "ARTICLE CATEGORIES",
-					"item": [
-						{
-							"name": "GET DETAIL ARTICLE CATEGORIES",
-							"request": {
-								"method": "GET",
-								"header": []
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "ARTICLE COMMENTS",
-					"item": [
-						{
-							"name": "CREATE ARTICLE COMMENTS",
-							"request": {
-								"method": "POST",
-								"header": []
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "ARTICLE LIKES",
-					"item": [
-						{
-							"name": "CREATE ARTICLE LIKES",
-							"request": {
-								"method": "POST",
-								"header": []
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "CATEGORIES",
-					"item": [
-						{
-							"name": "GET ALL CATEGORIES",
-							"request": {
-								"method": "GET",
-								"header": []
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "PROFILE",
-					"item": [
-						{
-							"name": "GET PROFILE",
-							"request": {
-								"method": "GET",
-								"header": []
-							},
-							"response": []
-						},
-						{
-							"name": "EDIT PROFILE",
-							"request": {
-								"method": "PATCH",
-								"header": []
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "SAVED ARTICLE",
-					"item": [
-						{
-							"name": "GET ALL SAVED ARTICLE",
-							"request": {
-								"method": "GET",
-								"header": []
-							},
-							"response": []
-						}
-					]
-				}
-			]
+			"item": []
 		},
 		{
 			"name": "TEST CONNECTION",
@@ -1613,6 +1343,16 @@
 			"response": []
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
