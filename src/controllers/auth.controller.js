@@ -30,7 +30,7 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
     try {
-        const { email, password, phoneNumber } = req.body;
+        const { email, password, phoneNumber, roleId } = req.body;
         const hash = await argon.hash(password);
         const data = {
             ...req.body,
@@ -40,6 +40,7 @@ exports.register = async (req, res) => {
         const profileData = {
             email,
             phoneNumber,
+            roleId,
             userId: user.id,
         };
         await profileModel.insert(profileData);
