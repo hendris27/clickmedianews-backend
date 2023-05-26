@@ -16,16 +16,14 @@ exports.getAllUsers = async (req, res) => {
     }
 };
 
-exports.getOneUser = async (req, res) => {
+exports.getUser = async (req, res) => {
     try {
-        const data = await usersModel.findOne(req.params.id);
-        if (!data) {
-            return errorHandler(res, undefined);
-        }
+        const { id } = req.params;
+        const user = await usersModel.findOne(id);
         return res.json({
             success: true,
-            message: "Detail user",
-            results: data,
+            message: "List user",
+            results: user,
         });
     } catch (err) {
         return errorHandler(res, err);

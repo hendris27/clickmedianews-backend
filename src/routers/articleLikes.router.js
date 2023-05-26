@@ -1,5 +1,5 @@
 const articleLikeRouter = require("express").Router();
-const articleLikeController = require("../../controllers/articlesLike.controller");
+const articleLikeController = require("../controllers/articleLikes.controller");
 
 articleLikeRouter.get("/", articleLikeController.getAllArticleLike);
 articleLikeRouter.get("/:id", articleLikeController.getOneArticleLike);

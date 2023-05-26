@@ -1,7 +1,7 @@
-const adminModel = require("../../../models/admin.model");
-const profileModel = require("../../../models/profile.model");
-const forgotRequestModel = require("../../../models/forgotRequest.model");
-const errorHandler = require("../../../helpers/errorHandler.helper");
+const userModel = require("../models/users.model");
+const profileModel = require("../models/profile.model");
+const forgotRequestModel = require("../models/forgotRequest.model");
+const errorHandler = require("../helpers/errorHandler.helper");
 const jwt = require("jsonwebtoken");
 const { APP_SECRET } = process.env;
 const argon = require("argon2");
@@ -9,7 +9,7 @@ const argon = require("argon2");
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await adminModel.findOneByEmail(email);
+        const user = await userModel.findOneByEmail(email);
         if (!user) {
             throw Error("wrong_credentials");
         }
@@ -17,7 +17,7 @@ exports.login = async (req, res) => {
         if (!verify) {
             throw Error("wrong_credentials");
         }
-        const token = jwt.sign({ id: user.id }, APP_SECRET);
+        const token = jwt.sign({ id: user.id, role: user.role }, APP_SECRET);
         return res.json({
             success: true,
             message: "Login success!",
@@ -36,7 +36,7 @@ exports.register = async (req, res) => {
             ...req.body,
             password: hash,
         };
-        const user = await adminModel.insert(data);
+        const user = await userModel.insert(data);
         const profileData = {
             email,
             phoneNumber,
@@ -57,7 +57,7 @@ exports.register = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
-        const user = await adminModel.findOneByEmail(email);
+        const user = await userModel.findOneByEmail(email);
         if (!user) {
             return errorHandler(res, undefined);
         }
@@ -80,30 +80,30 @@ exports.forgotPassword = async (req, res) => {
     }
 };
 
-// exports.resetPassword = async (req, res) => {
-//     try {
-//         const { code, email, password } = req.body;
-//         const find = await forgotRequestModel.findOneByCodeAndEmail(
-//             code,
-//             email
-//         );
-//         if (!find) {
-//             throw Error("no_forgot_request");
-//         }
-//         const selectedUser = await adminModel.findOneByEmail(email);
-//         const data = {
-//             password: await argon.hash(password),
-//         };
-//         const user = await adminModel.update(selectedUser.id, data);
-//         if (!user) {
-//             return errorHandler(res, undefined);
-//         }
-//         await forgotRequestModel.destroy(find.id);
-//         return res.json({
-//             success: true,
-//             message: "Reset password success!",
-//         });
-//     } catch (err) {
-//         return errorHandler(res, err);
-//     }
-// };
+exports.resetPassword = async (req, res) => {
+    try {
+        const { code, email, password } = req.body;
+        const find = await forgotRequestModel.findOneByCodeAndEmail(
+            code,
+            email
+        );
+        if (!find) {
+            throw Error("no_forgot_request");
+        }
+        const selectedUser = await userModel.findOneByEmail(email);
+        const data = {
+            password: await argon.hash(password),
+        };
+        const user = await userModel.update(selectedUser.id, data);
+        if (!user) {
+            return errorHandler(res, undefined);
+        }
+        await forgotRequestModel.destroy(find.id);
+        return res.json({
+            success: true,
+            message: "Reset password success!",
+        });
+    } catch (err) {
+        return errorHandler(res, err);
+    }
+};
