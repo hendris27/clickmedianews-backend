@@ -1,6 +1,7 @@
 const errorHandler = require("../helpers/errorHandler.helper");
 const jwt = require("jsonwebtoken");
 const {APP_SECRET}= process.env;
+
 const authMiddleweres = (request, response, next)=>{
     try {
         const{authorization: auth} = request.headers;  

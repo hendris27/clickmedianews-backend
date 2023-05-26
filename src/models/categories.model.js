@@ -36,7 +36,8 @@ exports.findAllCategories = async function (params) {
 
     const query = `
     SELECT
-        "a"."id",
+        "c"."id",
+        "a"."id" as "articleId",
         "a"."picture",
         "c"."name" as "category",
         "c"."createdAt",

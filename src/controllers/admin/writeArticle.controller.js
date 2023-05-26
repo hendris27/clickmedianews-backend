@@ -11,11 +11,12 @@ exports.createArticle = async (request, response) =>{
             createdBy: id,
             status: false
         };
-        if(request.file){
+        if (request.file) {
             data.picture = request.file.path;
         }
-        const category = await categoryModel.findOne(data.categoryId);
-        if(!category){
+        console.log(data);
+        const dataCategory = await categoryModel.findOne(data.category);
+        if(!dataCategory){
             throw Error("category_not_found");
         }
         const crtArticle = await articleModel.insert(data);
