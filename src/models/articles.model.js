@@ -128,7 +128,15 @@ exports.destroy = async function(id){
 
 exports.findOne = async function(id){
     const query =`
-    SELECT * FROM "articles" WHERE id=$1`;
+    SELECT
+    "id",
+    "picture",
+    "title",
+    "descriptions",
+    "categoryId",
+    "createdAt",
+    "updatedAt"
+    FROM "articles" WHERE "id"=$1`;
 
     const values = [id];
     const {rows} = await db.query(query, values);

@@ -4,7 +4,7 @@ const categoryModel = require("../../models/categories.model");
 
 exports.createArticle = async (request, response) => {
     try {
-        const { id } = request.user;
+        const {id} = request.user;
         const data = {
             ...request.body,
             createdBy: id,

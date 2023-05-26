@@ -18,7 +18,7 @@ router.use(
 );
 router.use("/admin/category", require("./admin/categories.router"));
 router.use("/admin/users", require("./admin/users.router"));
-router.use("/admin/write-article", require("./admin/writeArticle.router"));
+router.use("/admin/write-article",  authMiddleweres, require("./admin/writeArticle.router"));
 router.use("/admin/waiting-lists", require("./admin/waitingLists.router"));
 router.use("/admin/saved-article", require("./admin/savedArticle.router"));
 router.use("/admin/search-result", require("./admin/searchResult.router"));
