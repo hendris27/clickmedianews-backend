@@ -23,13 +23,12 @@ exports.update = async(req, res)=>{
     try {
         const {id} = req.user;
         const data = {...req.body};
-        const profileUpdate = await profileModel.update(id, data);
-        if(!profileUpdate){
-            throw Error("Update profile failed");
-        }
-
         if(req.file){
             data.picture = req.file.path;
+        }
+        const profileUpdate = await profileModel.updateByUserId(id, data);
+        if(!profileUpdate){
+            throw Error("Update profile failed");
         }
 
         let userData;
@@ -42,7 +41,6 @@ exports.update = async(req, res)=>{
         const update = {
             ...data,
             email: userData?.email,
-            username: userData?.username
         };
 
         return res.json({

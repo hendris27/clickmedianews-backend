@@ -1,4 +1,5 @@
 const multer = require("multer");
+const errorHandler = require("../helpers/errorHandler.helper")
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
@@ -22,18 +23,18 @@ const storage = new CloudinaryStorage({
 
 // const storage = multer.diskStorage({
 //     destination: (req, file, cb) => {
-//         cb(null, "uploads/")
+//         cb(null, "uploads/");
 //     },
 //     filename: (req, file, cb) => {
-//         const explode = file.originalname.split(".").length
-//         const ext = file.originalname.split(".")[explode - 1]
-//         const filename = new Date().getTime().toString() + "." + ext
-//         cb(null, filename)
+//         const explode = file.originalname.split(".").length;
+//         const ext = file.originalname.split(".")[explode - 1];
+//         const filename = new Date().getTime().toString() + "." + ext;
+//         cb(null, filename);
 //     }
-// })
+// });
 
 const limits = {
-    fileSize: 3 * 1024 * 1024
+    fileSize: 1 * 1024 * 1024
 };
 
 const fileFilter = (req, file, cb) => {
@@ -49,19 +50,17 @@ const uploadMiddleware = (field) => {
     const uploadField = upload.single(field);
     return (req, res, next) => {
         uploadField(req, res, (err) => {
-            if(err){
-                if(err.message === "fileformat_error"){
-                    return res.status(400).json({
-                        success: false,
-                        message: "File format invalid"
-                    });
+            try {
+                if (err) {
+                    if (err.message === "fileformat_error") {
+                        throw Error("fileformat_error");
+                    }
+                    throw Error(err.message);
                 }
-                return res.status(400).json({
-                    success: false,
-                    message: "File too large"
-                });
+                return next();
+            } catch (err) {
+                return errorHandler(res, err);
             }
-            return next();
         });
     };
 };

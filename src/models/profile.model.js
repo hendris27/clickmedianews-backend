@@ -77,7 +77,6 @@ exports.update = async (id, data) => {
     "fullName"=COALESCE(NULLIF($3, ''), "fullName"),
     "profession"=COALESCE(NULLIF($6, ''), "profession"),
     "about"=COALESCE(NULLIF($4, ''), "about"),
-    "userId"=COALESCE(NULLIF($9::INTEGER, NULL), "userId")
     WHERE "id"=$1
     RETURNING *;
     `;
@@ -101,8 +100,8 @@ exports.updateByUserId = async (userId, data) => {
     "picture"=COALESCE(NULLIF($2, ''), "picture"),
     "username"=COALESCE(NULLIF($4, ''), "username"),
     "fullName"=COALESCE(NULLIF($3, ''), "fullName"),
-    "profession"=COALESCE(NULLIF($6, ''), "profession"),
-    "about"=COALESCE(NULLIF($8::DATE, NULL), "about")
+    "profession"=COALESCE(NULLIF($5, ''), "profession"),
+    "about"=COALESCE(NULLIF($6, ''), "about")
     WHERE "userId"=$1
     RETURNING *;
     `;
