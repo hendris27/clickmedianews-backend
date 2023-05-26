@@ -20,6 +20,13 @@ const errorHandler = (res, err) =>{
         });
     }
 
+    if(err?.message?.includes("category_not_found")){
+        return res.status(404).json({
+            success: false,
+            message: "Category not found"
+        });
+    }
+
     if(err?.message?.includes("article not found")){
         return res.status(404).json({
             success: false,

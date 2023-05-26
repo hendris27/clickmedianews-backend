@@ -5,6 +5,7 @@ const errorHandler = require("../helpers/errorHandler.helper");
 exports.createArticle = async (request, response) =>{
     try {
         const {id} = request.user;
+        console.log(id);
         const data = {
             ...request.body,
             createdBy: id,
@@ -13,11 +14,15 @@ exports.createArticle = async (request, response) =>{
         if(request.file){
             data.picture = request.file.path;
         }
+        const category = await categoryModel.findAll(data.categoryId);
+        if(!category){
+            throw Error("category_not_found");
+        }
         const crtArticle = await articleModel.insert(data);
+        console.log(crtArticle);
         if(!crtArticle){
             throw Error("Create article failed");
         }
-        await categoryModel.insert(data.category);
         return response.json({
             success: true,
             message: "Write article success",

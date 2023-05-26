@@ -5,8 +5,8 @@ const errorHandler = require("../helpers/errorHandler.helper");
 
 exports.getCategory = async (request, response) => {
     try {
-        const category = await categoriesModel.findAll(request.query);
-        const article = await articleModel.findAllArticle(request.query);
+        const category = await categoriesModel.findAll(request.params);
+        const article = await articleModel.findAllArticle(request.params);
         const results = {
             category,
             article: article.picture
