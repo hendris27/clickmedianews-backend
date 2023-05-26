@@ -16,7 +16,7 @@ exports.findAll = async function (params) {
         "createdAt",
         "updatedAt"
     FROM "categories"
-    WHERE "id" LIKE $3
+    WHERE "id"::TEXT LIKE $3
     ORDER BY ${params.sort} ${params.sortBy}
     LIMIT $1 OFFSET $2
     `;
@@ -32,6 +32,15 @@ exports.insert = async function (data){
     RETURNING *`;
 
     const values= [data.name];
+    const {rows} = await db.query(query, values);
+    return rows[0];
+};
+
+exports.findOne = async function(id){
+    const query =`
+    SELECT * FROM "categories" WHERE id=$1`;
+
+    const values = [id];
     const {rows} = await db.query(query, values);
     return rows[0];
 };

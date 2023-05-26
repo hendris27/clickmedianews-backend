@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const authMiddleweres = require("../middlewares/auth.middleware");
 
 router.get("/", (req, res) => {
     return res.json({
@@ -26,7 +27,7 @@ router.use("/articles", require("./articles.router"));
 router.use("/categories", require("./categories.router"));
 router.use("/profile", require("./profile.router"));
 router.use("/article-view", require("./articleView.router"));
-router.use("/write-article", require("./writeArticle.router"));
+router.use("/write-article", authMiddleweres, require("./writeArticle.router"));
 router.use("/saved-article", require("./savedArticles.router"));
 router.use("/article-likes", require("./articleLikes.router"));
 
