@@ -17,7 +17,18 @@ exports.findAll = async function (page, limit, search, sort, sortBy) {
 
 exports.findOne = async function (id) {
     const query = `
-    SELECT * FROM "users" WHERE id=$1`;
+    SELECT 
+    "users"."id",
+    "users"."email",
+    "users"."password",
+    "users"."phoneNumber",
+    "role"."code" AS "role",
+    "users"."createdAt",
+    "users"."updatedAt"
+    FROM "users" 
+    JOIN "role" ON "role"."id" = "users"."roleId"
+    WHERE "users"."id"=$1
+    `;
 
     const values = [id];
     const { rows } = await db.query(query, values);
