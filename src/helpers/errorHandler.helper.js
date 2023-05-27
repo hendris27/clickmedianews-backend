@@ -19,6 +19,13 @@ const errorHandler = (res, err) => {
         });
     }
 
+    if (err === undefined) {
+        return res.status(404).json({
+            success: false,
+            message: "Error: User not found!",
+        });
+    }
+
     if (err?.message?.includes("user not found")) {
         return res.status(404).json({
             success: false,
@@ -44,6 +51,13 @@ const errorHandler = (res, err) => {
         return res.status(400).json({
             success: false,
             message: "Request forgot password failed",
+        });
+    }
+
+    if (err?.message?.includes("no_forgot_request")) {
+        return res.status(400).json({
+            success: false,
+            message: "Error: No request forgot password!",
         });
     }
 
