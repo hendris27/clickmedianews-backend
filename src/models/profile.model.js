@@ -30,6 +30,15 @@ exports.findOne = async (id) => {
     return rows[0];
 };
 
+exports.findOneByUserId = async (id) => {
+    const query = `
+    SELECT * FROM "${table}" WHERE userId=$1
+    `;
+    const values = [id];
+    const { rows } = await db.query(query, values);
+    return rows[0];
+};
+
 exports.findOneByUserId = async (userId) => {
     const query = `
     SELECT 

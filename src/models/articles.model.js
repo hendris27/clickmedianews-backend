@@ -64,8 +64,26 @@ exports.findAllArticle1 = async function (params) {
     ORDER BY ${params.sort} ${params.sortBy}
     LIMIT $1 OFFSET $2
     `;
+    console.log(query);
     const values = [params.limit, offset, `%${params.search}%`];
     const { rows } = await db.query(query, values);
+    return rows;
+};
+
+exports.findAllSavedArticle = async function (id) {
+    const query = `
+    SELECT 
+    "id", 
+    "picture", 
+    "title", 
+    "descriptions",
+    "createdAt",
+    "updatedAt"
+    FROM "articles" 
+    WHERE "createdBy"=$1
+    `;
+    const values = [id];
+    const {rows} = await db.query(query, values);
     return rows;
 };
 

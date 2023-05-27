@@ -5,7 +5,6 @@ const errorHandler = require("../helpers/errorHandler.helper");
 
 exports.createArticleCategories = async (request, response) => {
     try {
-        // const {id} = request.user;
         let {articleId, categoryId} = request.body;
         const createArticleCategories = await articleCategoriesModel.insert({articleId, categoryId});
         const findCategories = await categoriesModel.findOne(categoryId);

@@ -1,5 +1,5 @@
 const errorHandler = require("../../helpers/errorHandler.helper");
-const savedArticleModel = require("../../models/savedArticles.model");
+const savedArticleModel = require("../../models/savedPost.model");
 // const userModel = require("../../models/admin/users.model");
 
 exports.getSavedArticle = async (request, response) => {
