@@ -61,8 +61,8 @@ exports.findOneByUserId = async (userId) => {
 
 exports.insert = async (data) => {
     const query = `
-    INSERT INTO "${table}" ("picture", "username", "fullName", "profession", "about", "userId") 
-    VALUES ($1, $2, $3, $4, $5, $6)
+    INSERT INTO "${table}" ("picture", "username", "fullName", "profession", "about", "userId", "isAuthor") 
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
     RETURNING *;
     `;
     const values = [
@@ -72,6 +72,7 @@ exports.insert = async (data) => {
         data.profession,
         data.about,
         data.userId,
+        data.isAuthor
     ];
     const { rows } = await db.query(query, values);
     return rows[0];
@@ -82,10 +83,10 @@ exports.update = async (id, data) => {
     UPDATE "${table}" 
     SET 
     "picture"=COALESCE(NULLIF($2, ''), "picture"),
-    "username"=COALESCE(NULLIF($2, ''), "username"),
-    "fullName"=COALESCE(NULLIF($3, ''), "fullName"),
-    "profession"=COALESCE(NULLIF($6, ''), "profession"),
-    "about"=COALESCE(NULLIF($4, ''), "about"),
+    "username"=COALESCE(NULLIF($3, ''), "username"),
+    "fullName"=COALESCE(NULLIF($4, ''), "fullName"),
+    "profession"=COALESCE(NULLIF($5, ''), "profession"),
+    "about"=COALESCE(NULLIF($6, ''), "about"),
     WHERE "id"=$1
     RETURNING *;
     `;
@@ -107,10 +108,11 @@ exports.updateByUserId = async (userId, data) => {
     UPDATE "${table}" 
     SET 
     "picture"=COALESCE(NULLIF($2, ''), "picture"),
-    "username"=COALESCE(NULLIF($4, ''), "username"),
-    "fullName"=COALESCE(NULLIF($3, ''), "fullName"),
+    "username"=COALESCE(NULLIF($3, ''), "username"),
+    "fullName"=COALESCE(NULLIF($4, ''), "fullName"),
     "profession"=COALESCE(NULLIF($5, ''), "profession"),
-    "about"=COALESCE(NULLIF($6, ''), "about")
+    "about"=COALESCE(NULLIF($6, ''), "about"),
+    "isAuthor"=COALESCE(NULLIF($7::BOOLEAN, NULL), "isAuthor")
     WHERE "userId"=$1
     RETURNING *;
     `;
@@ -121,6 +123,7 @@ exports.updateByUserId = async (userId, data) => {
         data.fullName,
         data.profession,
         data.about,
+        data.isAuthor
     ];
     const { rows } = await db.query(query, values);
     return rows[0];
