@@ -48,8 +48,9 @@ exports.getOneArticleView = async (request, response) => {
     try {
         const {id} = request.params;
         const article = await articleModel.findOneArticleView(id);
+        console.log(article)
         if(!article) {
-            throw Error("article_not_found");
+            throw Error("article not found");
         }
         return response.json({
             success: true,
