@@ -23,13 +23,14 @@ exports.findAllArticle = async function(params){
     left("a"."title", 100) as "title",
     COUNT("al"."id") as "likeCount",
     "a"."descriptions",
-    "a"."categoryId",
+    "c"."name" as "category",
     "a"."createdAt",
     "a"."updatedAt"
     FROM "articles" "a"
     LEFT JOIN "articleLikes" AS "al" ON "al"."articleId" = "a"."id"
+    JOIN "categories" AS "c" ON "c"."id" = "a"."categoryId"
     WHERE "a"."title" LIKE $1
-    GROUP BY "a"."id"
+    GROUP BY "a"."id", "c"."name"
     ORDER BY ${params.sort} ${params.sortBy} LIMIT $2 OFFSET $3`;
 
     const values = [`%${params.search}%`, params.limit, offset];
@@ -124,8 +125,9 @@ exports.insert = async function (data){
     "title", 
     "descriptions",
     "categoryId",
-    "status")
-    VALUES ($1, $2, $3, $4, $5)
+    "status",
+    "createdBy")
+    VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *`;
 
     const values= [
@@ -134,6 +136,7 @@ exports.insert = async function (data){
         data.descriptions, 
         data.categoryId, 
         data.status,
+        data.createdBy
     ];
     const {rows} = await db.query(query, values);
     return rows[0];
@@ -181,3 +184,93 @@ exports.findOne = async function(id){
     const {rows} = await db.query(query, values);
     return rows[0];
 };
+
+exports.findAllArticleManage = async function(params, createdBy){
+    params.page = parseInt(params.page) || 1;
+    params.limit = parseInt(params.limit) || 5;
+    params.search = params.search || "";
+    params.sort = params.sort || "id";
+    params.sortBy = params.sortBy || "ASC";
+    const offset = (params.page -1)* params.limit;
+
+    const countQuery = `
+    SELECT COUNT(*)::INTEGER
+    FROM "articles"
+    WHERE "title" LIKE $1`;
+
+    const countvalues = [`%${params.search}%`];
+    const {rows: countRows} = await db.query(countQuery, countvalues);
+
+    const query= `
+    SELECT
+    "a"."id",
+    "a"."picture",
+    left("a"."title", 100) as "title",
+    COUNT("al"."id") as "likeCount",
+    "a"."descriptions",
+    "c"."name" as "category",
+    "a"."createdAt",
+    "a"."updatedAt"
+    FROM "articles" "a"
+    LEFT JOIN "articleLikes" AS "al" ON "al"."articleId" = "a"."id"
+    JOIN "categories" AS "c" ON "c"."id" = "a"."categoryId"
+    WHERE "a"."title" LIKE $2
+    AND "a"."createdBy"=$1
+    GROUP BY "a"."id", "c"."name"
+    ORDER BY ${params.sort} ${params.sortBy} LIMIT $3 OFFSET $4`;
+
+    const values = [createdBy,`%${params.search}%`, params.limit, offset];
+    const {rows} = await db.query(query, values);
+    return {rows, pageInfo:{
+        totalData: countRows[0].count,
+        page: params.page,
+        limit: params.limit,
+        totalPage: Math.ceil(countRows[0].count / params.limit)
+    }};
+};
+
+exports.findOneArticleManage = async function(params, createdBy, id){
+    params.page = parseInt(params.page) || 1;
+    params.limit = parseInt(params.limit) || 5;
+    params.search = params.search || "";
+    params.sort = params.sort || "id";
+    params.sortBy = params.sortBy || "ASC";
+    const offset = (params.page -1)* params.limit;
+
+    const countQuery = `
+    SELECT COUNT(*)::INTEGER
+    FROM "articles"
+    WHERE "title" LIKE $1`;
+
+    const countvalues = [`%${params.search}%`];
+    const {rows: countRows} = await db.query(countQuery, countvalues);
+
+    const query= `
+    SELECT
+    "a"."id",
+    "a"."picture",
+    left("a"."title", 100) as "title",
+    COUNT("al"."id") as "likeCount",
+    "a"."descriptions",
+    "c"."name" as "category",
+    "a"."createdAt",
+    "a"."updatedAt"
+    FROM "articles" "a"
+    LEFT JOIN "articleLikes" AS "al" ON "al"."articleId" = "a"."id"
+    JOIN "categories" AS "c" ON "c"."id" = "a"."categoryId"
+    WHERE "a"."title" LIKE $3
+    AND "a"."createdBy"=$2
+    AND "a"."id"=$1
+    GROUP BY "a"."id", "c"."name"
+    ORDER BY ${params.sort} ${params.sortBy} LIMIT $4 OFFSET $5`;
+
+    const values = [id, createdBy,`%${params.search}%`, params.limit, offset];
+    const {rows} = await db.query(query, values);
+    return {rows, pageInfo:{
+        totalData: countRows[0].count,
+        page: params.page,
+        limit: params.limit,
+        totalPage: Math.ceil(countRows[0].count / params.limit)
+    }};
+};
+
