@@ -122,12 +122,12 @@ exports.update = async function(id, data){
     const query = `
     UPDATE "articles" 
     SET 
-    "picture"= COALESCE(NULLIF($1,''), "picture"),
-    "title"= COALESCE(NULLIF($2, ''), "title"),
-    "descriptions"= COALESCE(NULLIF($3,''), "descriptions"),
-    "categoryId"= COALESCE(NULLIF($4::INTEGER, NULL), "categoryId"),
-    "status"= COALESCE(NULLIF($5::BOOLEAN, NULL), "status")
-    WHERE "userId"=$1
+    "picture"= COALESCE(NULLIF($2,''), "picture"),
+    "title"= COALESCE(NULLIF($3, ''), "title"),
+    "descriptions"= COALESCE(NULLIF($4,''), "descriptions"),
+    "categoryId"= COALESCE(NULLIF($5::INTEGER, NULL), "categoryId"),
+    "status"= COALESCE(NULLIF($6::BOOLEAN, NULL), "status")
+    WHERE "id"=$1
     RETURNING *
     `;
     const values = [id, data.picture, data.title, data.descriptions, data.categoryId, data.status];

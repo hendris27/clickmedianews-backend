@@ -41,6 +41,18 @@ const errorHandler = (res, err) =>{
         });
     }
 
+    if(err?.message?.includes("published failed")){
+        return res.status(400).json({
+            success: false,
+            message: "Published failed"
+        });
+    }
+    if(err?.message?.includes("Ignore article failed")){
+        return res.status(400).json({
+            success: false,
+            message: "Ignore article failed"
+        });
+    }
     if(err?.message?.includes("reset_failed")){
         return res.status(400).json({
             success: false,
