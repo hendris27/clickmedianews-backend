@@ -47,6 +47,7 @@ exports.findAllArticle1 = async function (params) {
     params.page = parseInt(params.page) || 1;
     params.limit = parseInt(params.limit) || 5;
     params.search = params.search || "";
+    params.createdBy = params.createdBy || "";
     params.sort = params.sort || "id";
     params.sortBy = params.sortBy || "ASC";
 
@@ -62,11 +63,12 @@ exports.findAllArticle1 = async function (params) {
     "createdAt",
     "updatedAt"
     FROM "articles"
-    WHERE "id"::TEXT LIKE $3
+    WHERE "id"::TEXT LIKE $3 AND
+    "createdBy"::TEXT LIKE $4
     ORDER BY ${params.sort} ${params.sortBy}
     LIMIT $1 OFFSET $2
     `;
-    const values = [params.limit, offset, `%${params.search}%`];
+    const values = [params.limit, offset, `%${params.search}%`, `%${params.createdBy}%`];
     const { rows } = await db.query(query, values);
     return rows;
 };
@@ -93,6 +95,24 @@ exports.findOne = async function (id) {
     SELECT * FROM "articles" WHERE id=$1
     `;
     const values = [id];
+    const {rows} = await db.query(query, values);
+    return rows[0];
+};
+
+exports.findOneSavedArticle = async function (id, createdBy) {
+    const query = `
+    SELECT
+        "id",
+        "picture",
+        "title",
+        "descriptions",
+        "createdAt",
+        "updatedAt"
+    FROM "articles"
+    WHERE "id" = $1 AND 
+    "createdBy" = $2
+    `;
+    const values = [id, createdBy];
     const {rows} = await db.query(query, values);
     return rows[0];
 };
