@@ -20,7 +20,8 @@ exports.findAllArticle = async function(params){
     SELECT
     "a"."id",
     "a"."picture",
-    "a"."title",
+    left("a"."title", 100) as "title",
+    COUNT("al"."id") as "likeCount",
     "a"."descriptions",
     "a"."categoryId",
     "a"."createdAt",

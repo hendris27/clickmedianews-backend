@@ -29,7 +29,7 @@ router.use("/profile", authMiddleweres, require("./profile.router"));
 router.use("/article-view", require("./articleView.router"));
 router.use("/write-article", authMiddleweres, require("./writeArticle.router"));
 router.use("/saved-article", authMiddleweres, require("./savedArticles.router"));
-router.use("/article-likes", require("./articleLikes.router"));
+router.use("/article-likes", authMiddleweres, require("./articleLikes.router"));
 
 router.use("*", (req, res) => {
     return res.status(404).json({

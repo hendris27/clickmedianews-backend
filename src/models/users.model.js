@@ -57,7 +57,7 @@ exports.findOneByEmail = async function (email) {
 
 exports.insert = async function (data) {
     const query = `
-    INSERT INTO "users" ("email", "password", "phoneNumber", "roleId", )
+    INSERT INTO "users" ("email", "password", "phoneNumber", "roleId")
     VALUES ($1, $2, $3, $4) RETURNING *
     `;
     const values = [data.email, data.password, data.phoneNumber, data.roleId];

@@ -33,7 +33,11 @@ exports.getOneArticleLike = async (req, res) => {
 
 exports.createArticleLike = async (req, res) => {
     try {
-        const data = { ...req.body };
+        const {id}= req.user;
+        const data = { 
+            ...req.body,
+            userId: id
+        };
         const articleLike = await articleLikeModel.insert(data);
         return res.json({
             success: true,
