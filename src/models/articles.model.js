@@ -65,7 +65,6 @@ exports.findAllArticle1 = async function (params) {
     ORDER BY ${params.sort} ${params.sortBy}
     LIMIT $1 OFFSET $2
     `;
-    console.log(query);
     const values = [params.limit, offset, `%${params.search}%`];
     const { rows } = await db.query(query, values);
     return rows;

@@ -21,31 +21,26 @@ exports.getSavePost = async function (request, response) {
     }
 };
 
-exports.getSavePost1 = async function (request, response) {
-    try {
-        const {id} = request.user;
-        const savePost = await savePosteModel.findAllSavedArticle(id);
-        console.log(savePost);
-        const findArticle = await articleModel.findAllSavedArticle(id);
-        console.log(findArticle);
-        return response.json({
-            success: true,
-            message: "savePost",
-            results: findArticle
-        });
-    }catch(err) {
-        return errorHandler(response, err);
-    }
-};
+// exports.getSavePost1 = async function (request, response) {
+//     try {
+//         const {id} = request.user;
+//         const savePost = await savePosteModel.findAllSavedArticle(id);
+//         console.log(savePost);
+//         const findArticle = await articleModel.findAllSavedArticle(id);
+//         console.log(findArticle);
+//         return response.json({
+//             success: true,
+//             message: "savePost",
+//             results: findArticle
+//         });
+//     }catch(err) {
+//         return errorHandler(response, err);
+//     }
+// };
 
 exports.getSavePost2 = async (request, response) => {
     try {
-        const savePost = await articleModel.findAllArticle1(
-            request.query.page,
-            request.query.limit,
-            request.query.search,
-            request.query.sort,
-            request.query.sortBy)
+        const savePost = await articleModel.findAllArticle1(request.query)
             ;
         return response.json({
             success: true,
@@ -87,7 +82,6 @@ exports.createSavePost = async (request, response) => {
         const {id} = request.user;
         let {articleId} = request.body;
         const createSavePost = await savePosteModel.insert({articleId, userId: id});
-        console.log(createSavePost, "1");
         // const findArticle = await articleModel.findAllArticle1(articleId);
         // console.log(findArticle, "2");
         // const findProfile = await profileModel.findOneByUserId(id);
