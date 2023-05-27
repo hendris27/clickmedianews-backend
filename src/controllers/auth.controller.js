@@ -30,18 +30,33 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
     try {
-        const { email, password, phoneNumber, roleId } = req.body;
+        const { email, password, roleId } = req.body;
         const hash = await argon.hash(password);
         const data = {
             ...req.body,
             password: hash,
         };
         const user = await userModel.insert(data);
+        if(roleId === "1"){
+            const profileData = {
+                email,
+                roleId,
+                userId: user.id,
+                isAuthor: true
+            };
+            await profileModel.insert(profileData);
+            const token = jwt.sign({ id: user.id }, APP_SECRET);
+            return res.json({
+                success: true,
+                message: "Register success!",
+                results: { token },
+            });
+        }
         const profileData = {
             email,
-            phoneNumber,
             roleId,
             userId: user.id,
+            isAuthor: false
         };
         await profileModel.insert(profileData);
         const token = jwt.sign({ id: user.id }, APP_SECRET);
