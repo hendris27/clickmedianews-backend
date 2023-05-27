@@ -1559,6 +1559,108 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "WAITING LISTS",
+					"item": [
+						{
+							"name": "GET ALL WAITING LISTS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/waiting-lists",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"waiting-lists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE WAITING LIST",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/waiting-lists",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"waiting-lists"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SAVED POSTS",
+					"item": [
+						{
+							"name": "GET ALL SAVED POSTS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/saved-post",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"saved-post"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE SAVED POST",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/saved-post",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"saved-post"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE SAVED POST",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/saved-post/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"saved-post",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
