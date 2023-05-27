@@ -6,9 +6,15 @@ const errorHandler = require("../helpers/errorHandler.helper");
 exports.createArticleCategories = async (request, response) => {
     try {
         let {articleId, categoryId} = request.body;
-        const createArticleCategories = await articleCategoriesModel.insert({articleId, categoryId});
-        const findCategories = await categoriesModel.findOne(categoryId);
         const findArticle = await articleModel.findOne(articleId);
+        const findCategories = await categoriesModel.findOne(categoryId);
+        if(!findArticle) {
+            throw Error("article not found");
+        }
+        if(!findCategories) {
+            throw Error("category_not_found");
+        }
+        const createArticleCategories = await articleCategoriesModel.insert({articleId, categoryId});
         const result = {
             picture: findArticle.picture,
             category: findCategories.name
