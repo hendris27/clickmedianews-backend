@@ -1,6 +1,6 @@
 const db = require("../helpers/db.helper");
 
-const table = "savePost";
+const table = "savedPost";
 
 exports.findAll = async function (params, createdBy) {
     params.page = parseInt(params.page) || 1;
@@ -43,6 +43,15 @@ exports.findAll = async function (params, createdBy) {
             totalPage: Math.ceil(countRows[0].count / params.limit),
         },
     };
+};
+
+exports.findAllSavedArticle = async function (id) {
+    const query = `
+    SELECT * FROM "${table}" WHERE "userId"=$1
+    `;
+    const values = [id];
+    const {rows} = await db.query(query, values);
+    return rows;
 };
 
 exports.insert = async function (data) {
