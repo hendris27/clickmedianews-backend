@@ -97,6 +97,27 @@ exports.findOne = async function (id) {
     return rows[0];
 };
 
+exports.findOneArticleView = async function (id) {
+    const query = `
+    SELECT
+        "a"."id",
+        "a"."picture" as "articlePicture",
+        "a"."title",
+        "a"."descriptions",
+        "p"."picture" as "profilePicture",
+        "p"."fullName",
+        "a"."createdAt",
+        "a"."updatedAt"
+    FROM "articleProfile" "ap"
+    JOIN "articles" "a" ON "a"."id" = "ap"."articleId"
+    JOIN "profile" "p" ON "p"."id" = "ap"."profileId"
+    WHERE "a"."id"=$1
+    `;
+    const values = [id];
+    const {rows} = await db.query(query, values);
+    return rows[0];
+};
+
 exports.insert = async function (data){
     const query=`
     INSERT INTO "articles" (

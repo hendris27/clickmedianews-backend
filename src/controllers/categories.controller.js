@@ -8,9 +8,7 @@ exports.createArticleCategories = async (request, response) => {
         let {articleId, categoryId} = request.body;
         const createArticleCategories = await articleCategoriesModel.insert({articleId, categoryId});
         const findCategories = await categoriesModel.findOne(categoryId);
-        console.log(findCategories)
         const findArticle = await articleModel.findOne(articleId);
-        console.log(findArticle)
         const result = {
             picture: findArticle.picture,
             category: findCategories.name

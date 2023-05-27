@@ -1,5 +1,5 @@
 const commentModel = require("../models/articleComments.model");
-// const articleModel = require("../models/articles.model");
+const articleModel = require("../models/articles.model");
 const errorHandler = require("../helpers/errorHandler.helper");
 
 
@@ -38,6 +38,23 @@ exports.createComment = async (request, response) => {
             success: true,
             message: "Create comment successfully",
             results: insertComment
+        });
+    }catch(err) {
+        return errorHandler(response, err);
+    }
+};
+
+exports.getOneArticleView = async (request, response) => {
+    try {
+        const {id} = request.params;
+        const article = await articleModel.findOneArticleView(id);
+        if(!article) {
+            throw Error("article_not_found");
+        }
+        return response.json({
+            success: true,
+            message: "article view",
+            results: article
         });
     }catch(err) {
         return errorHandler(response, err);
