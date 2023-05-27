@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e7e8c80b-7f50-44f0-b566-a650d9c26d8b",
+		"_postman_id": "182bb8c3-67c0-4495-b709-97713b43685f",
 		"name": "BACKEND CLICK MEDIA NEWS APP",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25632088"
 	},
 	"item": [
 		{
@@ -1190,12 +1191,12 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "sarah@mail.com",
+									"value": "daus@mail.com",
 									"type": "default"
 								},
 								{
 									"key": "password",
-									"value": "@Sarah1",
+									"value": "123456",
 									"type": "default"
 								}
 							]
@@ -1223,12 +1224,12 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "sarah@mail.com",
+									"value": "daus@mail.com",
 									"type": "default"
 								},
 								{
 									"key": "password",
-									"value": "@Sarah1",
+									"value": "123456",
 									"type": "default"
 								},
 								{
@@ -1238,7 +1239,7 @@
 								},
 								{
 									"key": "roleId",
-									"value": "1",
+									"value": "2",
 									"type": "default"
 								}
 							]
@@ -1266,7 +1267,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "",
+									"value": "daus1mail.com",
 									"type": "default"
 								}
 							]
@@ -1367,26 +1368,26 @@
 												{
 													"key": "picture",
 													"type": "file",
-													"src": []
+													"src": "/C:/Users/ahmad/Downloads/qqq.png"
 												},
 												{
 													"key": "title",
-													"value": "",
+													"value": "tornado",
 													"type": "default"
 												},
 												{
 													"key": "descriptions",
-													"value": "",
+													"value": "tornado",
 													"type": "default"
 												},
 												{
 													"key": "categoryId",
-													"value": "",
+													"value": "3",
 													"type": "default"
 												},
 												{
 													"key": "status",
-													"value": "",
+													"value": "false",
 													"type": "default"
 												}
 											]
@@ -1488,6 +1489,38 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "CREATE CATEGORIES",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "articleId",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "categoryId",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/categories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -1553,6 +1586,67 @@
 									],
 									"path": [
 										"profile"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ARTICLE VIEW",
+					"item": [
+						{
+							"name": "CREATE COMMENT ARTICLE VIEW",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "articleId",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "commentText",
+											"value": "tes coment tes coment",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/article-view",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"article-view"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL ARTICLE VIEW",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/article-view/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"article-view",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "21"
+										}
 									]
 								}
 							},
