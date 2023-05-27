@@ -24,12 +24,33 @@ exports.getSavePost = async function (request, response) {
 exports.getSavePost1 = async function (request, response) {
     try {
         const {id} = request.user;
-        // const savePost = await savePosteModel.findAllSavedArticle(id);
+        const savePost = await savePosteModel.findAllSavedArticle(id);
+        console.log(savePost);
         const findArticle = await articleModel.findAllSavedArticle(id);
+        console.log(findArticle);
         return response.json({
             success: true,
             message: "savePost",
             results: findArticle
+        });
+    }catch(err) {
+        return errorHandler(response, err);
+    }
+};
+
+exports.getSavePost2 = async (request, response) => {
+    try {
+        const savePost = await articleModel.findAllArticle1(
+            request.query.page,
+            request.query.limit,
+            request.query.search,
+            request.query.sort,
+            request.query.sortBy)
+            ;
+        return response.json({
+            success: true,
+            message: "save article",
+            results: savePost
         });
     }catch(err) {
         return errorHandler(response, err);
@@ -61,29 +82,29 @@ exports.deleteSavePost = async function (request, response) {
     }
 };
 
-// exports.createSavePost = async (request, response) => {
-//     try {
-//         const {id} = request.user;
-//         let {articleId} = request.body;
-//         const createSavePost = await savePosteModel.insert({articleId, userId: id});
-//         console.log(createSavePost, "1");
-//         const findArticle = await articleModel.findAllArticle1(articleId);
-//         console.log(findArticle, "2");
-//         const findProfile = await profileModel.findOneByUserId(id);
-//         console.log(findProfile, "3");
+exports.createSavePost = async (request, response) => {
+    try {
+        const {id} = request.user;
+        let {articleId} = request.body;
+        const createSavePost = await savePosteModel.insert({articleId, userId: id});
+        console.log(createSavePost, "1");
+        // const findArticle = await articleModel.findAllArticle1(articleId);
+        // console.log(findArticle, "2");
+        // const findProfile = await profileModel.findOneByUserId(id);
+        // console.log(findProfile, "3");
 
-//         const result = {
-//             findArticle,
-//             findProfile
-//         };
+        // const result = {
+        //     findArticle,
+        //     findProfile
+        // };
 
-//         createSavePost;
-//         return response.json({
-//             success: true,
-//             message: "Create save post successfully",
-//             result
-//         });
-//     }catch(err) {
-//         errorHandler(response, err);
-//     }
-// };
+        createSavePost;
+        return response.json({
+            success: true,
+            message: "Create save post successfully",
+            result: createSavePost
+        });
+    }catch(err) {
+        errorHandler(response, err);
+    }
+};
