@@ -76,12 +76,33 @@ exports.destroy = async function (id, userId) {
     return rows[0];
 };
 
+exports.destroy1 = async function (id) {
+    const query = `
+        DELETE FROM "${table}"
+        WHERE id = $1::TEXT
+        RETURNING *
+    `;
+    const values = [id];
+    const { rows } = await db.query(query, values);
+    return rows[0];
+};
+
 exports.findOne = async function (id, createdBy) {
     const query = `
     SELECT * FROM "${table}" 
     WHERE id=$1 AND "createdBy"=$2`;
 
     const values = [id, createdBy];
+    const { rows } = await db.query(query, values);
+    return rows[0];
+};
+
+exports.findOne1 = async function (id) {
+    const query = `
+        SELECT * FROM "${table}"
+        WHERE id::TEXT = $1
+    `;
+    const values = [id];
     const { rows } = await db.query(query, values);
     return rows[0];
 };
