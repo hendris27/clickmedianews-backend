@@ -1500,12 +1500,12 @@
 									"urlencoded": [
 										{
 											"key": "articleId",
-											"value": "1",
+											"value": "3",
 											"type": "text"
 										},
 										{
 											"key": "categoryId",
-											"value": "1",
+											"value": "4",
 											"type": "text"
 										}
 									]
@@ -1646,6 +1646,83 @@
 										{
 											"key": "id",
 											"value": "21"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SAVED ARTICLE",
+					"item": [
+						{
+							"name": "GET ALL SAVED ARTICLE",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/saved-article",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"saved-article"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ADD SAVED ARTICLE",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "articleId",
+											"value": "17",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/saved-article",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"saved-article"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE SAVED ARTICLE",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/saved-article/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"saved-article",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
 										}
 									]
 								}
