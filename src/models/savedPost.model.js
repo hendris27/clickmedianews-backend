@@ -47,11 +47,13 @@ exports.findAll = async function (params, createdBy) {
 
 exports.findAllSavedArticle = async function (userId) {
     const query = `
-    SELECT * FROM "${table}" WHERE "userId"=$1
+    SELECT "articleId" FROM "${table}" WHERE "userId"=$1
     `;
     const values = [userId];
+
     const { rows } = await db.query(query, values);
     return rows;
+
 };
 
 exports.insert = async function (data) {
@@ -64,45 +66,24 @@ exports.insert = async function (data) {
     return rows[0];
 };
 
-exports.destroy = async function (id, userId) {
+exports.destroy = async function (articleId, userId) {
     const query = `
     DELETE FROM "${table}"
-     WHERE "id"=$1
-     AND "userId"=$2 
-     RETURNING *`;
+    WHERE "articleId"=$1
+    AND "userId"=$2 
+    RETURNING *`;
 
-    const values = [id, userId];
+    const values = [articleId, userId];
     const { rows } = await db.query(query, values);
     return rows[0];
 };
 
-exports.destroy1 = async function (id) {
-    const query = `
-        DELETE FROM "${table}"
-        WHERE id = $1::TEXT
-        RETURNING *
-    `;
-    const values = [id];
-    const { rows } = await db.query(query, values);
-    return rows[0];
-};
-
-exports.findOne = async function (id, createdBy) {
+exports.findOne = async function (articleId, userId) {
     const query = `
     SELECT * FROM "${table}" 
-    WHERE id=$1 AND "createdBy"=$2`;
+    WHERE articleId=$1 AND "userId"=$2`;
 
-    const values = [id, createdBy];
-    const { rows } = await db.query(query, values);
-    return rows[0];
-};
-
-exports.findOne1 = async function (id) {
-    const query = `
-        SELECT * FROM "${table}"
-        WHERE id::TEXT = $1
-    `;
-    const values = [id];
+    const values = [articleId, userId];
     const { rows } = await db.query(query, values);
     return rows[0];
 };

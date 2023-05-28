@@ -74,19 +74,20 @@ exports.findAllArticle1 = async function (params) {
     return rows;
 };
 
-exports.findAllSavedArticle = async function (id) {
+exports.findAllSavedArticle = async function (userId) {
     const query = `
     SELECT 
-    "id", 
-    "picture", 
-    "title", 
-    "descriptions",
-    "createdAt",
-    "updatedAt"
-    FROM "articles" 
-    WHERE "createdBy"=$1
+    "a"."id", 
+    "a"."picture", 
+    "a"."title", 
+    "a"."descriptions",
+    "a"."createdAt",
+    "a"."updatedAt"
+    FROM "articles" "a"
+    JOIN "savedPost" "sp" ON "sp"."articleId" = "a"."id"
+    WHERE "sp"."userId"=$1
     `;
-    const values = [id];
+    const values = [userId];
     const {rows} = await db.query(query, values);
     return rows;
 };

@@ -1452,7 +1452,7 @@
 					"name": "CATEGORIES",
 					"item": [
 						{
-							"name": "GET ALL CATEGORIES",
+							"name": "GET ALL CATEGORIES ARTICLE",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -1517,6 +1517,48 @@
 									],
 									"path": [
 										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE CATEGORIES",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/categories/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"categories",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET ALL CATEGORY",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/categories/all",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"categories",
+										"all"
 									]
 								}
 							},
