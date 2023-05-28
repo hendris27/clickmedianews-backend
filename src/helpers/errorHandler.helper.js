@@ -12,6 +12,13 @@ const errorHandler = (res, err) => {
         });
     }
 
+    if (err?.message?.includes("'role' of 'request.user' as it is undefined")) {
+        return res.status(400).json({
+            success: false,
+            message: "only admin can delete",
+        });
+    }
+
     if (err?.message?.includes("wrong_credentials")) {
         return res.status(400).json({
             success: false,
