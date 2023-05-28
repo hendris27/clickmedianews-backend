@@ -5,6 +5,7 @@ const errorHandler = (res, err) => {
             message: "Error: Email already exists!",
         });
     }
+
     if (err?.message?.includes("unauthorized")) {
         return res.status(400).json({
             success: false,
@@ -23,6 +24,41 @@ const errorHandler = (res, err) => {
         return res.status(400).json({
             success: false,
             message: "Email or password invalid",
+        });
+    }
+
+    if (err?.message?.includes("duplicate key")) {
+        return res.status(409).json({
+            success: false,
+            message: "Error: Email already exists!",
+        });
+    }
+
+    if (err?.message?.includes("jwt malformed")) {
+        return res.status(401).json({
+            success: false,
+            message: "Error: Token is not valid!",
+        });
+    }
+
+    if (err?.message?.includes("invalid signature")) {
+        return res.status(401).json({
+            success: false,
+            message: "Error: Token signature is not valid!",
+        });
+    }
+
+    if (err?.message?.includes("too large")) {
+        return res.status(400).json({
+            success: false,
+            message: "Error: File is too large!",
+        });
+    }
+
+    if (err?.message?.includes("do not have access")) {
+        return res.status(403).json({
+            success: false,
+            message: "Error: Users do not have access to this resource!",
         });
     }
 
@@ -74,24 +110,28 @@ const errorHandler = (res, err) => {
             message: "Published failed",
         });
     }
+
     if (err?.message?.includes("Ignore article failed")) {
         return res.status(400).json({
             success: false,
             message: "Ignore article failed",
         });
     }
+
     if (err?.message?.includes("reset_failed")) {
         return res.status(400).json({
             success: false,
             message: "Reset password failed",
         });
     }
+
     if (err?.message?.includes("wrong_password")) {
         return res.status(401).json({
             success: false,
             message: "Error: Wrong password!",
         });
     }
+
     if (err?.message?.includes("password_unmatch")) {
         return res.status(400).json({
             success: false,

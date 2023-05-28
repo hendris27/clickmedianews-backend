@@ -32,15 +32,6 @@ exports.getUser = async (req, res) => {
 
 exports.createUser = async (req, res) => {
     try {
-        // if (!req.body.fullName) {
-        //   throw Error("name_empty_field");
-        // }
-        // if (req.body.email == "" || req.body.password == "") {
-        //   throw Error("empty_field");
-        // }
-        // if (!req.body.email.includes("@")) {
-        //   throw Error("email_format");
-        // }
         const hash = await argon.hash(req.body.password);
         const data = {
             ...req.body,
@@ -59,15 +50,6 @@ exports.createUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
     try {
-        // if (!req.body.fullName) {
-        //   throw Error("name_empty_field");
-        // }
-        // if (req.body.email == "" || req.body.password == "") {
-        //   throw Error("empty_field");
-        // }
-        // if (!req.body.email.includes("@")) {
-        //   throw Error("email_format");
-        // }
         const hash = await argon.hash(req.body.password);
         const data = {
             ...req.body,
