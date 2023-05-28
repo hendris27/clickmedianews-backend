@@ -100,13 +100,6 @@ exports.deleteSavePost = async (request, response) => {
         const articleId = request.params.id;
         const savePost = await savePosteModel.findOne(articleId, id);
 
-        const data = request.params.id;
-        const { id } = request.user;
-        const savePost = await savePosteModel.findOne1({
-            id: data,
-            userId: id,
-        });
-
         console.log(savePost);
         if (!savePost) {
             return response.status(404).json({
