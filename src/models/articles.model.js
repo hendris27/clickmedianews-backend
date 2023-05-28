@@ -24,6 +24,7 @@ exports.findAllArticle = async function(params){
     COUNT("al"."id") as "likeCount",
     "a"."descriptions",
     "c"."name" as "category",
+    "a"."status",
     "a"."createdAt",
     "a"."updatedAt"
     FROM "articles" "a"
