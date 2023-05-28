@@ -50,8 +50,10 @@ exports.findAllSavedArticle = async function (userId) {
     SELECT "articleId" FROM "${table}" WHERE "userId"=$1
     `;
     const values = [userId];
-    const {rows} = await db.query(query,values);
-    return rows[0];
+
+    const { rows } = await db.query(query, values);
+    return rows;
+
 };
 
 exports.insert = async function (data) {

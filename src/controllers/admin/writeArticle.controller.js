@@ -9,7 +9,7 @@ exports.createArticle = async (request, response) =>{
         const data = {
             ...request.body,
             createdBy: id,
-            status: false
+            status: true
         };
         console.log(data);
         if (request.file) {

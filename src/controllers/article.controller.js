@@ -3,7 +3,9 @@ const errorHandler = require("../helpers/errorHandler.helper");
 
 exports.getArticle = async function (request, response) {
     try {
-        const { rows: results, pageInfo } = await articleModel.findAllArticle(request.query);
+        const { rows: results, pageInfo } = await articleModel.findAllArticle(
+            request.query
+        );
         return response.json({
             success: true,
             message: "Get save post success",
@@ -17,11 +19,12 @@ exports.getArticle = async function (request, response) {
 
 exports.getArticleManage = async function (request, response) {
     try {
-        const {id} = request.user;
-        if(!id){
+        const { id } = request.user;
+        if (!id) {
             throw Error("article not found");
         }
-        const { rows: results, pageInfo } = await articleModel.findAllArticleManage(request.query, id);
+        const { rows: results, pageInfo } =
+            await articleModel.findAllArticleManage(request.query, id);
         return response.json({
             success: true,
             message: "Get save post success",
@@ -35,11 +38,16 @@ exports.getArticleManage = async function (request, response) {
 
 exports.getOneArticleManage = async function (request, response) {
     try {
-        const {id} = request.user;
-        if(!id){
+        const { id } = request.user;
+        if (!id) {
             throw Error("article not found");
         }
-        const { rows: results, pageInfo } = await articleModel.findOneArticleManage(request.query, id, request.params.id);
+        const { rows: results, pageInfo } =
+            await articleModel.findOneArticleManage(
+                request.query,
+                id,
+                request.params.id
+            );
         return response.json({
             success: true,
             message: "Get save post success",
@@ -51,22 +59,19 @@ exports.getOneArticleManage = async function (request, response) {
     }
 };
 
-exports.deleteArticle = async function(request, response){
+exports.deleteArticle = async function (request, response) {
     try {
-        const data = await articleModel.findOne(request.params.id);
-        if(!data){
+        const article = await articleModel.findOne(request.params.id);
+        if (!article) {
             throw Error("article not found");
         }
-        const dltArticle = await articleModel.destroy(request.params.id);
+        const data = await articleModel.destroy(request.params.id);
         return response.json({
             success: true,
             message: "Delete article success",
-            results: dltArticle
+            results: data,
         });
     } catch (error) {
-        return errorHandler(response,error);
+        return errorHandler(response, error);
     }
 };
-
-
-
