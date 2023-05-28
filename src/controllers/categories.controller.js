@@ -44,3 +44,33 @@ exports.getCategory = async (request, response) => {
         return errorHandler(response, err);
     }
 };
+
+exports.deleteCategories = async (request, response) => {
+    try {
+        console.log("tes");
+        const categoryId = request.params.id;
+        console.log(categoryId);
+        const {role} = request.user;
+        console.log(role);
+        if (role !== "Super Admin") {
+            return response.status(401).json({
+                success: false,
+                message: "Unauthorized: Only admin can delete categories",
+            });
+        }
+        const deletedCategory = await articleCategoriesModel.destroy(categoryId);
+        if (deletedCategory) {
+            return response.json({
+                success: true,
+                message: "Delete category successfully",
+                result: deletedCategory,
+            });
+        }
+        return response.status(404).json({
+            success: false,
+            message: "Error: Category not found",
+        });
+    } catch (err) {
+        errorHandler(response, err);
+    }
+};

@@ -9,3 +9,12 @@ exports.insert = async function (data) {
     const {rows} = await db.query(query, values);
     return rows[0];
 };
+
+exports.destroy = async function (id) {
+    const query = `
+    DELETE FROM "articleCategories" WHERE "id"=$1 RETURNING *
+    `;
+    const values = [id];
+    const {rows} = await db.query(query, values);
+    return rows[0];
+};
