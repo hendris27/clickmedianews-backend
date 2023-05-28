@@ -45,6 +45,20 @@ exports.getCategory = async (request, response) => {
     }
 };
 
+exports.getAllCategory = async (request, response) => {
+    try {
+        const category = await categoriesModel.findAll1(request.params);
+
+        return response.json({
+            success: true,
+            message: "category",
+            results: category
+        });
+    }catch(err) {
+        return errorHandler(response, err);
+    }
+};
+
 exports.deleteCategories = async (request, response) => {
     try {
         console.log("tes");
