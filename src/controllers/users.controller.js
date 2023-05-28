@@ -4,6 +4,10 @@ const errorHandler = require("../helpers/errorHandler.helper");
 exports.getUser = async (req, res) => {
     try {
         const { id } = req.user;
+        // const { role } = req.user;
+        // if (role !== "superadmin") {
+        //     throw Error("do not have access");
+        // }
         const user = await usersModel.findOne(id);
         return res.json({
             success: true,
