@@ -73,7 +73,7 @@ exports.findAllArticle1 = async function (params) {
     return rows;
 };
 
-exports.findAllSavedArticle = async function (id) {
+exports.findAllSavedArticle = async function (userId, articleId) {
     const query = `
     SELECT 
     "id", 
@@ -83,9 +83,10 @@ exports.findAllSavedArticle = async function (id) {
     "createdAt",
     "updatedAt"
     FROM "articles" 
-    WHERE "createdBy"=$1
+    WHERE "createdBy"=$1 AND
+    "id"=$2
     `;
-    const values = [id];
+    const values = [userId, articleId];
     const {rows} = await db.query(query, values);
     return rows;
 };

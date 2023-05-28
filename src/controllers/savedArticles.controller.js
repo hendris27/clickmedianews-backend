@@ -23,11 +23,14 @@ exports.getSavePost = async function (request, response) {
 
 exports.getALLSavePost = async function (request, response) {
     try {
-        const savePost = await savePosteModel.findAllSavedArticle();
+        const {id} = request.user;
+        const savePost = await savePosteModel.findAllSavedArticle(id);
+        console.log(savePost)
+        const findArticle = await articleModel.findAllSavedArticle(id, savePost.articleId);
         return response.json({
             success: true,
             message: "savePost",
-            results: savePost
+            results: findArticle
         });
     }catch(err) {
         return errorHandler(response, err);
@@ -36,8 +39,8 @@ exports.getALLSavePost = async function (request, response) {
 
 exports.getSavePosts = async (request, response) => {
     try {
-        const {id} = request.user
-        const {articleId} = request.body
+        const {id} = request.user;
+        const {articleId} = request.body;
         const savePost = await savePosteModel.findOne(articleId, id);
         if(savePost) {
             return response.json({

@@ -45,12 +45,13 @@ exports.findAll = async function (params, createdBy) {
     };
 };
 
-exports.findAllSavedArticle = async function () {
+exports.findAllSavedArticle = async function (userId) {
     const query = `
-    SELECT * FROM "${table}"
+    SELECT "articleId" FROM "${table}" WHERE "userId"=$1
     `;
-    const {rows} = await db.query(query);
-    return rows;
+    const values = [userId];
+    const {rows} = await db.query(query,values);
+    return rows[0];
 };
 
 exports.insert = async function (data) {
