@@ -3,6 +3,20 @@ const articleModel = require("../models/articles.model");
 // const profileModel = require("../models/profile.model");
 const errorHandler = require("../helpers/errorHandler.helper");
 
+exports.getAllSavedPost = async (req, res) => {
+    try {
+        const data = { ...req.query };
+        const savedPost = await savePosteModel.findAllSavedArticle(data);
+        return res.json({
+            success: true,
+            message: "List of all saved article",
+            results: savedPost,
+        });
+    } catch (err) {
+        return errorHandler(res, err);
+    }
+};
+
 exports.getSavePost = async function (request, response) {
     try {
         const { id } = request.user;
@@ -40,14 +54,13 @@ exports.getSavePost = async function (request, response) {
 
 exports.getSavePost2 = async (request, response) => {
     try {
-        const savePost = await articleModel.findAllArticle1(request.query)
-            ;
+        const savePost = await articleModel.findAllArticle1(request.query);
         return response.json({
             success: true,
             message: "save article",
-            results: savePost
+            results: savePost,
         });
-    }catch(err) {
+    } catch (err) {
         return errorHandler(response, err);
     }
 };
@@ -80,8 +93,11 @@ exports.getSavePost2 = async (request, response) => {
 exports.deleteSavePost = async (request, response) => {
     try {
         const data = request.params.id;
-        const {id} = request.user;
-        const savePost = await savePosteModel.findOne1({ id: data, userId: id });
+        const { id } = request.user;
+        const savePost = await savePosteModel.findOne1({
+            id: data,
+            userId: id,
+        });
         console.log(savePost);
         if (!savePost) {
             return response.status(404).json({
@@ -100,25 +116,30 @@ exports.deleteSavePost = async (request, response) => {
     }
 };
 
-
 exports.createSavePost = async (request, response) => {
     try {
-        const {id} = request.user;
-        let {articleId} = request.body;
+        const { id } = request.user;
+        let { articleId } = request.body;
         const findArticle = await articleModel.findOne(articleId);
-        if(!findArticle) {
+        if (!findArticle) {
             throw Error("article_not_found");
         }
-        const createSavePost = await savePosteModel.insert({articleId, userId: id});
-        const findSavePostUser = await articleModel.findOneSavedArticle(articleId, id);
+        const createSavePost = await savePosteModel.insert({
+            articleId,
+            userId: id,
+        });
+        const findSavePostUser = await articleModel.findOneSavedArticle(
+            articleId,
+            id
+        );
 
         createSavePost;
         return response.json({
             success: true,
             message: "Create save post successfully",
-            result: findSavePostUser
+            result: findSavePostUser,
         });
-    }catch(err) {
+    } catch (err) {
         errorHandler(response, err);
     }
 };
