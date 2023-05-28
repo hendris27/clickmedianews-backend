@@ -24,6 +24,7 @@ router.use("/admin/saved-article", authMiddleweres, require("./admin/savedArticl
 router.use("/admin/search-result", require("./admin/searchResult.router"));
 
 router.use("/articles", require("./articles.router"));
+router.use("/users", require("./users.router"));
 router.use("/categories", require("./categories.router"));
 router.use("/profile", authMiddleweres, require("./profile.router"));
 router.use("/article-view", authMiddleweres, require("./articleView.router"));
