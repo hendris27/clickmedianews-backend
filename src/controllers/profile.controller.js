@@ -39,7 +39,7 @@ exports.update = async(req, res)=>{
         }
 
         const update = {
-            ...data,
+            ...profileUpdate,
             email: userData?.email,
         };
 
