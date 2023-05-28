@@ -34,7 +34,6 @@ exports.createArticleCategories = async (request, response) => {
 exports.getCategory = async (request, response) => {
     try {
         const category = await categoriesModel.findAllCategories(request.params);
-
         return response.json({
             success: true,
             message: "category",
