@@ -24,7 +24,8 @@ exports.updateArticle = async function (request, response) {
         }
         if (!article.status) {
             const data = {
-                ...request.body
+                ...request.body,
+                status: true
             };
             if (request.file) {
                 data.picture = request.file.path;
