@@ -73,10 +73,11 @@ exports.deleteArticle = async function(request, response){
         if(!data){
             throw Error("article not found");
         }
+        const deleteData = await articleModel.destroy(request.params.id);
         return response.json({
             success: true,
             message: "Delete article success",
-            results: data
+            results: deleteData
         });
     } catch (error) {
         return errorHandler(response,error);
