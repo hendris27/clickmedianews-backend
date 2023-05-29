@@ -80,7 +80,7 @@ exports.findAllSavedArticle = async function (userId) {
     "a"."id", 
     "a"."picture", 
     "a"."title", 
-    "a"."descriptions",
+    left("a"."descriptions", 100) as "descriptions",
     "a"."createdAt",
     "a"."updatedAt"
     FROM "articles" "a"

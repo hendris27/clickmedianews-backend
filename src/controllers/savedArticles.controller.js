@@ -95,23 +95,13 @@ exports.getSavePosts = async (request, response) => {
 
 exports.deleteSavePost = async (request, response) => {
     try {
-
         const {id} = request.user;
         const articleId = request.params.id;
-        const savePost = await savePosteModel.findOne(articleId, id);
-
-        console.log(savePost);
-        if (!savePost) {
-            return response.status(404).json({
-                success: false,
-                message: "Error: save post not found or unauthorized",
-            });
-        }
-        const deletedSavePost = await savePosteModel.destroy(articleId, id);
+        const savePost = await savePosteModel.destroy(articleId, id);
         return response.json({
             success: true,
             message: "Delete save post successfully",
-            result: deletedSavePost,
+            result: savePost,
         });
     } catch (err) {
         errorHandler(response, err);
@@ -130,16 +120,11 @@ exports.createSavePost = async (request, response) => {
             articleId,
             userId: id,
         });
-        const findSavePostUser = await articleModel.findOneSavedArticle(
-            articleId,
-            id
-        );
-
         createSavePost;
         return response.json({
             success: true,
             message: "Create save post successfully",
-            result: findSavePostUser,
+            result: createSavePost,
         });
     } catch (err) {
         errorHandler(response, err);
