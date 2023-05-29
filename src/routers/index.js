@@ -17,7 +17,7 @@ router.use(
     require("./admin/articleComments.router")
 );
 router.use("/admin/category", require("./admin/categories.router"));
-router.use("/admin/users", require("./admin/users.router"));
+router.use("/admin/users", authMiddleweres, require("./admin/users.router"));
 router.use(
     "/admin/write-article",
     authMiddleweres,
@@ -36,7 +36,6 @@ router.use(
 router.use("/admin/search-result", require("./admin/searchResult.router"));
 
 router.use("/articles", require("./articles.router"));
-router.use("/users", require("./users.router"));
 router.use("/categories", require("./categories.router"));
 router.use("/profile", authMiddleweres, require("./profile.router"));
 router.use("/article-view", authMiddleweres, require("./articleView.router"));
