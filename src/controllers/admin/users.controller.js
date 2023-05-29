@@ -19,7 +19,7 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getUser = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.user;
         // const { role } = req.user;
         // if (role !== "superadmin") {
         //     throw Error("do not have access");
