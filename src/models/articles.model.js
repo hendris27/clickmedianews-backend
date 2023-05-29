@@ -3,6 +3,7 @@ const db = require("../helpers/db.helper");
 exports.findAllArticle = async function(params){
     params.page = parseInt(params.page) || 1;
     params.limit = parseInt(params.limit) || 5;
+    params.category = params.category || "";
     params.search = params.search || "";
     params.sort = params.sort || "id";
     params.sortBy = params.sortBy || "ASC";
@@ -22,7 +23,7 @@ exports.findAllArticle = async function(params){
     "a"."picture",
     left("a"."title", 100) as "title",
     COUNT("al"."id") as "likeCount",
-    "a"."descriptions",
+    left("a"."descriptions", 50) as "descriptions",
     "c"."name" as "category",
     "a"."status",
     "a"."createdAt",
@@ -31,10 +32,11 @@ exports.findAllArticle = async function(params){
     LEFT JOIN "articleLikes" AS "al" ON "al"."articleId" = "a"."id"
     JOIN "categories" AS "c" ON "c"."id" = "a"."categoryId"
     WHERE "a"."title" LIKE $1
+    AND "c"."name" LIKE $2
     GROUP BY "a"."id", "c"."name"
-    ORDER BY ${params.sort} ${params.sortBy} LIMIT $2 OFFSET $3`;
+    ORDER BY ${params.sort} ${params.sortBy} LIMIT $3 OFFSET $4`;
 
-    const values = [`%${params.search}%`, params.limit, offset];
+    const values = [`%${params.search}%`, `%${params.category}%`, params.limit, offset];
     const {rows} = await db.query(query, values);
     return {rows, pageInfo:{
         totalData: countRows[0].count,
@@ -122,18 +124,21 @@ exports.findOneSavedArticle = async function (id, createdBy) {
 exports.findOneArticleView = async function (id) {
     const query = `
     SELECT
-        "a"."id",
-        "a"."picture" as "articlePicture",
-        "a"."title",
-        "a"."descriptions",
-        "p"."picture" as "profilePicture",
-        "p"."fullName",
-        "a"."createdAt",
-        "a"."updatedAt"
-    FROM "articleProfile" "ap"
-    JOIN "articles" "a" ON "a"."id" = "ap"."articleId"
-    JOIN "profile" "p" ON "p"."id" = "ap"."profileId"
+    "a"."id",
+    "a"."picture" as "articlePicture",
+    "a"."title",
+    COUNT("al"."id") as "likeCount",
+    "a"."descriptions",
+    "p"."isAuthor",
+    "p"."picture" as "profilePicture",
+    "p"."fullName",
+    "a"."createdAt",
+    "a"."updatedAt"
+    FROM "articles" "a"
+    LEFT JOIN "articleLikes" AS "al" ON "al"."articleId" = "a"."id"
+    JOIN "profile" "p" ON "p"."userId" = "a"."createdBy"
     WHERE "a"."id"=$1
+    GROUP BY "a"."id","p"."fullName","p"."picture","p"."isAuthor"
     `;
     const values = [id];
     const {rows} = await db.query(query, values);
