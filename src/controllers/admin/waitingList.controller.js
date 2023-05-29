@@ -70,3 +70,37 @@ exports.ignoreArticle = async function(request, response){
         return errorHandler(response,error);
     }
 };
+
+exports.updateArticleByParams = async function (request, response) {
+    try {
+        const {articleId} = request.params.id;
+        const article = await articleModel.findOne(articleId);
+        console.log(article);
+        if (!article) {
+            throw Error("Article not found");
+        }
+        if (!article.status) {
+            const data = {
+                ...request.body,
+                status: true
+            };
+            if (request.file) {
+                data.picture = request.file.path;
+            }
+            const accPublished = await articleModel.update(article.id, data);
+            console.log(accPublished);
+            if(accPublished){
+                return response.json({
+                    success: true,
+                    message: "Article published success",
+                    results: accPublished,
+                });
+            }else{
+                throw Error("published failed");
+            }
+            
+        }
+    } catch (err) {
+        return errorHandler(response, err);
+    }
+};

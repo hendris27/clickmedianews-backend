@@ -47,8 +47,9 @@ exports.createComment = async (request, response) => {
 exports.getOneArticleView = async (request, response) => {
     try {
         const {id} = request.params;
+        console.log(id);
         const article = await articleModel.findOneArticleView(id);
-        console.log(article)
+        console.log(article);
         if(!article) {
             throw Error("article not found");
         }
