@@ -3,6 +3,6 @@ const userController = require("../../controllers/admin/users.controller");
 
 userRouter.get("/", userController.getAllUsers);
 userRouter.get("/:id", userController.getUser);
-userRouter.post("/:id", userController.updateUser);
+userRouter.patch("/:id", userController.updateUser);
 
 module.exports = userRouter;
