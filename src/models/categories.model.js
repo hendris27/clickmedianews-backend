@@ -16,7 +16,7 @@ exports.findAll = async function (params) {
         "createdAt",
         "updatedAt"
     FROM "categories"
-    WHERE "name"LIKE $3
+    WHERE "name" LIKE $3
     ORDER BY ${params.sort} ${params.sortBy}
     LIMIT $1 OFFSET $2
     `;
