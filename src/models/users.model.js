@@ -1,18 +1,38 @@
 const db = require("../helpers/db.helper");
 
-exports.findAll = async function (page, limit, search, sort, sortBy) {
-    page = parseInt(page) || 1;
-    limit = parseInt(limit) || 5;
-    search = search || "";
-    sort = sort || "id";
-    sortBy = sortBy || "ASC";
-    const offset = (page - 1) * limit;
-    const query = `
-    SELECT * FROM "users" WHERE "email" LIKE $3 ORDER BY ${sort} ${sortBy} LIMIT $1 OFFSET $2`;
+exports.findAll = async function (params) {
+    params.page = parseInt(params.page) || 1;
+    params.limit = parseInt(params.limit) || 5;
+    params.search = params.search || "";
+    params.sort = params.sort || "id";
+    params.sortBy = params.sortBy || "ASC";
+    const offset = (params.page - 1) * params.limit;
 
-    const values = [limit, offset, `%${search}%`];
+    const countQuery = `
+    SELECT COUNT(*)::INTEGER
+    FROM "users"
+    WHERE "email" LIKE $1`;
+
+    const countValues = [`%${params.search}%`];
+    const { rows: countRows } = await db.query(countQuery, countValues);
+
+    const query = `
+    SELECT * FROM "users" 
+    WHERE "email" LIKE $3 
+    ORDER BY ${params.sort} ${params.sortBy} 
+    LIMIT $1 OFFSET $2`;
+
+    const values = [params.limit, offset, `%${params.search}%`];
     const { rows } = await db.query(query, values);
-    return rows;
+    return {
+        rows,
+        pageInfo: {
+            totalData: countRows[0].count,
+            page: params.page,
+            limit: params.limit,
+            totalPage: Math.ceil(countRows[0].count / params.limit),
+        },
+    };
 };
 
 exports.findOne = async function (id) {
