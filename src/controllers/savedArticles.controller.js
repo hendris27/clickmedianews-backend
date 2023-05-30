@@ -113,8 +113,9 @@ exports.deleteSavePost = async (request, response) => {
 exports.createSavePost = async (request, response) => {
     try {
         const { id } = request.user;
-        const {articleId} = request.body;
+        const articleId = request.params.id;
         const findArticle = await articleModel.findOne(articleId);
+        console.log(findArticle)
         if (!findArticle) {
             throw Error("article_not_found");
         }
@@ -122,7 +123,9 @@ exports.createSavePost = async (request, response) => {
             articleId,
             userId: id,
         });
+        console.log(createSavePost)
         const findSavePostUser = await articleModel.findOneSavedArticle(articleId, id)
+        console.log(findSavePostUser)
         createSavePost;
         return response.json({
             success: true,
