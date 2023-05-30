@@ -52,7 +52,7 @@ exports.findAll = async function (params, userId) {
 
 exports.findAllSavedArticle = async function (userId) {
     const query = `
-    SELECT "articleId" FROM "${table}" WHERE "userId"=$1
+    SELECT "articleId" FROM "${table}" WHERE "userId"::TEXT=$1
     `;
     const values = [userId];
 
