@@ -126,15 +126,16 @@ exports.resetPassword = async (req, res) => {
 
 exports.changePassword = async (req, res) => {
     try {
-        const { password } = req.body;
+        const { email, password } = req.body;
         const data = {
+            email: email,
             password: await argon.hash(password),
         };
         const { id } = req.user;
         await userModel.update(id, data);
         return res.json({
             success: true,
-            message: "Update password successfully",
+            message: "Update password & email successfully",
         });
     } catch (err) {
         return errorHandler(res, err);
