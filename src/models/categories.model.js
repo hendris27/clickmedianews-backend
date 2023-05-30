@@ -27,7 +27,7 @@ exports.findAll = async function (params) {
 
 exports.findArticleInCategories = async function (params) {
     params.page = parseInt(params.page) || 1;
-    params.limit = parseInt(params.limit) || 7;
+    params.limit = parseInt(params.limit) || 6;
     params.search = params.search || "";
     params.sort = params.sort || "id";
     params.sortBy = params.sortBy || "ASC";
@@ -45,7 +45,7 @@ exports.findArticleInCategories = async function (params) {
     FROM "categories" "c"
     JOIN "articleCategories" "ac" ON "ac"."categoryId" = "c"."id"
     JOIN "articles" "a" ON "a"."id" = "ac"."articleId"
-    WHERE "c"."id"::TEXT LIKE $3
+    WHERE "ac"."id"::TEXT LIKE $3
     ORDER BY ${params.sort} ${params.sortBy}
     LIMIT $1 OFFSET $2
     `;
