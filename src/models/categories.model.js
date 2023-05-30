@@ -27,7 +27,7 @@ exports.findAll = async function (params) {
 
 exports.findArticleInCategories = async function (params) {
     params.page = parseInt(params.page) || 1;
-    params.limit = parseInt(params.limit) || 6;
+    params.limit = parseInt(params.limit) || 7;
     params.search = params.search || "";
     params.sort = params.sort || "id";
     params.sortBy = params.sortBy || "ASC";
