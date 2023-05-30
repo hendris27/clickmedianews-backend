@@ -5,11 +5,15 @@ const errorHandler = require("../helpers/errorHandler.helper");
 
 exports.getAllSavedPost = async (req, res) => {
     try {
-        const data = { ...req.query };
-        const savedPost = await savePosteModel.findAllSavedArticle(data);
+        const { id } = req.user;
+        const { rows: savedPost, pageInfo } = await savePosteModel.findAll(
+            req.params,
+            id
+        );
         return res.json({
             success: true,
             message: "List of all saved article",
+            pageInfo,
             results: savedPost,
         });
     } catch (err) {
@@ -37,14 +41,12 @@ exports.getSavePost = async function (request, response) {
 
 exports.getALLSavePost = async function (request, response) {
     try {
-
-        const {id} = request.user;
+        const { id } = request.user;
         const findArticle = await articleModel.findAllSavedArticle(id);
         return response.json({
             success: true,
             message: "savePost",
-            results: findArticle
-
+            results: findArticle,
         });
     } catch (err) {
         return errorHandler(response, err);
@@ -53,17 +55,17 @@ exports.getALLSavePost = async function (request, response) {
 
 exports.getSavePosts = async (request, response) => {
     try {
-        const {id} = request.user;
-        const {articleId} = request.body;
+        const { id } = request.user;
+        const { articleId } = request.body;
         const savePost = await savePosteModel.findOne(articleId, id);
-        if(savePost) {
+        if (savePost) {
             return response.json({
                 success: true,
                 message: "save article",
-                results: savePost
+                results: savePost,
             });
         }
-    }catch(err) {
+    } catch (err) {
         return errorHandler(response, err);
     }
 };
@@ -95,7 +97,7 @@ exports.getSavePosts = async (request, response) => {
 
 exports.deleteSavePost = async (request, response) => {
     try {
-        const {id} = request.user;
+        const { id } = request.user;
         const articleId = request.params.id;
         const savePost = await savePosteModel.destroy(articleId, id);
         return response.json({

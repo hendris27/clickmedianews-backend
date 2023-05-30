@@ -1,8 +1,7 @@
 const savePostRouter = require("express").Router();
 const savePostController = require("../controllers/savedArticles.controller");
 
-
-savePostRouter.get("/", savePostController.getALLSavePost);
+savePostRouter.get("/", savePostController.getAllSavedPost);
 savePostRouter.get("/:id", savePostController.getSavePosts);
 
 savePostRouter.post("/", savePostController.createSavePost);

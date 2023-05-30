@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "182bb8c3-67c0-4495-b709-97713b43685f",
+		"_postman_id": "e5909750-3044-42dd-8fb8-d9edaf56a4d2",
 		"name": "BACKEND CLICK MEDIA NEWS APP",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25632088"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -867,7 +866,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "12"
+											"value": "1"
 										}
 									]
 								}
@@ -879,6 +878,10 @@
 							"request": {
 								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
 								"url": {
 									"raw": "{{url}}/admin/users",
 									"host": [
@@ -897,6 +900,26 @@
 							"request": {
 								"method": "PATCH",
 								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "",
+											"type": "default"
+										},
+										{
+											"key": "password",
+											"value": "",
+											"type": "default"
+										},
+										{
+											"key": "phoneNumber",
+											"value": "08111222333",
+											"type": "default"
+										}
+									]
+								},
 								"url": {
 									"raw": "{{url}}/admin/users/:id",
 									"host": [
@@ -910,7 +933,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": ""
+											"value": "1"
 										}
 									]
 								}
@@ -1345,13 +1368,20 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/articles/manage",
+											"raw": "{{url}}/articles/manage/:id",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"articles",
-												"manage"
+												"manage",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": ""
+												}
 											]
 										}
 									},
@@ -1404,6 +1434,30 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "DELETE ARTICLE",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/articles/:id",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"articles",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -1449,10 +1503,103 @@
 					]
 				},
 				{
+					"name": "ARTICLE COMMENTS",
+					"item": [
+						{
+							"name": "GET ALL COMMENTS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/article-comments",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"article-comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE COMMENT",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "articleId",
+											"value": "",
+											"type": "default"
+										},
+										{
+											"key": "userId",
+											"value": "",
+											"type": "default"
+										},
+										{
+											"key": "commentText",
+											"value": "",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/article-comments",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"article-comments"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ARTICLE LIKES",
+					"item": [
+						{
+							"name": "ARTICLE LIKES",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "articleId",
+											"value": "",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/article-likes",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"article-likes"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "CATEGORIES",
 					"item": [
 						{
-							"name": "GET ALL CATEGORIES ARTICLE",
+							"name": "GET ALL CATEGORIES",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -1466,8 +1613,13 @@
 									],
 									"query": [
 										{
+											"key": "search",
+											"value": "holiday",
+											"disabled": true
+										},
+										{
 											"key": "page",
-											"value": null,
+											"value": "2",
 											"disabled": true
 										},
 										{
@@ -1477,7 +1629,7 @@
 										},
 										{
 											"key": "sort",
-											"value": null,
+											"value": "name",
 											"disabled": true
 										},
 										{
@@ -1541,24 +1693,6 @@
 											"key": "id",
 											"value": null
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GET ALL CATEGORY",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/categories/all",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"categories",
-										"all"
 									]
 								}
 							},
@@ -1717,7 +1851,31 @@
 							"response": []
 						},
 						{
-							"name": "ADD SAVED ARTICLE",
+							"name": "GET DETAIL SAVED ARTICLE",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/saved-article/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"saved-article",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE SAVED ARTICLE",
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -1726,7 +1884,7 @@
 									"urlencoded": [
 										{
 											"key": "articleId",
-											"value": "17",
+											"value": "39",
 											"type": "text"
 										}
 									]
@@ -1767,6 +1925,22 @@
 											"value": "2"
 										}
 									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "NOTIFICATIONS",
+					"item": [
+						{
+							"name": "GET ALL NOTIFICATIONS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
 								}
 							},
 							"response": []
