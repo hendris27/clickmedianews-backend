@@ -68,11 +68,8 @@ exports.createArticleCategories = async (request, response) => {
 
 exports.deleteCategories = async (request, response) => {
     try {
-        console.log("tes");
         const categoryId = request.params.id;
-        console.log(categoryId);
         const { role } = request.user;
-        console.log(role);
         if (role !== "Super Admin") {
             return response.status(401).json({
                 success: false,
