@@ -30,6 +30,35 @@ const rules = {
         passwordFormat,
         confirmPasswordFormat,
     ],
+    updateProfile: [
+        body("username")
+            .optional()
+            .isLength({ min: 3 })
+            .withMessage("Username length is not valid, at least 3 characters"),
+        body("fullName")
+            .optional()
+            .isLength({ min: 3, max: 80 })
+            .withMessage(
+                "Full name length is not valid, at least 3 characters"
+            ),
+        body("email").optional().isEmail().withMessage("Email is not valid"),
+        body("password")
+            .optional()
+            .isStrongPassword()
+            .withMessage(
+                "Password must be strong, at least 8 characters and must include capital letters, numbers and symbols"
+            ),
+        body("profession")
+            .optional()
+            .isLength({ min: 2 })
+            .withMessage(
+                "Profession length is not valid, at least 2 characters"
+            ),
+        body("about")
+            .optional()
+            .isLength({ max: 250 })
+            .withMessage("About length is not valid, max 250 characters"),
+    ],
     idParams: [
         param("id")
             .toInt()
