@@ -2,7 +2,7 @@ const db = require("../helpers/db.helper");
 
 const table = "savedPost";
 
-exports.findAll = async function (params, createdBy) {
+exports.findAll = async function (params, userId) {
     params.page = parseInt(params.page) || 1;
     params.limit = parseInt(params.limit) || 5;
     params.search = params.search || "";
@@ -13,7 +13,7 @@ exports.findAll = async function (params, createdBy) {
     const countQuery = `
     SELECT COUNT(*)::INTEGER
     FROM "${table}"
-    WHERE "title" LIKE $1`;
+    WHERE "id"::TEXT LIKE $1`;
 
     const countvalues = [`%${params.search}%`];
     const { rows: countRows } = await db.query(countQuery, countvalues);
@@ -21,18 +21,23 @@ exports.findAll = async function (params, createdBy) {
     const query = `
     SELECT
     "a"."id",
-    "a"."title",
-    left("a"."descriptions",50) as descriptions,
-    COUNT("al"."id")::INTEGER as "likeCount",
-    "a"."createdAd",
+    "a"."picture",
+    left("a"."title", 100) AS "title",
+    COUNT("al"."id") AS "likeCount",
+    left("a"."descriptions", 50) AS "descriptions",
+    "c"."name" AS "category",
+    "a"."status",
+    "a"."createdAt",
     "a"."updatedAt"
-    FROM "${table}" 
-    LEFT JOIN "articleLike" AS "al" ON "ai"."articleId" = "a"."id"
-    WHERE "a"."createdBy"=$1
-    GRUB BY "a"."id"
+    FROM "${table}"
+    LEFT JOIN "articles" "a" ON "a"."id" = "${table}"."articleId"
+    JOIN "categories" "c" ON "c"."id" = "a"."categoryId"
+    JOIN "articleLikes" "al" ON "al"."articleId" = "a"."id"
+    WHERE "${table}"."userId" = $1
+    GROUP BY "a"."id", "c"."name"
     ORDER BY ${params.sort} ${params.sortBy} LIMIT $2 OFFSET $3`;
 
-    const values = [createdBy, params.limit, offset];
+    const values = [userId, params.limit, offset];
     const { rows } = await db.query(query, values);
     return {
         rows,
@@ -53,7 +58,6 @@ exports.findAllSavedArticle = async function (userId) {
 
     const { rows } = await db.query(query, values);
     return rows;
-
 };
 
 exports.insert = async function (data) {
