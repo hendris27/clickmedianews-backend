@@ -73,8 +73,8 @@ exports.ignoreArticle = async function(request, response){
 
 exports.updateArticleByParams = async function (request, response) {
     try {
-        const {articleId} = request.params.id;
-        const article = await articleModel.findOne(articleId);
+        const {id} = request.params;
+        const article = await articleModel.findOne(id);
         console.log(article);
         if (!article) {
             throw Error("Article not found");
