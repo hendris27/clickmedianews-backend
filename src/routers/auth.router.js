@@ -1,5 +1,6 @@
 const authRouter = require("express").Router();
 const authController = require("../controllers/auth.controller");
+const authMiddleweres = require("../middlewares/auth.middleware");
 const validate = require("../middlewares/validator.middleware");
 
 authRouter.post("/login", validate("authLogin"), authController.login);
@@ -13,6 +14,11 @@ authRouter.post(
     "/reset-password",
     validate("authResetPassword"),
     authController.resetPassword
+);
+authRouter.patch(
+    "/change-password",
+    authMiddleweres,
+    authController.changePassword
 );
 
 module.exports = authRouter;

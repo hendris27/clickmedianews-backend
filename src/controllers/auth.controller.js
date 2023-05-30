@@ -37,12 +37,12 @@ exports.register = async (req, res) => {
             password: hash,
         };
         const user = await userModel.insert(data);
-        if(roleId === "1"){
+        if (roleId === "1") {
             const profileData = {
                 email,
                 roleId,
                 userId: user.id,
-                isAuthor: true
+                isAuthor: true,
             };
             await profileModel.insert(profileData);
             const token = jwt.sign({ id: user.id }, APP_SECRET);
@@ -56,7 +56,7 @@ exports.register = async (req, res) => {
             email,
             roleId,
             userId: user.id,
-            isAuthor: false
+            isAuthor: false,
         };
         await profileModel.insert(profileData);
         const token = jwt.sign({ id: user.id }, APP_SECRET);
@@ -118,6 +118,23 @@ exports.resetPassword = async (req, res) => {
         return res.json({
             success: true,
             message: "Reset password success!",
+        });
+    } catch (err) {
+        return errorHandler(res, err);
+    }
+};
+
+exports.changePassword = async (req, res) => {
+    try {
+        const { password } = req.body;
+        const data = {
+            password: await argon.hash(password),
+        };
+        const { id } = req.user;
+        await userModel.update(id, data);
+        return res.json({
+            success: true,
+            message: "Update password successfully",
         });
     } catch (err) {
         return errorHandler(res, err);
