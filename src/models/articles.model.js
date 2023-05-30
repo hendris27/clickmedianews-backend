@@ -31,8 +31,8 @@ exports.findAllArticle = async function(params){
     FROM "articles" "a"
     LEFT JOIN "articleLikes" AS "al" ON "al"."articleId" = "a"."id"
     JOIN "categories" AS "c" ON "c"."id" = "a"."categoryId"
-    WHERE "a"."title" LIKE $1
-    AND "c"."name" LIKE $2
+    WHERE "a"."title" ILIKE $1
+    AND "c"."name" ILIKE $2
     GROUP BY "a"."id", "c"."name"
     ORDER BY ${params.sort} ${params.sortBy} LIMIT $3 OFFSET $4`;
 
