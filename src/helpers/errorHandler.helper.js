@@ -76,6 +76,13 @@ const errorHandler = (res, err) => {
         });
     }
 
+    if (err?.message?.includes("nothing commants")) {
+        return res.status(404).json({
+            success: false,
+            message: "Nothing commants",
+        });
+    }
+
     if (err?.message?.includes("category_not_found")) {
         return res.status(404).json({
             success: false,
@@ -122,6 +129,13 @@ const errorHandler = (res, err) => {
         return res.status(400).json({
             success: false,
             message: "Reset password failed",
+        });
+    }
+
+    if (err?.message?.includes("create comment failed")) {
+        return res.status(400).json({
+            success: false,
+            message: "Create comments failed",
         });
     }
 

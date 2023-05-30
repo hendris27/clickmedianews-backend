@@ -21,6 +21,33 @@ exports.findAll = async (qs) => {
     return rows;
 };
 
+exports.findAllByArticleId = async (qs, articleId) => {
+    qs.page = parseInt(qs.page) || 1;
+    qs.limit = parseInt(qs.limit) || 100;
+    qs.sort = qs.sort || "id";
+    qs.sortBy = qs.sortBy || "ASC";
+
+    const offset = (qs.page - 1) * qs.limit;
+    const query = `
+    SELECT
+    "ac"."id",
+    "ac"."articleId",
+    "ac"."commentText",
+    "p"."picture",
+    "p"."fullName",
+    "ac"."createdAt",
+    "ac"."updatedAt"
+    FROM "${table}" "ac"
+    JOIN "profile" AS "p" ON "p"."userId" = "ac"."userId"
+    WHERE "articleId"=$3
+    ORDER BY ${qs.sort} ${qs.sortBy}
+    LIMIT $1 OFFSET $2
+    `;
+    const values = [qs.limit, offset, articleId,];
+    const { rows } = await db.query(query, values);
+    return rows;
+};
+
 exports.findOne = async (id) => {
     const query = `
     SELECT * FROM "${table}" WHERE id=$1
@@ -70,6 +97,16 @@ exports.destroy = async (id) => {
     RETURNING *;
     `;
     const values = [id];
+    const { rows } = await db.query(query, values);
+    return rows[0];
+};
+
+exports.destroyByUserIdArticleId = async (id, userId) => {
+    const query = `
+    DELETE FROM "${table}" WHERE "id"=$1 AND "userId"=$2
+    RETURNING *;
+    `;
+    const values = [id, userId];
     const { rows } = await db.query(query, values);
     return rows[0];
 };
