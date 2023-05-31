@@ -29,7 +29,11 @@ exports.findAll = async (qr) => {
     const query = `
     SELECT
       "ra"."id",
-      "p"."fullName"
+      "ra"."userId",
+      "p"."fullName",
+      "p"."picture",
+      "ra"."createdAt",
+      "ra"."updatedAt"
 
     FROM "requestAuthor" "ra"
     JOIN "profile" "p" ON "p"."userId" = "ra"."userId"
@@ -47,7 +51,9 @@ exports.findOne = async (id) => {
     const query = `
     SELECT
       "ra"."id",
-      "p"."fullName"
+      "ra"."userId",
+      "p"."fullName",
+      "p"."picture"
     FROM "requestAuthor" "ra"
     JOIN "profile" "p" ON "p"."userId" = "ra"."userId"
     WHERE "ra"."id"=$1
