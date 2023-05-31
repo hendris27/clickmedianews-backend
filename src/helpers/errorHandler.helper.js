@@ -62,6 +62,13 @@ const errorHandler = (res, err) => {
         });
     }
 
+    if (err?.message?.includes("article_not_found")) {
+        return res.status(403).json({
+            success: false,
+            message: "Error: Article is not found!",
+        });
+    }
+
     if (err === undefined) {
         return res.status(404).json({
             success: false,
