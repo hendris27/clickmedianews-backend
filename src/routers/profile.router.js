@@ -10,5 +10,6 @@ profileRouter.patch(
     validate("updateProfile"),
     profileController.updateProfile
 );
+profileRouter.patch("/:userId", profileController.updateisAuthor);
 
 module.exports = profileRouter;

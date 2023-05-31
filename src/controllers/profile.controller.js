@@ -60,6 +60,28 @@ exports.updateProfile = async (req, res) => {
     }
 };
 
+exports.updateisAuthor = async (req, res) => {
+    try {
+        const {userId} = req.params;
+        const user = await profileModel.findOneByUserId(userId);
+        if(!user){
+            throw Error("user not found");
+        }
+        const data = {isAuthor: true};
+        const profile = await profileModel.updateByUserId(userId, data);
+        if (!profile) {
+            return errorHendler(res, undefined);
+        }
+        return res.json({
+            success: true,
+            message: "Profile updated",
+            results: profile
+        });
+    } catch (err) {
+        return errorHendler(res, err);
+    }
+};
+
 // exports.update = async (req, res) => {
 //     try {
 //         const { id } = req.user;
