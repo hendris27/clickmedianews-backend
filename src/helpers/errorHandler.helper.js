@@ -97,6 +97,13 @@ const errorHandler = (res, err) => {
         });
     }
 
+    if (err?.message?.includes("request author not found")) {
+        return res.status(404).json({
+            success: false,
+            message: "Request author not found",
+        });
+    }
+
     if (err?.message?.includes("request_failed")) {
         return res.status(400).json({
             success: false,
@@ -136,6 +143,13 @@ const errorHandler = (res, err) => {
         return res.status(400).json({
             success: false,
             message: "Create comments failed",
+        });
+    }
+
+    if (err?.message?.includes("request author failed")) {
+        return res.status(400).json({
+            success: false,
+            message: "Request author failed",
         });
     }
 

@@ -36,6 +36,7 @@ router.use(
 router.use("/admin/search-result", require("./admin/searchResult.router"));
 
 router.use("/articles", require("./articles.router"));
+router.use("/request-author", authMiddleweres, require("./requestAuthor.router"));
 router.use("/categories", require("./categories.router"));
 router.use("/profile", authMiddleweres, require("./profile.router"));
 router.use("/article-view", require("./articleView.router"));
