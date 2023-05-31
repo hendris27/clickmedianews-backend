@@ -1,6 +1,7 @@
 const profileModel = require("../models/profile.model");
 const errorHendler = require("../helpers/errorHandler.helper");
 const userModel = require("../models/users.model");
+const argon = require("argon2");
 
 exports.getProfileByUserId = async (req, res) => {
     try {
@@ -23,7 +24,11 @@ exports.updateProfile = async (req, res) => {
     try {
         const { id } = req.user;
         const user = await profileModel.findOneByUserId(id);
-        const data = { ...req.body };
+        const hash = await argon.hash(req.body.password);
+        const data = {
+            ...req.body,
+            password: hash,
+        };
         if (req.file) {
             if (user.picture) {
                 // fileRemover({ filename: user.picture });

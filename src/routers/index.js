@@ -39,6 +39,7 @@ router.use("/articles", require("./articles.router"));
 router.use("/categories", require("./categories.router"));
 router.use("/profile", authMiddleweres, require("./profile.router"));
 router.use("/article-view", require("./articleView.router"));
+router.use("/article-comments", require("./articleComments.router"));
 router.use("/write-article", authMiddleweres, require("./writeArticle.router"));
 router.use(
     "/saved-article",
