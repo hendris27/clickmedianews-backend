@@ -232,9 +232,10 @@ exports.findAllArticleManage = async function(params, createdBy){
     SELECT
     "a"."id",
     "a"."picture",
+    "a"."status",
     left("a"."title", 100) as "title",
     COUNT("al"."id") as "likeCount",
-    "a"."descriptions",
+    left("a"."descriptions", 50) as "descriptions",
     "c"."name" as "category",
     "a"."createdAt",
     "a"."updatedAt"
@@ -278,7 +279,7 @@ exports.findOneArticleManage = async function(params, createdBy, id){
     "a"."picture",
     left("a"."title", 100) as "title",
     COUNT("al"."id") as "likeCount",
-    "a"."descriptions",
+    left("a"."descriptions", 50) as "descriptions",
     "c"."name" as "category",
     "a"."createdAt",
     "a"."updatedAt"
