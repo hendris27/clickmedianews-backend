@@ -30,13 +30,24 @@ exports.findOne = async (id) => {
     return rows[0];
 };
 
+exports.findOneByUserAndArticleId = async (userId, articleId) => {
+    const query = `
+    SELECT * 
+    FROM "${table}" 
+    WHERE "userId" = $1
+    AND "articleId" = $2
+    `;
+    const values = [userId, articleId];
+    const { rows } = await db.query(query, values);
+    return rows[0];
+};
+
 exports.insert = async (data) => {
     const query = `
-    INSERT INTO "${table}" ("articleId", "userId") 
+    INSERT INTO "${table}" ("userId", "articleId") 
     VALUES ($1, $2)
-    RETURNING *;
     `;
-    const values = [data.articleId, data.userId];
+    const values = [data.userId, data.articleId];
     const { rows } = await db.query(query, values);
     return rows[0];
 };

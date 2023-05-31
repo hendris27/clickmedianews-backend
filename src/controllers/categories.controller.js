@@ -35,6 +35,36 @@ exports.getArticleInCategories = async (request, response) => {
     }
 };
 
+exports.createCategories = async (req, res) => {
+    try {
+        const data = { ...req.body };
+        const createCategories = await categoriesModel.insert(data);
+        return res.json({
+            success: true,
+            message: "Create categories successfully",
+            results: createCategories,
+        });
+    } catch (err) {
+        return errorHandler(res, err);
+    }
+};
+
+exports.deleteCategories = async (req, res) => {
+    try {
+        const data = await categoriesModel.destroy(req.params.id);
+        if (!data) {
+            return errorHandler(res, undefined);
+        }
+        return res.json({
+            success: true,
+            message: "Delete categories successfully",
+            results: data,
+        });
+    } catch (err) {
+        return errorHandler(res, err);
+    }
+};
+
 exports.createArticleCategories = async (request, response) => {
     try {
         let { articleId, categoryId } = request.body;
@@ -66,31 +96,31 @@ exports.createArticleCategories = async (request, response) => {
     }
 };
 
-exports.deleteCategories = async (request, response) => {
-    try {
-        const categoryId = request.params.id;
-        const { role } = request.user;
-        if (role !== "Super Admin") {
-            return response.status(401).json({
-                success: false,
-                message: "Unauthorized: Only admin can delete categories",
-            });
-        }
-        const deletedCategory = await articleCategoriesModel.destroy(
-            categoryId
-        );
-        if (deletedCategory) {
-            return response.json({
-                success: true,
-                message: "Delete category successfully",
-                result: deletedCategory,
-            });
-        }
-        return response.status(404).json({
-            success: false,
-            message: "Error: Category not found",
-        });
-    } catch (err) {
-        errorHandler(response, err);
-    }
-};
+// exports.deleteCategories = async (request, response) => {
+//     try {
+//         const categoryId = request.params.id;
+//         const { role } = request.user;
+//         if (role !== "Super Admin") {
+//             return response.status(401).json({
+//                 success: false,
+//                 message: "Unauthorized: Only admin can delete categories",
+//             });
+//         }
+//         const deletedCategory = await articleCategoriesModel.destroy(
+//             categoryId
+//         );
+//         if (deletedCategory) {
+//             return response.json({
+//                 success: true,
+//                 message: "Delete category successfully",
+//                 result: deletedCategory,
+//             });
+//         }
+//         return response.status(404).json({
+//             success: false,
+//             message: "Error: Category not found",
+//         });
+//     } catch (err) {
+//         errorHandler(response, err);
+//     }
+// };
