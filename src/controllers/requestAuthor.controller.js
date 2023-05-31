@@ -43,7 +43,10 @@ exports.getAll = async (request, response)=>{
         return response.json({
             success: true,
             message: "Get request author",
-            results: reqAuthor
+            results: {
+                reqAuthor: reqAuthor,
+                message: "Request author"   
+            }
         });
     } catch (error) {
         return errorHandler(response, error);
