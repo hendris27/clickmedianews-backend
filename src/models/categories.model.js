@@ -73,3 +73,12 @@ exports.findOne = async function (id) {
     const { rows } = await db.query(query, values);
     return rows[0];
 };
+
+exports.destroy = async function (id) {
+    const query = `
+    DELETE FROM "categories" WHERE "id"=$1 RETURNING *
+`;
+    const values = [id];
+    const { rows } = await db.query(query, values);
+    return rows[0];
+};

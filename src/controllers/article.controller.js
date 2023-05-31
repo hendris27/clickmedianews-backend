@@ -1,19 +1,68 @@
 const articleModel = require("../models/articles.model");
+const articleLikeModel = require("../models/articleLikes.model");
 const errorHandler = require("../helpers/errorHandler.helper");
 
-exports.getArticle = async function (request, response) {
+exports.getAllArticle = async function (request, response) {
     try {
         const { rows: results, pageInfo } = await articleModel.findAllArticle(
             request.query
         );
         return response.json({
             success: true,
-            message: "Get save post success",
+            message: "List of all articles",
             pageInfo,
             results,
         });
     } catch (error) {
         return errorHandler(response, error);
+    }
+};
+
+exports.getDetailArticle = async (req, res) => {
+    const { id } = req.params;
+    const article = await articleModel.findOne(id);
+    return res.json({
+        success: true,
+        message: `${article.title}`,
+        results: article,
+    });
+};
+
+exports.getDetailArticleLoggedUser = async (req, res) => {
+    const { id } = req.user;
+    const article = await articleModel.findOneByUserId(id, req.params.id);
+    return res.json({
+        success: true,
+        message: `${article.title}`,
+        results: article,
+    });
+};
+
+exports.toggleLikes = async (req, res) => {
+    try {
+        const { id } = req.user;
+        const article = await articleModel.findOne(req.params.id);
+        if (!article) {
+            throw Error("article_not_found");
+        }
+        const like = await articleLikeModel.findOneByUserAndArticleId(
+            id,
+            req.params.id
+        );
+        if (like) {
+            await articleLikeModel.destroy(like.id);
+        } else {
+            await articleLikeModel.insert({
+                userId: id,
+                articleId: req.params.id,
+            });
+        }
+        return res.json({
+            success: true,
+            message: "Toggle likes success",
+        });
+    } catch (err) {
+        return errorHandler(res, err);
     }
 };
 
