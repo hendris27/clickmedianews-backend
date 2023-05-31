@@ -19,7 +19,7 @@ const phoneNumberFormat = body("phoneNumber")
     .withMessage("Number length must be at least 10 digits");
 
 const rules = {
-    authLogin: [emailFormat, passwordFormat],
+    authLogin: [emailFormat],
     authRegister: [emailFormat, passwordFormat, phoneNumberFormat],
     authForgotPassword: [emailFormat],
     authResetPassword: [
