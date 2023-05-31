@@ -59,14 +59,39 @@
 							"request": {
 								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"value": "",
+											"type": "default"
+										},
+										{
+											"key": "title",
+											"value": "",
+											"type": "default"
+										},
+										{
+											"key": "descriptions",
+											"value": "",
+											"type": "default"
+										},
+										{
+											"key": "categoryId",
+											"value": "",
+											"type": "default"
+										}
+									]
+								},
 								"url": {
-									"raw": "{{url}}/admin/articles",
+									"raw": "{{url}}/admin/write-article",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
-										"articles"
+										"write-article"
 									]
 								}
 							},
@@ -854,20 +879,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/users/:id",
+									"raw": "{{url}}/admin/users/detail",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
 										"users",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "1"
-										}
+										"detail"
 									]
 								}
 							},
@@ -1214,12 +1233,12 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "daus@mail.com",
+									"value": "luthfi@mail.com",
 									"type": "default"
 								},
 								{
 									"key": "password",
-									"value": "123456",
+									"value": "@Luthfi123",
 									"type": "default"
 								}
 							]
@@ -1290,7 +1309,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "daus1mail.com",
+									"value": "admin@mail.com",
 									"type": "default"
 								}
 							]
@@ -1363,7 +1382,25 @@
 							"name": "MANAGE",
 							"item": [
 								{
-									"name": "GET ARTICLE",
+									"name": "GET ALL ARTICLE",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/articles/manage",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"articles",
+												"manage"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET DETAIL ARTICLE",
 									"request": {
 										"method": "GET",
 										"header": [],
@@ -1388,7 +1425,7 @@
 									"response": []
 								},
 								{
-									"name": "CREATE MANAGE ARTICLE",
+									"name": "CREATE ARTICLE",
 									"request": {
 										"method": "POST",
 										"header": [],
@@ -1398,38 +1435,38 @@
 												{
 													"key": "picture",
 													"type": "file",
-													"src": "/C:/Users/ahmad/Downloads/qqq.png"
+													"src": "/C:/Users/LUTHFI/Downloads/holiday.jpeg"
 												},
 												{
 													"key": "title",
-													"value": "tornado",
+													"value": "Some place on Earth where the sun never sets!",
 													"type": "default"
 												},
 												{
 													"key": "descriptions",
-													"value": "tornado",
+													"value": "Our routine revolves around 24 hours a day, with around 12 hours of sunlight, and the remaining hours are night time. But, did you know that there are places across the world where the sun does not go down for more than 70 days? Imagine how interesting (or confusing) it would be for tourists to keep a track of time, when even the locals there get confused with no sunset for straight 70 days! Yes, you read that right.\nIf you are keen to know more, here are 6 places on Earth where the sun never sets.",
 													"type": "default"
 												},
 												{
 													"key": "categoryId",
-													"value": "3",
+													"value": "6",
 													"type": "default"
 												},
 												{
 													"key": "status",
 													"value": "false",
-													"type": "default"
+													"type": "default",
+													"disabled": true
 												}
 											]
 										},
 										"url": {
-											"raw": "{{url}}/articles/manage",
+											"raw": "{{url}}/write-article",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
-												"articles",
-												"manage"
+												"write-article"
 											]
 										}
 									},
@@ -1467,7 +1504,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/articles",
+									"raw": "{{url}}/articles?page=3",
 									"host": [
 										"{{url}}"
 									],
@@ -1477,12 +1514,11 @@
 									"query": [
 										{
 											"key": "page",
-											"value": null,
-											"disabled": true
+											"value": "3"
 										},
 										{
 											"key": "sort",
-											"value": null,
+											"value": "title",
 											"disabled": true
 										},
 										{
@@ -1494,6 +1530,80 @@
 											"key": "search",
 											"value": null,
 											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL ARTICLE",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/articles/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"articles",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "44"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL ARTICLE LOGGED",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/articles/:id/logged",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"articles",
+										":id",
+										"logged"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "44"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TOGGLE LIKE ARTICLE BY ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/articles/:id/likes",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"articles",
+										":id",
+										"likes"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "44"
 										}
 									]
 								}
@@ -1651,13 +1761,8 @@
 									"mode": "urlencoded",
 									"urlencoded": [
 										{
-											"key": "articleId",
-											"value": "3",
-											"type": "text"
-										},
-										{
-											"key": "categoryId",
-											"value": "4",
+											"key": "name",
+											"value": "traveling",
 											"type": "text"
 										}
 									]
@@ -1691,7 +1796,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": null
+											"value": "10"
 										}
 									]
 								}
@@ -1941,6 +2046,54 @@
 								"header": [],
 								"url": {
 									"raw": ""
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "WAITING LISTS",
+					"item": [
+						{
+							"name": "GET ALL WAITING LISTS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/waiting-lists",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"waiting-lists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE WAITING LISTS",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/waiting-lists/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"waiting-lists",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
 								}
 							},
 							"response": []
