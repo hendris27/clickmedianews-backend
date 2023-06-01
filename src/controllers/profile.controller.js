@@ -24,16 +24,13 @@ exports.updateProfile = async (req, res) => {
     try {
         const { id } = req.user;
         const user = await profileModel.findOneByUserId(id);
-        const hash = await argon.hash(req.body.password);
         const data = {
             ...req.body,
-            password: hash,
         };
         if (req.file) {
             if (user.picture) {
                 // fileRemover({ filename: user.picture });
             }
-            // data.picture = req.file.filename;
             data.picture = req.file.path;
         }
         const profile = await profileModel.updateByUserId(id, data);
@@ -41,14 +38,20 @@ exports.updateProfile = async (req, res) => {
             return errorHendler(res, undefined);
         }
         let updatedUser;
-        if (data.email) {
-            updatedUser = await userModel.update(id, data);
+        let updatedPassword;
+        const { email, password } = req.body;
+        if (email) {
+            updatedUser = await userModel.update(id, { email });
+        } else if (password) {
+            const hash = await argon.hash(password);
+            updatedPassword = await userModel.update(id, { password: hash });
         } else {
-            updatedUser = await userModel.findOne(id);
+            updatedPassword = await userModel.findOne(id);
         }
         const results = {
             ...profile,
             email: updatedUser?.email,
+            password: updatedPassword?.password,
         };
         return res.json({
             success: true,
@@ -62,12 +65,12 @@ exports.updateProfile = async (req, res) => {
 
 exports.updateisAuthor = async (req, res) => {
     try {
-        const {userId} = req.params;
+        const { userId } = req.params;
         const user = await profileModel.findOneByUserId(userId);
-        if(!user){
+        if (!user) {
             throw Error("user not found");
         }
-        const data = {isAuthor: true};
+        const data = { isAuthor: true };
         const profile = await profileModel.updateByUserId(userId, data);
         if (!profile) {
             return errorHendler(res, undefined);
@@ -75,7 +78,7 @@ exports.updateisAuthor = async (req, res) => {
         return res.json({
             success: true,
             message: "Profile updated",
-            results: profile
+            results: profile,
         });
     } catch (err) {
         return errorHendler(res, err);

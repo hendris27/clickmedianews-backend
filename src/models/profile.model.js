@@ -30,15 +30,6 @@ exports.findOne = async (id) => {
     return rows[0];
 };
 
-exports.findOneByUserId = async (id) => {
-    const query = `
-    SELECT * FROM "${table}" WHERE userId=$1
-    `;
-    const values = [id];
-    const { rows } = await db.query(query, values);
-    return rows[0];
-};
-
 exports.findOneByUserId = async (userId) => {
     const query = `
     SELECT 
@@ -46,6 +37,7 @@ exports.findOneByUserId = async (userId) => {
     "${table}"."fullName",
     "${table}"."picture",
     "users"."email",
+    "users"."password",
     "${table}"."about",
     "${table}"."profession",
     "${table}"."createdAt",
@@ -72,7 +64,7 @@ exports.insert = async (data) => {
         data.profession,
         data.about,
         data.userId,
-        data.isAuthor
+        data.isAuthor,
     ];
     const { rows } = await db.query(query, values);
     return rows[0];
@@ -123,7 +115,7 @@ exports.updateByUserId = async (userId, data) => {
         data.fullName,
         data.profession,
         data.about,
-        data.isAuthor
+        data.isAuthor,
     ];
     const { rows } = await db.query(query, values);
     return rows[0];
