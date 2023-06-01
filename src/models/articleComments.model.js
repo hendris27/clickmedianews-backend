@@ -28,6 +28,15 @@ exports.findAllByArticleId = async (qs, articleId) => {
     qs.sortBy = qs.sortBy || "ASC";
 
     const offset = (qs.page - 1) * qs.limit;
+
+    const countQuery = `
+    SELECT COUNT(*)::INTEGER
+    FROM "${table}"
+    WHERE "articleId"=$1`;
+
+    const countvalues = [articleId];
+    const { rows: countRows } = await db.query(countQuery, countvalues);
+
     const query = `
     SELECT
     "ac"."id",
@@ -45,7 +54,15 @@ exports.findAllByArticleId = async (qs, articleId) => {
     `;
     const values = [qs.limit, offset, articleId,];
     const { rows } = await db.query(query, values);
-    return rows;
+    return {
+        rows,
+        pageInfo: {
+            totalData: countRows[0].count,
+            page: qs.page,
+            limit: qs.limit,
+            totalPage: Math.ceil(countRows[0].count / qs.limit),
+        },
+    };
 };
 
 exports.findOne = async (id) => {

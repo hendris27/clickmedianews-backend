@@ -17,6 +17,7 @@ router.use(
     require("./admin/articleComments.router")
 );
 router.use("/admin/category", require("./admin/categories.router"));
+router.use("/admin/article-view", authMiddleweres, require("./admin/articleView.router"));
 router.use("/admin/users", authMiddleweres, require("./admin/users.router"));
 router.use(
     "/admin/write-article",
