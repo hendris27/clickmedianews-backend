@@ -5,13 +5,11 @@ const categoryModel = require("../../models/categories.model");
 exports.createArticle = async (request, response) => {
     try {
         const { id } = request.user;
-        console.log(id);
         const data = {
             ...request.body,
             createdBy: id,
             status: true,
         };
-        console.log(data);
         if (request.file) {
             data.picture = request.file.path;
         }
@@ -20,7 +18,6 @@ exports.createArticle = async (request, response) => {
             throw Error("category_not_found");
         }
         const crtArticle = await articleModel.insert(data);
-        console.log(crtArticle);
         if (!crtArticle) {
             throw Error("Create article failed");
         }
