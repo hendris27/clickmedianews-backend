@@ -3,11 +3,11 @@ const waitingListController = require("../../controllers/admin/waitingList.contr
 const uploadMiddleware = require("../../middlewares/upload.middleware");
 
 waitingListRouter.get("/", waitingListController.getAllArticle);
+waitingListRouter.delete("/", waitingListController.ignoreArticle);
 waitingListRouter.patch(
     "/:id",
     uploadMiddleware("picture"),
     waitingListController.updateArticleByParams
 );
-waitingListRouter.delete("/", waitingListController.ignoreArticle);
 
 module.exports = waitingListRouter;

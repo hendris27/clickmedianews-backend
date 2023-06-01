@@ -80,7 +80,7 @@ exports.updateArticleByParams = async function (request, response) {
         if (!article) {
             throw Error("Article not found");
         }
-        if (!article.status) {
+        if (article.status) {
             const data = {
                 ...request.body,
                 status: true,
@@ -88,7 +88,8 @@ exports.updateArticleByParams = async function (request, response) {
             if (request.file) {
                 data.picture = request.file.path;
             }
-            const accPublished = await articleModel.update(article.id, data);
+            console.log(data);
+            const accPublished = await articleModel.update(id, data);
             console.log(accPublished);
             if (accPublished) {
                 return response.json({

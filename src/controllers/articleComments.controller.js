@@ -5,14 +5,15 @@ exports.getAllByArticleId = async (request, response)=>{
     try {
         const {id} = request.params;
         console.log(id);
-        const comment = await articleComments.findAllByArticleId(request.query, id);
-        if(!comment){
+        const { rows: results, pageInfo } = await articleComments.findAllByArticleId(request.query, id);
+        if(!results){
             throw Error("nothing commants");
         }
         return response.json({
             success: true,
             message: "Get commants success",
-            results: comment
+            pageInfo,
+            results,
         });
     } catch (error) {
         return errorHandler(response, error);
