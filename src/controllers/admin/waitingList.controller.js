@@ -21,7 +21,6 @@ exports.updateArticle = async function (request, response) {
     try {
         const { articleId } = request.body;
         const article = await articleModel.findOne(articleId);
-        console.log(article);
         if (!article) {
             throw Error("Article not found");
         }
@@ -34,7 +33,6 @@ exports.updateArticle = async function (request, response) {
                 data.picture = request.file.path;
             }
             const accPublished = await articleModel.update(article.id, data);
-            console.log(accPublished);
             if (accPublished) {
                 return response.json({
                     success: true,
@@ -76,7 +74,6 @@ exports.updateArticleByParams = async function (request, response) {
     try {
         const { id } = request.params;
         const article = await articleModel.findOne(id);
-        console.log(article);
         if (!article) {
             throw Error("Article not found");
         }
@@ -88,9 +85,7 @@ exports.updateArticleByParams = async function (request, response) {
             if (request.file) {
                 data.picture = request.file.path;
             }
-            console.log(data);
             const accPublished = await articleModel.update(id, data);
-            console.log(accPublished);
             if (accPublished) {
                 return response.json({
                     success: true,
