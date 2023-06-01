@@ -24,7 +24,6 @@ exports.findAllArticle = async function (params) {
     left("a"."title", 100) as "title",
     COUNT("al"."id")::INTEGER as "likeCount",
     left("a"."descriptions", 50) as "descriptions",
-    "p"
     "c"."name" as "category",
     "a"."status",
     "a"."createdAt",
