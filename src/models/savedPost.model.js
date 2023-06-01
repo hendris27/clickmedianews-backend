@@ -85,7 +85,7 @@ exports.destroy = async function (articleId, userId) {
 exports.findOne = async function (articleId, userId) {
     const query = `
     SELECT * FROM "${table}" 
-    WHERE articleId=$1 AND "userId"=$2`;
+    WHERE "articleId"=$1 AND "userId"=$2`;
 
     const values = [articleId, userId];
     const { rows } = await db.query(query, values);

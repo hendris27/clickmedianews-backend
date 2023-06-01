@@ -56,7 +56,7 @@ exports.getALLSavePost = async function (request, response) {
 exports.getSavePosts = async (request, response) => {
     try {
         const { id } = request.user;
-        const { articleId } = request.body;
+        const articleId = request.params.id;
         const savePost = await savePosteModel.findOne(articleId, id);
         if (savePost) {
             return response.json({
