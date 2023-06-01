@@ -25,35 +25,6 @@ exports.findAll = async function (params) {
     return rows;
 };
 
-exports.findArticleInCategories = async function (params) {
-    params.page = parseInt(params.page) || 1;
-    params.limit = parseInt(params.limit) || 7;
-    params.search = params.search || "";
-    params.sort = params.sort || "id";
-    params.sortBy = params.sortBy || "ASC";
-
-    const offset = (params.page - 1) * params.limit;
-
-    const query = `
-    SELECT
-        "c"."id",
-        "a"."id" as "articleId",
-        "a"."picture",
-        "c"."name" as "category",
-        "c"."createdAt",
-        "c"."updatedAt"
-    FROM "categories" "c"
-    JOIN "articleCategories" "ac" ON "ac"."categoryId" = "c"."id"
-    JOIN "articles" "a" ON "a"."id" = "ac"."articleId"
-    WHERE "ac"."id"::TEXT LIKE $3
-    ORDER BY ${params.sort} ${params.sortBy}
-    LIMIT $1 OFFSET $2
-    `;
-    const values = [params.limit, offset, `%${params.search}%`];
-    const { rows } = await db.query(query, values);
-    return rows;
-};
-
 exports.insert = async function (data) {
     const query = `
     INSERT INTO "categories" ("name")

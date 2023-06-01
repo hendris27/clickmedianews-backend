@@ -22,4 +22,6 @@ articleRouter.get(
 );
 articleRouter.delete("/:id", articleController.deleteArticle);
 
+articleRouter.get("/home/:categoryId", articleController.getArticleInCategories);
+
 module.exports = articleRouter;

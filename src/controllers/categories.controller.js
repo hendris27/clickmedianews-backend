@@ -20,21 +20,6 @@ exports.getAllCategory = async (request, response) => {
     }
 };
 
-exports.getArticleInCategories = async (request, response) => {
-    try {
-        const category = await categoriesModel.findArticleInCategories(
-            request.params
-        );
-        return response.json({
-            success: true,
-            message: "category",
-            results: category,
-        });
-    } catch (err) {
-        return errorHandler(response, err);
-    }
-};
-
 exports.createCategories = async (req, res) => {
     try {
         const data = { ...req.body };
