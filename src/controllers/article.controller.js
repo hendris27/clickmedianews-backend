@@ -1,5 +1,7 @@
 const articleModel = require("../models/articles.model");
 const articleLikeModel = require("../models/articleLikes.model");
+const notificationModel = require("../models/notification.model");
+const userModel = require("../models/users.model");
 const errorHandler = require("../helpers/errorHandler.helper");
 
 exports.getAllArticle = async function (request, response) {
@@ -41,6 +43,7 @@ exports.getDetailArticleLoggedUser = async (req, res) => {
 exports.toggleLikes = async (req, res) => {
     try {
         const { id } = req.user;
+        const user = await userModel.findOne(id);
         const article = await articleModel.findOne(req.params.id);
         if (!article) {
             throw Error("article_not_found");
@@ -55,6 +58,12 @@ exports.toggleLikes = async (req, res) => {
             await articleLikeModel.insert({
                 userId: id,
                 articleId: req.params.id,
+            });
+            await notificationModel.insert({
+                text: `${user.email} just like your post ${article.title}`,
+                article: article.id,
+                recipientId: article.createdBy,
+                senderId: user.id,
             });
         }
         return res.json({
