@@ -4,7 +4,7 @@ const authMiddleware = require("../middlewares/auth.middleware");
 
 notificationRouter.get("/", authMiddleware, notificationController.getAll);
 notificationRouter.delete(
-    "/",
+    "/:id",
     authMiddleware,
     notificationController.destroyNotification
 );
