@@ -20,6 +20,25 @@ exports.getAllByArticleId = async (request, response) => {
     }
 };
 
+exports.getAllByUserId = async (request, response) => {
+    try {
+        const { id } = request.params;
+        const { rows: results, pageInfo } =
+            await articleComments.findAllByUserId(request.query, id);
+        if (!results) {
+            throw Error("nothing commants");
+        }
+        return response.json({
+            success: true,
+            message: "Total comments success",
+            pageInfo,
+            results,
+        });
+    } catch (error) {
+        return errorHandler(response, error);
+    }
+};
+
 exports.createComment = async (request, response) => {
     try {
         const { id } = request.user;
