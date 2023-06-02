@@ -33,6 +33,12 @@ const errorHandler = (res, err) => {
             message: "Error: Email already exists!",
         });
     }
+    if (err?.message?.includes("fileformat_error")) {
+        return res.status(409).json({
+            success: false,
+            message: "Error: file picture must be JPEG",
+        });
+    }
 
     if (err?.message?.includes("jwt malformed")) {
         return res.status(401).json({
