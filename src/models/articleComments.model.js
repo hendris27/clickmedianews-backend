@@ -127,3 +127,43 @@ exports.destroyByUserIdArticleId = async (id, userId) => {
     const { rows } = await db.query(query, values);
     return rows[0];
 };
+
+exports.findAllByUserId = async (qs, userId) => {
+    qs.page = parseInt(qs.page) || 1;
+    qs.limit = parseInt(qs.limit) || 100;
+    qs.sort = qs.sort || "id";
+    qs.sortBy = qs.sortBy || "ASC";
+
+    const offset = (qs.page - 1) * qs.limit;
+
+    const countQuery = `
+    SELECT COUNT(*)::INTEGER
+    FROM "${table}"
+    WHERE "userId"=$1`;
+
+    const countvalues = [userId];
+    const { rows: countRows } = await db.query(countQuery, countvalues);
+
+    const query = `
+    SELECT
+    "ac"."id",
+    "ac"."userId",
+    "ac"."createdAt",
+    "ac"."updatedAt"
+    FROM "${table}" "ac"
+    WHERE "userId"=$3
+    ORDER BY ${qs.sort} ${qs.sortBy}
+    LIMIT $1 OFFSET $2
+    `;
+    const values = [qs.limit, offset, userId,];
+    const { rows } = await db.query(query, values);
+    return {
+        rows,
+        pageInfo: {
+            totalData: countRows[0].count,
+            page: qs.page,
+            limit: qs.limit,
+            totalPage: Math.ceil(countRows[0].count / qs.limit),
+        },
+    };
+};
