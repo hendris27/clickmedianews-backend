@@ -60,5 +60,5 @@ exports.destroy = async (id) => {
 
     const values = [id];
     const { rows } = db.query(query, values);
-    return rows[0];
+    return rows;
 };
