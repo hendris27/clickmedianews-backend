@@ -35,6 +35,7 @@ exports.register = async (req, res) => {
         const data = {
             ...req.body,
             password: hash,
+            roleId: "2",
         };
         const user = await userModel.insert(data);
         if (roleId === "1") {
