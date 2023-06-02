@@ -2,8 +2,11 @@ const notificationRouter = require("express").Router();
 const notificationController = require("../controllers/notification.controller");
 const authMiddleware = require("../middlewares/auth.middleware");
 
-notificationRouter.post(
-    "/notification",
+notificationRouter.get("/", authMiddleware, notificationController.getAll);
+notificationRouter.delete(
+    "/",
     authMiddleware,
-    notificationController.getAll
+    notificationController.destroyNotification
 );
+
+module.exports = notificationRouter;
