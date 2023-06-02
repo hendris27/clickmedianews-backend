@@ -3,6 +3,7 @@ const articleController = require("../controllers/article.controller");
 const authMiddleweres = require("../middlewares/auth.middleware");
 
 articleRouter.get("/", articleController.getAllArticle);
+articleRouter.get("/home-category", articleController.getArticleInCategories);
 articleRouter.get(
     "/manage",
     authMiddleweres,
@@ -21,7 +22,5 @@ articleRouter.get(
     authMiddleweres,
     articleController.getOneArticleManage
 );
-
-articleRouter.get("/home/:categoryId", articleController.getArticleInCategories);
 
 module.exports = articleRouter;

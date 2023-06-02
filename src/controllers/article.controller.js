@@ -149,3 +149,18 @@ exports.getArticleInCategories = async (request, response) => {
         return errorHandler(response, err);
     }
 };
+//UNTUK CATEGORIES
+exports.getArticleInCategories1 = async (request, response) => {
+    try {
+        const category = await articleModel.findArticleInCategories13(
+            request.query
+        );
+        return response.json({
+            success: true,
+            message: "category",
+            results: category,
+        });
+    } catch (err) {
+        return errorHandler(response, err);
+    }
+};
