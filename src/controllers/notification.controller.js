@@ -14,3 +14,15 @@ exports.getAll = async (req, res) => {
         results: notif,
     });
 };
+
+exports.destroyNotification = async (req, res) => {
+    const { id } = req.user;
+    if (!id) {
+        throw Error("Unauthorized");
+    }
+    await notificationModel.destroy(req.params.id);
+    return res.json({
+        success: true,
+        message: "Delete notification successfully",
+    });
+};

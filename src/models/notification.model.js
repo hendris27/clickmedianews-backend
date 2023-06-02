@@ -52,3 +52,13 @@ exports.insert = async (data) => {
     const { rows } = await db.query(query, values);
     return rows[0];
 };
+
+exports.destroy = async (id) => {
+    const query = `
+    DELETE FROM "notifications" WHERE id = $1 RETURNING *
+    `;
+
+    const values = [id];
+    const { rows } = db.query(query, values);
+    return rows[0];
+};
