@@ -70,30 +70,7 @@ exports.getSavePosts = async (request, response) => {
     }
 };
 
-// exports.deleteSavePost = async function (request, response) {
-//     try {
-//         const data = await savePosteModel.findOne(
-//             request.body.id,
-//             request.user
-//         );
-//         if (!data) {
-//             throw Error("article not found");
-//         }
-//         const dltArticle = await savePosteModel.destroy(
-//             request.body.id,
-//             request.user
-//         );
-//         if (dltArticle) {
-//             return response.json({
-//                 success: true,
-//                 message: "Article unsave success",
-//                 results: dltArticle,
-//             });
-//         }
-//     } catch (error) {
-//         return errorHandler(response, error);
-//     }
-// };
+
 
 exports.deleteSavePost = async (request, response) => {
     try {
@@ -115,7 +92,7 @@ exports.createSavePost = async (request, response) => {
         const { id } = request.user;
         const articleId = request.params.id;
         const findArticle = await articleModel.findOne(articleId);
-        console.log(findArticle)
+        console.log(findArticle);
         if (!findArticle) {
             throw Error("article_not_found");
         }
@@ -123,9 +100,9 @@ exports.createSavePost = async (request, response) => {
             articleId,
             userId: id,
         });
-        console.log(createSavePost)
-        const findSavePostUser = await articleModel.findOneSavedArticle(articleId, id)
-        console.log(findSavePostUser)
+        console.log(createSavePost);
+        const findSavePostUser = await articleModel.findOneSavedArticle(articleId, id);
+        console.log(findSavePostUser);
         createSavePost;
         return response.json({
             success: true,

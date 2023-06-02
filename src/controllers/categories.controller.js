@@ -20,6 +20,8 @@ exports.getAllCategory = async (request, response) => {
     }
 };
 
+
+
 exports.createCategories = async (req, res) => {
     try {
         const data = { ...req.body };

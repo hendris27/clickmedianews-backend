@@ -47,6 +47,7 @@ router.use(
     require("./requestAuthor.router")
 );
 router.use("/categories", require("./categories.router"));
+router.use("/articlesCategories", require("./articlesCategories.router"));
 router.use("/profile", authMiddleweres, require("./profile.router"));
 router.use("/article-view", require("./articleView.router"));
 router.use("/article-comments", require("./articleComments.router"));
