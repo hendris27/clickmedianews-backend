@@ -20,8 +20,10 @@ exports.findAllNotificationByUserId = async function (userId, params) {
     const query = `
     SELECT
     "n"."id",
+    "p"."picture",
     "n"."text"
     FROM "notifications" "n"
+    JOIN "profile" "p" ON "p"."userId" = "n"."senderId"
     WHERE "n"."text" LIKE $1`;
 
     const values = [`%${params.search}%`];
