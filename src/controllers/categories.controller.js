@@ -6,21 +6,22 @@ const errorHandler = require("../helpers/errorHandler.helper");
 exports.getAllCategory = async (request, response) => {
     try {
         const data = { ...request.query };
-        const category = await categoriesModel.findAll(data);
+        const { rows: category, pageInfo } = await categoriesModel.findAll(
+            data
+        );
         if (!category) {
             return errorHandler(response, undefined);
         }
         return response.json({
             success: true,
             message: "categories",
+            pageInfo,
             results: category,
         });
     } catch (err) {
         return errorHandler(response, err);
     }
 };
-
-
 
 exports.createCategories = async (req, res) => {
     try {

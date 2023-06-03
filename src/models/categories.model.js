@@ -9,6 +9,14 @@ exports.findAll = async function (params) {
 
     const offset = (params.page - 1) * params.limit;
 
+    const countQuery = `
+    SELECT COUNT(*)::INTEGER
+    FROM "categories"
+    WHERE "name" ILIKE $1`;
+
+    const countvalues = [`%${params.search}%`];
+    const { rows: countRows } = await db.query(countQuery, countvalues);
+
     const query = `
     SELECT
         "id",
@@ -16,15 +24,22 @@ exports.findAll = async function (params) {
         "createdAt",
         "updatedAt"
     FROM "categories"
-    WHERE "name" LIKE $3
+    WHERE "name" ILIKE $3
     ORDER BY ${params.sort} ${params.sortBy}
     LIMIT $1 OFFSET $2
     `;
     const values = [params.limit, offset, `%${params.search}%`];
     const { rows } = await db.query(query, values);
-    return rows;
+    return {
+        rows,
+        pageInfo: {
+            totalData: countRows[0].count,
+            page: params.page,
+            limit: params.limit,
+            totalPage: Math.ceil(countRows[0].count / params.limit),
+        },
+    };
 };
-
 
 // exports.findArticleInCategories = async function (params) {
 //     params.page = parseInt(params.page) || 1;
