@@ -24,9 +24,20 @@ exports.updateProfile = async (req, res) => {
     try {
         const { id } = req.user;
         const user = await profileModel.findOneByUserId(id);
-        const data = {
-            ...req.body,
-        };
+        const status = await userModel.findOne(id);
+        let data;
+        if(status.role === "superadmin"){
+            console.log("test");
+            data = {
+                ...req.body,
+                isAuthor: true
+            };
+        }
+        if(status.role === "general"){
+            data = {
+                ...req.body,
+            };
+        }
         if (req.file) {
             if (user.picture) {
                 // fileRemover({ filename: user.picture });
