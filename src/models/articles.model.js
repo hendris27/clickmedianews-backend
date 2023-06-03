@@ -234,9 +234,10 @@ exports.findAllArticleManage = async function (params, createdBy) {
     const countQuery = `
     SELECT COUNT(*)::INTEGER
     FROM "articles"
-    WHERE "title" LIKE $1`;
+    WHERE "title" LIKE $1
+    AND "createdBy"=$2`;
 
-    const countvalues = [`%${params.search}%`];
+    const countvalues = [`%${params.search}%`, createdBy];
     const { rows: countRows } = await db.query(countQuery, countvalues);
 
     const query = `
