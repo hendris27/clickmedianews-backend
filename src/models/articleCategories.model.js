@@ -30,6 +30,7 @@ exports.findAllArticleCategory = async function (params) {
 
     const query = `
     SELECT
+    DISTINCT ON ("c"."id")
     "c"."id",
     "c"."name",
     "a"."picture"
