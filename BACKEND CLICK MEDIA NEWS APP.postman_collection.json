@@ -506,37 +506,37 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/categories",
+									"raw": "{{url}}/categories?page=2",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
-										"admin",
 										"categories"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GET DETAIL CATEGORY",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/categories/:id",
-									"host": [
-										"{{url}}"
 									],
-									"path": [
-										"admin",
-										"categories",
-										":id"
-									],
-									"variable": [
+									"query": [
 										{
-											"key": "id",
-											"value": ""
+											"key": "search",
+											"value": "holiday",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "2"
+										},
+										{
+											"key": "limit",
+											"value": "5",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "name",
+											"disabled": true
+										},
+										{
+											"key": "sortBy",
+											"value": null,
+											"disabled": true
 										}
 									]
 								}
@@ -544,17 +544,26 @@
 							"response": []
 						},
 						{
-							"name": "CREATE CATEGORY",
+							"name": "CREATE CATEGORIES",
 							"request": {
 								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "postman",
+											"type": "text"
+										}
+									]
+								},
 								"url": {
-									"raw": "{{url}}/admin/categories",
+									"raw": "{{url}}/categories",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
-										"admin",
 										"categories"
 									]
 								}
@@ -562,49 +571,23 @@
 							"response": []
 						},
 						{
-							"name": "UPDATE CATEGORY",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/categories/:id",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"admin",
-										"categories",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "DELETE CATEGORY",
+							"name": "DELETE CATEGORIES",
 							"request": {
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/categories/:id",
+									"raw": "{{url}}/categories/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
-										"admin",
 										"categories",
 										":id"
 									],
 									"variable": [
 										{
 											"key": "id",
-											"value": ""
+											"value": "9"
 										}
 									]
 								}
@@ -722,122 +705,6 @@
 									"path": [
 										"admin",
 										"profile",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "SAVED POST",
-					"item": [
-						{
-							"name": "GET ALL SAVED POST",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/saved-post",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"admin",
-										"saved-post"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GET DETAIL SAVED POST",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/saved-post/:id",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"admin",
-										"saved-post",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CREATE SAVED POST",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/saved-post",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"admin",
-										"saved-post"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UPDATE SAVED POST",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/saved-post/:id",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"admin",
-										"saved-post",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "DELETE SAVED POST",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/saved-post/:id",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"admin",
-										"saved-post",
 										":id"
 									],
 									"variable": [
@@ -987,122 +854,6 @@
 					]
 				},
 				{
-					"name": "USERS ADMIN",
-					"item": [
-						{
-							"name": "GET ALL USERS ADMIN",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/users-admin",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"admin",
-										"users-admin"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GET DETAIL USER ADMIN",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/users-admin/:id",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"admin",
-										"users-admin",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CREATE USER ADMIN",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/users-admin",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"admin",
-										"users-admin"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UPDATE USER ADMIN",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/users-admin/:id",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"admin",
-										"users-admin",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "DELETE USER ADMIN",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/users-admin/:id",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"admin",
-										"users-admin",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "WAITING LISTS",
 					"item": [
 						{
@@ -1111,38 +862,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/waiting-list",
+									"raw": "{{url}}/admin/waiting-lists",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
-										"waiting-list"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GET DETAIL WAITING LIST",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/waiting-list/:id",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"admin",
-										"waiting-list",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": ""
-										}
+										"waiting-lists"
 									]
 								}
 							},
@@ -1154,13 +880,13 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/waiting-list",
+									"raw": "{{url}}/admin/waiting-lists",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
-										"waiting-list"
+										"waiting-lists"
 									]
 								}
 							},
@@ -1172,13 +898,13 @@
 								"method": "PATCH",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/waiting-list/:id",
+									"raw": "{{url}}/admin/waiting-lists/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
-										"waiting-list",
+										"waiting-lists",
 										":id"
 									],
 									"variable": [
@@ -1197,13 +923,13 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/waiting-list/:id",
+									"raw": "{{url}}/admin/articles/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
-										"waiting-list",
+										"articles",
 										":id"
 									],
 									"variable": [
@@ -1233,12 +959,12 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "luthfi@mail.com",
+									"value": "guest2@mail.com",
 									"type": "default"
 								},
 								{
 									"key": "password",
-									"value": "@Luthfi123",
+									"value": "@Guest222",
 									"type": "default"
 								}
 							]
@@ -1266,12 +992,12 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "daus@mail.com",
+									"value": "guest2@mail.com",
 									"type": "default"
 								},
 								{
 									"key": "password",
-									"value": "123456",
+									"value": "@Guest123",
 									"type": "default"
 								},
 								{
@@ -1309,7 +1035,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "admin@mail.com",
+									"value": "guest2@mail.com",
 									"type": "default"
 								}
 							]
@@ -1337,22 +1063,22 @@
 							"urlencoded": [
 								{
 									"key": "code",
-									"value": "",
+									"value": "788930",
 									"type": "default"
 								},
 								{
 									"key": "email",
-									"value": "",
+									"value": "guest2@mail.com",
 									"type": "default"
 								},
 								{
 									"key": "password",
-									"value": "",
+									"value": "@Guest222",
 									"type": "default"
 								},
 								{
 									"key": "confirmPassword",
-									"value": "",
+									"value": "@Guest222",
 									"type": "default"
 								}
 							]
@@ -1401,9 +1127,16 @@
 								},
 								{
 									"name": "GET DETAIL ARTICLE",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
 									"request": {
 										"method": "GET",
 										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": []
+										},
 										"url": {
 											"raw": "{{url}}/articles/manage/:id",
 											"host": [
@@ -1414,10 +1147,17 @@
 												"manage",
 												":id"
 											],
+											"query": [
+												{
+													"key": "page",
+													"value": "2",
+													"disabled": true
+												}
+											],
 											"variable": [
 												{
 													"key": "id",
-													"value": ""
+													"value": "30"
 												}
 											]
 										}
@@ -1478,18 +1218,19 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/articles/:id",
+											"raw": "{{url}}/articles/manage/:id",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"articles",
+												"manage",
 												":id"
 											],
 											"variable": [
 												{
 													"key": "id",
-													"value": ""
+													"value": "30"
 												}
 											]
 										}
@@ -1504,7 +1245,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/articles?page=3",
+									"raw": "{{url}}/articles",
 									"host": [
 										"{{url}}"
 									],
@@ -1512,10 +1253,6 @@
 										"articles"
 									],
 									"query": [
-										{
-											"key": "page",
-											"value": "3"
-										},
 										{
 											"key": "sort",
 											"value": "title",
@@ -1553,13 +1290,125 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "44"
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ARTICLE COMMENTS",
+					"item": [
+						{
+							"name": "GET COMMENTS BY ARTICLE",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/article-comments/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"article-comments",
+										":id"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": null,
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
 										}
 									]
 								}
 							},
 							"response": []
 						},
+						{
+							"name": "CREATE COMMENT",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "articleId",
+											"value": "2",
+											"type": "default"
+										},
+										{
+											"key": "commentText",
+											"value": "Ini test lewat postman",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/article-comments",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"article-comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE COMMENT",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "articleId",
+											"value": "2",
+											"type": "default"
+										},
+										{
+											"key": "commentText",
+											"value": "Ini test lewat postman",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/article-comments/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"article-comments",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ARTICLE LIKES",
+					"item": [
 						{
 							"name": "GET DETAIL ARTICLE LOGGED",
 							"request": {
@@ -1578,7 +1427,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "44"
+											"value": "2"
 										}
 									]
 								}
@@ -1603,7 +1452,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "44"
+											"value": "2"
 										}
 									]
 								}
@@ -1613,91 +1462,27 @@
 					]
 				},
 				{
-					"name": "ARTICLE COMMENTS",
+					"name": "ARTICLE VIEW",
 					"item": [
 						{
-							"name": "GET ALL COMMENTS",
+							"name": "GET DETAIL ARTICLE VIEW BY USER ID",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/article-comments",
+									"raw": "{{url}}/article-view/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
-										"admin",
-										"article-comments"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CREATE COMMENT",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
+										"article-view",
+										":id"
+									],
+									"variable": [
 										{
-											"key": "articleId",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "userId",
-											"value": "",
-											"type": "default"
-										},
-										{
-											"key": "commentText",
-											"value": "",
-											"type": "default"
+											"key": "id",
+											"value": "4"
 										}
-									]
-								},
-								"url": {
-									"raw": "{{url}}/admin/article-comments",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"admin",
-										"article-comments"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "ARTICLE LIKES",
-					"item": [
-						{
-							"name": "ARTICLE LIKES",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "articleId",
-											"value": "",
-											"type": "default"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{url}}/article-likes",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"article-likes"
 									]
 								}
 							},
@@ -1714,7 +1499,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/categories",
+									"raw": "{{url}}/categories?page=2",
 									"host": [
 										"{{url}}"
 									],
@@ -1729,12 +1514,11 @@
 										},
 										{
 											"key": "page",
-											"value": "2",
-											"disabled": true
+											"value": "2"
 										},
 										{
 											"key": "limit",
-											"value": null,
+											"value": "5",
 											"disabled": true
 										},
 										{
@@ -1762,7 +1546,7 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "traveling",
+											"value": "postman",
 											"type": "text"
 										}
 									]
@@ -1796,7 +1580,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "10"
+											"value": "9"
 										}
 									]
 								}
@@ -1836,27 +1620,31 @@
 										{
 											"key": "picture",
 											"value": "",
-											"type": "default"
+											"type": "default",
+											"disabled": true
 										},
 										{
 											"key": "username",
 											"value": "",
-											"type": "default"
+											"type": "default",
+											"disabled": true
 										},
 										{
 											"key": "fullName",
 											"value": "",
-											"type": "default"
+											"type": "default",
+											"disabled": true
 										},
 										{
 											"key": "profession",
-											"value": "",
+											"value": "Fullstack Website",
 											"type": "default"
 										},
 										{
 											"key": "about",
 											"value": "",
-											"type": "default"
+											"type": "default",
+											"disabled": true
 										}
 									]
 								},
@@ -1875,58 +1663,88 @@
 					]
 				},
 				{
-					"name": "ARTICLE VIEW",
+					"name": "REQUEST AUTHOR",
 					"item": [
 						{
-							"name": "CREATE COMMENT ARTICLE VIEW",
+							"name": "GET REQUEST AUTHOR",
 							"request": {
-								"method": "POST",
+								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "articleId",
-											"value": "1",
-											"type": "text"
-										},
-										{
-											"key": "commentText",
-											"value": "tes coment tes coment",
-											"type": "text"
-										}
-									]
-								},
 								"url": {
-									"raw": "{{url}}/article-view",
+									"raw": "{{url}}/request-author",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
-										"article-view"
+										"request-author"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "GET DETAIL ARTICLE VIEW",
+							"name": "CREATE REQUEST AUTHOR",
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
 								"url": {
-									"raw": "{{url}}/article-view/:id",
+									"raw": "{{url}}/request-author",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
-										"article-view",
+										"request-author"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE REQUEST AUTHOR",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/request-author/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"request-author",
 										":id"
 									],
 									"variable": [
 										{
 											"key": "id",
-											"value": "21"
+											"value": "22"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE REQUEST AUTHOR",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/request-author/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"request-author",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "24"
 										}
 									]
 								}
@@ -1972,7 +1790,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": ""
+											"value": "2"
 										}
 									]
 								}
@@ -1986,21 +1804,22 @@
 								"header": [],
 								"body": {
 									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "articleId",
-											"value": "39",
-											"type": "text"
-										}
-									]
+									"urlencoded": []
 								},
 								"url": {
-									"raw": "{{url}}/saved-article",
+									"raw": "{{url}}/saved-article/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
-										"saved-article"
+										"saved-article",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
 									]
 								}
 							},
@@ -2045,53 +1864,35 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": ""
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "WAITING LISTS",
-					"item": [
-						{
-							"name": "GET ALL WAITING LISTS",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/admin/waiting-lists",
+									"raw": "{{url}}/notifications",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
-										"admin",
-										"waiting-lists"
+										"notifications"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "UPDATE WAITING LISTS",
+							"name": "DELETE NOTIFICATION",
 							"request": {
-								"method": "PATCH",
+								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/waiting-lists/:id",
+									"raw": "{{url}}/notifications/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
-										"admin",
-										"waiting-lists",
+										"notifications",
 										":id"
 									],
 									"variable": [
 										{
 											"key": "id",
-											"value": ""
+											"value": "71"
 										}
 									]
 								}

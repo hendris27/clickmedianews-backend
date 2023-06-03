@@ -10,7 +10,6 @@ articleRouter.get(
     articleController.getArticleManage
 );
 articleRouter.get("/:id", articleController.getDetailArticle);
-articleRouter.delete("/:id", articleController.deleteArticle);
 articleRouter.get(
     "/:id/logged",
     authMiddleweres,
@@ -22,5 +21,6 @@ articleRouter.get(
     authMiddleweres,
     articleController.getOneArticleManage
 );
+articleRouter.delete("/manage/:id", articleController.deleteArticle);
 
 module.exports = articleRouter;
