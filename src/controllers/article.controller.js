@@ -60,7 +60,7 @@ exports.toggleLikes = async (req, res) => {
                 articleId: req.params.id,
             });
             await notificationModel.insert({
-                text: `${user.fullName} just like your post ${article.title}`,
+                text: `${user.fullName} just like post ${article.title}`,
                 articleId: article.id,
                 recipientId: article.createdBy,
                 senderId: user.id,

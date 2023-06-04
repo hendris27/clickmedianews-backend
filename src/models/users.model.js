@@ -46,7 +46,7 @@ exports.findOne = async function (id) {
     "role"."code" AS "role",
     "users"."createdAt",
     "users"."updatedAt"
-    FROM "users"
+    FROM "users" 
     JOIN "profile" ON "profile"."userId" = "users"."id"
     JOIN "role" ON "role"."id" = "users"."roleId"
     WHERE "users"."id"=$1
