@@ -40,12 +40,14 @@ exports.findOne = async function (id) {
     SELECT 
     "users"."id",
     "users"."email",
+    "profile"."fullName",
     "users"."password",
     "users"."phoneNumber",
     "role"."code" AS "role",
     "users"."createdAt",
     "users"."updatedAt"
     FROM "users" 
+    JOIN "profile" ON "profile"."userId" = "users"."id"
     JOIN "role" ON "role"."id" = "users"."roleId"
     WHERE "users"."id"=$1
     `;
