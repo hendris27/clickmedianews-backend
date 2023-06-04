@@ -20,9 +20,12 @@ exports.findAllNotificationByUserId = async function (userId, params) {
     const query = `
     SELECT
     "n"."id",
+    "p"."fullName",
+    "p"."picture",
     "n"."text"
     FROM "notifications" "n"
-    WHERE "n"."text" LIKE $1`;
+    JOIN "profile" "p" ON "p"."userId" = "n"."senderId"
+    WHERE "p"."fullName" LIKE $1`;
 
     const values = [`%${params.search}%`];
     const { rows } = await db.query(query, values);
