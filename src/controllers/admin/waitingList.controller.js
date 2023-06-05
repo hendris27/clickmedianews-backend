@@ -77,7 +77,7 @@ exports.updateArticleByParams = async function (request, response) {
         if (!article) {
             throw Error("Article not found");
         }
-        if (article.status) {
+        if (article) {
             const data = {
                 ...request.body,
                 status: true,
