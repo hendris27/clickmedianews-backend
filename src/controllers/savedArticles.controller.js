@@ -107,7 +107,7 @@ exports.createSavePost = async (request, response) => {
         return response.json({
             success: true,
             message: "Create save post successfully",
-            result: findSavePostUser,
+            result: findArticle,
         });
     } catch (err) {
         errorHandler(response, err);
