@@ -2,6 +2,7 @@ const profileModel = require("../models/profile.model");
 const errorHendler = require("../helpers/errorHandler.helper");
 const userModel = require("../models/users.model");
 const argon = require("argon2");
+const deleteImageFromCloudinary = require("../middlewares/removeUpload.middleware");
 
 exports.getProfileByUserId = async (req, res) => {
     try {
@@ -41,6 +42,10 @@ exports.updateProfile = async (req, res) => {
         if (req.file) {
             if (user.picture) {
                 // fileRemover({ filename: user.picture });
+                const codebreacker = "CODEBREAKERS";
+                const picture = user.picture.substring(user.picture.lastIndexOf("/") + 1, user.picture.lastIndexOf("."));
+                const data = codebreacker.concat("/", picture);
+                deleteImageFromCloudinary(data);
             }
             data.picture = req.file.path;
         }

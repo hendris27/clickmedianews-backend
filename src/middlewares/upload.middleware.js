@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const multer = require("multer");
 const errorHandler = require("../helpers/errorHandler.helper");
 const cloudinary = require("cloudinary").v2;
@@ -66,4 +67,3 @@ const uploadMiddleware = (field) => {
 };
 
 module.exports = uploadMiddleware;
-  
